@@ -1,5 +1,5 @@
 /**
- * Contact.java
+ * ContactList.java
  *
  * @author Aaron Toth
  *
