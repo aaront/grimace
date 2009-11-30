@@ -38,10 +38,10 @@ import java.io.*;
  *
  */
 public class ClientConversation {
-    private int conversationIdentification;
+    int conversationIdentification;
     ArrayList<Boolean> optionsToggled = new ArrayList<Boolean>();
     ArrayList<String> conversationText = new ArrayList<String>();
-
+    QuickOptions convoQOptions;
 
     /**
      * ClientConversation, creates an instance of a client conversation
@@ -50,7 +50,8 @@ public class ClientConversation {
      */
     public ClientConversation(ArrayList options){
         conversationIdentification = getConversationIdentification();
-        optionsToggled = QuickOptions.toggledList();
+        convoQOptions = new QuickOptions();
+        optionsToggled = convoQOptions.toggledList();
 }
 
     /**
