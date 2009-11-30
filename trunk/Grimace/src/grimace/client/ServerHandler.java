@@ -49,6 +49,10 @@ public final class ServerHandler {
         out.writeObject(cmd);
         return (Command) in.readObject();
 	}
+
+        public static void sendRegisterRequest(String userName, String passWord, String displayName, String email) throws Exception {
+            sendCommand(new Command("register", userName, passWord, displayName, email));
+        }
     
 	public static void sendLoginRequest(String userName, String passWord) throws Exception {
         sendCommand(new Command("login", userName, passWord));

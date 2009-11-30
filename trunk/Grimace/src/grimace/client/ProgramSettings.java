@@ -27,6 +27,7 @@ package grimace.client;
 import java.util.prefs.*;
 
 public class ProgramSettings {
+    // @TODO: Store preferences in program directory
     Preferences prefs;
 
     public ProgramSettings() throws BackingStoreException {
