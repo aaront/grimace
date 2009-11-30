@@ -25,7 +25,10 @@ public class DataHandler {
 	}
 
     public void initDatabase() throws SQLException {
-        
+        DataHandler.createTable("Accounts", false, "userName varchar(30)", "passWord varchar(40)", "connection int");
+        DataHandler.createTable("UserSettings", false, "userName varchar(30)", "displayName varchar(100)", "displayPic varchar(100)");
+        DataHandler.createTable("FontProperties", false, "userName varchar(30)", "fontName varchar(100)", "fontSize int", "fontColour char(7)", "fontStyle - varchar(50)");
+        DataHandler.createTable("Contacts", false, "userName varchar(30)", "contactName varchar(30)", "contactNick varchar(100)");
     }
 
 	private static void createTable(String tableName, boolean replace, String... cols) throws SQLException {
@@ -33,9 +36,10 @@ public class DataHandler {
         if (cols.length < 1) { return; }
         String sql = "CREATE TABLE " + ((replace) ? "" : " IF NOT EXISTS " ) + tableName + " (";
         for (int i=0; i<cols.length; i++) {
-            sql = cols[i] + ((i == cols.length-1) ? "" : ",");
+            sql = sql + cols[i] + ((i == cols.length-1) ? "" : ",");
         }
-        
+        sql = sql + ")";
+        statement.execute(sql);
 	}
 
 	public static void saveAccount(Account acc) {
