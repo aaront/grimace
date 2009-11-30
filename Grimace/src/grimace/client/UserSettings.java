@@ -43,6 +43,15 @@ public class UserSettings {
     }
 
 
+     /**
+     * Returns the current Font for the settings
+     * @return the font that the user is currently using
+     */
+    public Font getFont(){
+        return font;
+    }
+
+
       /**
      * Changes the font to that of the string type.  It is assumed type will
        * come from the GraphicsEnvironment to avoid bad string types
