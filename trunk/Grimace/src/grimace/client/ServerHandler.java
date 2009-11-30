@@ -50,27 +50,43 @@ public final class ServerHandler {
         return (Command) in.readObject();
 	}
     
-	public static void sendLoginRequest(String userName, String passWord) {
-        
+	public static void sendLoginRequest(String userName, String passWord) throws Exception {
+        sendCommand(new Command("login", userName, passWord));
 	}
 
-	public static void sendAddContactRequest(String userName, String contactName) {
-
+	public static void sendAddContactRequest(String userName, String contactName) throws Exception {
+        sendCommand(new Command("contactRequest", userName, contactName));
 	}
 
-	public static void sendDeleteContactRequest(String userName, String contactName) {
-
+	public static void sendDeleteContactRequest(String userName, String contactName) throws Exception {
+        sendCommand(new Command("delContact", userName, contactName));
 	}
 
-	public static void sendConversationRequest(String userName, String[] contactNames) {
-
+	public static void sendConversationRequest(String userName, String[] contactNames) throws Exception {
+        //sendCommand(new Command("startConversation", userName, ));
 	}
 
-	public static void sendMessagePostRequest(String userName, String message, String[] contactNames) {
-
+	public static void sendMessagePostRequest(String userName, String message, int conId) throws Exception {
+        sendCommand(new Command("sendMessage", userName, message, String.valueOf(conId)));
 	}
 
-	public static void sendFileTransferRequest(String username, String filename) {
-
+	public static void sendFileTransferRequest(String username, String filename, String[] contactNames) throws Exception {
+        //sendCommand(new Command("fileTransferRequest", userName, filename, ));
 	}
+
+    public static void sendQuitConversationNotification(String userName, int conId) throws Exception {
+        sendCommand(new Command("quitConversation", userName, String.valueOf(conId)));
+    }
+
+    public static void sendFileTransferResponse(String userName, String contactName, boolean response) throws Exception {
+        sendCommand(new Command("fileTransferResponse", userName, contactName, String.valueOf(response)));
+    }
+
+    public static void sendContactRequestResponse(String userName, String contactName, boolean response) throws Exception {
+        sendCommand(new Command("contactRequestResponse", userName, contactName, String.valueOf(response)));
+    }
+
+    public static void sendAccountUpdateRequest(String userName, Account account) throws Exception {
+        //sendCommand(new Command("updateAccount", userName, ));
+    }
 }
