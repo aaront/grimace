@@ -35,6 +35,7 @@ import java.sql.SQLException;
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
 	private static ServerSocket[] connections;
+    private static Socket socket;
 
 	public static void setupServer() {
         try {
@@ -48,7 +49,6 @@ public class ServerController {
             System.out.println("Unable to connect to database.");
             System.exit(1);
         }
-
 	}
 
 	public static void listen() {
