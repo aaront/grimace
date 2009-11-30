@@ -1,25 +1,17 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * OptionsForm.java
- *
- * Created on 29-Nov-2009, 5:28:14 PM
- */
-
 package grimace.client;
 
-/**
- *
- * @author Huxley
- */
 public class OptionsForm extends javax.swing.JPanel {
+    ProgramSettings settings;
 
     /** Creates new form OptionsForm */
-    public OptionsForm() {
+    public OptionsForm(ProgramSettings currentSettings) {
         initComponents();
+        settings = currentSettings;
+        serverAddress.setText(settings.getServerAddress());
+        serverPort.setText(Integer.toString(settings.getServerPort()));
+        showInTray.setSelected(settings.getShowInTray());
+        showEmoticons.setSelected(settings.getShowEmoticons());
+        recordChatLogs.setSelected(settings.getRecordChatLogs());
     }
 
     /** This method is called from within the constructor to
@@ -32,42 +24,42 @@ public class OptionsForm extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        serverPort = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jCheckBox2 = new javax.swing.JCheckBox();
-        jCheckBox3 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        showInTray = new javax.swing.JCheckBox();
+        showEmoticons = new javax.swing.JCheckBox();
+        recordChatLogs = new javax.swing.JCheckBox();
+        acceptButton = new javax.swing.JButton();
+        cancelButton = new javax.swing.JButton();
+        serverAddress = new javax.swing.JTextField();
 
         jLabel1.setText("Server IP");
 
-        jTextField1.setText("127.0.0.1");
-
-        jTextField2.setText("4422");
+        serverPort.setText("4422");
 
         jLabel2.setText("Server Port");
 
-        jCheckBox1.setText("Show icon in system tray");
+        showInTray.setText("Show icon in system tray");
 
-        jCheckBox2.setText("Show emoticons in chats");
+        showEmoticons.setText("Show emoticons in chats");
 
-        jCheckBox3.setText("Automatically save chat logs");
+        recordChatLogs.setText("Automatically save chat logs");
 
-        jButton1.setText("Accept");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        acceptButton.setText("Accept");
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                acceptButtonActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Cancel");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                cancelButtonActionPerformed(evt);
             }
         });
+
+        serverAddress.setText("127.0.0.1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -76,23 +68,22 @@ public class OptionsForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jCheckBox2)
-                    .addComponent(jCheckBox1)
+                    .addComponent(showEmoticons)
+                    .addComponent(showInTray)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                            .addComponent(jLabel1)
+                            .addComponent(serverAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                            .addComponent(jButton2)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1))
-                        .addComponent(jCheckBox3, javax.swing.GroupLayout.Alignment.LEADING)))
-                .addContainerGap(48, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(serverPort)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cancelButton)
+                        .addGap(18, 18, 18)
+                        .addComponent(acceptButton))
+                    .addComponent(recordChatLogs))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -103,41 +94,62 @@ public class OptionsForm extends javax.swing.JPanel {
                     .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(serverAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(serverPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jCheckBox1)
+                .addComponent(showInTray)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox2)
+                .addComponent(showEmoticons)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jCheckBox3)
+                .addComponent(recordChatLogs)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton1))
+                    .addComponent(cancelButton)
+                    .addComponent(acceptButton))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // @TODO: Check for dirty settings and make changes
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void acceptButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_acceptButtonActionPerformed
+        // @TODO: Notify parent container to re-organize and destroy form
+        String value = serverAddress.getText();
+        if (!value.equals(settings.getServerAddress())) {
+            settings.setServerAddress(value);
+        }
+        value = serverPort.getText();
+        if (!value.equals(Integer.toString(settings.getServerPort()))) {
+            settings.setServerPort(Integer.valueOf(value).intValue());
+        }
+        Boolean enabled = showInTray.isSelected();
+        if (!enabled.equals(settings.getShowInTray())) {
+            settings.setShowInTray(enabled);
+        }
+        enabled = showEmoticons.isSelected();
+        if (!enabled.equals(settings.getShowEmoticons())) {
+            settings.setShowEmoticons(enabled);
+        }
+        enabled = recordChatLogs.isSelected();
+        if (!enabled.equals(settings.getRecordChatLogs())) {
+            settings.setRecordChatLogs(enabled);
+        }
+        this.setVisible(false);
+        this.getParent().validate();
+    }//GEN-LAST:event_acceptButtonActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // @TODO: Close form
-    }//GEN-LAST:event_jButton2ActionPerformed
-
+    private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
+        this.setVisible(false);
+        this.getParent().validate();
+    }//GEN-LAST:event_cancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox2;
-    private javax.swing.JCheckBox jCheckBox3;
+    private javax.swing.JButton acceptButton;
+    private javax.swing.JButton cancelButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JCheckBox recordChatLogs;
+    private javax.swing.JTextField serverAddress;
+    private javax.swing.JTextField serverPort;
+    private javax.swing.JCheckBox showEmoticons;
+    private javax.swing.JCheckBox showInTray;
     // End of variables declaration//GEN-END:variables
-
 }
