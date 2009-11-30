@@ -39,24 +39,49 @@ public final class ServerHandler {
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
 
-	public static void connect() throws UnknownHostException, IOException {
+	private static void connect() throws UnknownHostException, IOException {
 		socket = new Socket(SERVER_HOSTNAME, SERVER_PORT);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
 	}
 
 	private static Command sendCommand(Command cmd) throws Exception {
+        if (!socket.isConnected()) { throw new Exception("Not connected"); }
         out.writeObject(cmd);
         return (Command) in.readObject();
 	}
 
-        public static void sendRegisterRequest(String userName, String passWord, String displayName, String email) throws Exception {
-            sendCommand(new Command("register", userName, passWord, displayName, email));
-        }
+    public static void sendRegisterRequest(String userName, String passWord) throws Exception {
+        sendCommand(new Command("register", userName, passWord));
+    }
     
-	public static void sendLoginRequest(String userName, String passWord) throws Exception {
-        sendCommand(new Command("login", userName, passWord));
+	public static boolean sendLoginRequest(String userName, String passWord) throws Exception {
+        connect();
+        Command response = null;
+        try {
+            response = sendCommand(new Command("login", userName, passWord));
+        }
+        catch (Exception e) { return false; }
+        if (!response.getCommandName().equals("loginSuccess")) {
+            socket.close();
+            return false;
+        }
+        return true;
 	}
+
+    public static Account getAccount(String userName) {
+        Command response = null;
+        try {
+            response = sendCommand(new Command("getAccount", userName));
+        }
+        catch (Exception e) {
+            return null;
+        }
+        if (!response.getCommandName().equals("readUser")) {
+
+        }
+        return null;
+    }
 
 	public static void sendAddContactRequest(String userName, String contactName) throws Exception {
         sendCommand(new Command("contactRequest", userName, contactName));
