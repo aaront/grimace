@@ -23,13 +23,17 @@
  */
 
 package grimace.client;
+import java.awt.Font;
+
 
 public class Account {
 
+    private Font font;
     private ContactList cList;
     private UserSettings settings;
     private String userName;
     private String displayName;
+
 
 
     /**
@@ -41,7 +45,8 @@ public class Account {
         cList = new ContactList();
         settings = new UserSettings();
         userName = iUserName;
-        displayName = userName;        
+        displayName = userName;
+        font = new Font( "Times New Roman", Font.PLAIN, 12);
     }
 
      /**
@@ -98,6 +103,68 @@ public class Account {
 
 
 
+
+     /**
+     * Returns the current Font for the settings
+     * @return the font that the user is currently using
+     */
+    public Font getFont(){
+        return font;
+    }
+
+
+      /**
+     * Changes the font to that of the string type.  It is assumed type will
+       * come from the GraphicsEnvironment to avoid bad string types
+     * @param type     Type of font that will replace the old one.
+     */
+    public void changeFont(String type){
+        int style = font.getStyle();
+        int size = font.getSize();
+        font = new Font(type, style, size);
+    }
+
+    /**
+     * Changes the font size
+     * @param size      The size of the next font text
+     */
+    public void changeSize(int size){
+        int style = font.getStyle();
+        String fontType = font.getFontName();
+        font = new Font(fontType, style, size);
+    }
+
+     /**
+     * Toggles between having bold on or off, if italics is on then both
+      * will be applied
+     */
+    public void toggleBold(){
+        int style = font.getStyle();
+        String fontType = font.getFontName();
+        int size = font.getSize();
+        if(style == font.PLAIN)
+        font = new Font(fontType, font.BOLD, size);
+        else if (style == font.BOLD)
+        font = new Font(fontType, font.PLAIN, size);
+        else if (style == font.ITALIC)
+        font = new Font(fontType, font.BOLD+font.ITALIC, size);
+    }
+
+         /**
+     * Toggles between having italics on or off, if bold is on then both
+      * will be applied
+     */
+    public void toggleItalic(){
+        int style = font.getStyle();
+        String fontType = font.getFontName();
+        int size = font.getSize();
+        if(style == font.PLAIN)
+        font = new Font(fontType, font.ITALIC, size);
+        else if (style == font.BOLD)
+        font = new Font(fontType, font.BOLD+font.ITALIC, size);
+        else if (style == font.ITALIC)
+        font = new Font(fontType, font.PLAIN, size);
+    }
 
 
 }
