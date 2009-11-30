@@ -40,13 +40,21 @@ public class DataHandler {
         }
         sql = sql + ")";
         statement.execute(sql);
+        statement.close();
 	}
+
+    public static void createAccount(String userName, String passWord) {
+        
+    }
 
 	public static void saveAccount(Account acc) {
 
 	}
 
-	public static Account loadAccount(String username) {
+	public static Account loadAccount(String username) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "SELECT * FROM Accounts WHERE userName=" + username;
+        ResultSet result = statement.executeQuery(sql);
         return null;
 	}
 
