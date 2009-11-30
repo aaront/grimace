@@ -37,15 +37,15 @@ public class ContactList {
     // Assuming that we're using an array data structure
     // @TODO: Definitely get the results from a database. Somehow. Maybe.
     
-    public static void addContact(Contact toAdd) {
+    public void addContact(Contact toAdd) {
         
     }
     
-    public static void removeContact(Contact toRemove) {
+    public void removeContact(Contact toRemove) {
         
     }
     
-    public static ArrayList<Contact> getList() {
+    public ArrayList<Contact> getList() {
         return list;
     }
 
