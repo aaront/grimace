@@ -6,11 +6,11 @@ public class ProgramSettings {
     Preferences prefs;
 
     public ProgramSettings() throws BackingStoreException {
-        loadSettings(Preferences.systemRoot().nodeExists("/Wernicke/ProgramSettings"));
+        loadSettings(Preferences.systemRoot().nodeExists(this.getClass().getName()));
     }
 
     public void loadSettings(Boolean exists) {
-        prefs = Preferences.systemRoot().node("/Wernicke/ProgramSettings");
+        prefs = Preferences.systemRoot().node(this.getClass().getName());
         if (!exists) {
             setServerAddress("127.0.0.1");
             setServerPort(4422);
@@ -25,7 +25,7 @@ public class ProgramSettings {
     }
 
     public String getServerAddress() {
-        return prefs.get("ServerAddress", null);
+        return prefs.get("ServerAddress", "127.0.0.1");
     }
 
     public void setServerPort(int port) {
@@ -33,7 +33,7 @@ public class ProgramSettings {
     }
 
     public int getServerPort() {
-        return prefs.getInt("ServerPort", 0);
+        return prefs.getInt("ServerPort", 4422);
     }
 
     public void setShowInTray(Boolean enabled) {
