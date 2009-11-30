@@ -3,7 +3,7 @@
  *
  * @author Aaron Jankun
  *
- * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak Vineet Sharma,
+ * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
  *        and Aaron Toth
  *
  * This file is part of Wernicke.
