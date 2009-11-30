@@ -31,13 +31,13 @@ import java.util.ArrayList;
  */
 public class QuickOptions {
 
-    private static ArrayList<Boolean> optionsToggled;
+    private ArrayList<Boolean> optionsToggled;
 
     public QuickOptions(){
       optionsToggled = new ArrayList<Boolean>();
     }
 
-    public static ArrayList<Boolean> toggledList(){
+    public ArrayList<Boolean> toggledList(){
     return optionsToggled;
 }
 
