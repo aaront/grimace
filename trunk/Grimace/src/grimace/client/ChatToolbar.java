@@ -24,10 +24,6 @@
 
 package grimace.client;
 
-/**
- *
- * @author aaront
- */
 public class ChatToolbar extends javax.swing.JPanel {
 
     /** Creates new form ChatToolbar */
