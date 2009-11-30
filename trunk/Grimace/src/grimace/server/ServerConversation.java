@@ -24,10 +24,30 @@
 
 package grimace.server;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Vineet Sharma
  */
 public class ServerConversation {
+    private int conId;
+    private ArrayList<String> users;
 
+    public ServerConversation(int conId) {
+        this.conId = conId;
+        users = new ArrayList<String>();
+    }
+
+    public void addUser(String userName) {
+        users.add(userName);
+    }
+
+    public void removeUser(String userName) {
+        users.remove(userName);
+    }
+
+    public String[] getUsers() {
+        return (String[]) users.toArray();
+    }
 }
