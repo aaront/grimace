@@ -24,7 +24,7 @@
 
 package grimace.client;
 
-public class Contact {
+public class Contact implements java.io.Serializable {
 
     // @TODO: Interact with the database somehow. I think. Maybe not.
 
@@ -32,8 +32,8 @@ public class Contact {
     private static String displayName;
 
     /**
-     * Creates an instance of Contact with an existing account.
-     * @param account  The account associated with this Contact instance.
+     * Creates an instance of Contact with an existing account
+     * @param account  The account associated with this Contact instance
      */
     public Contact(Account account) {
         userName = account.getUserName();
@@ -41,14 +41,16 @@ public class Contact {
     }
 
     /**
-     * Returns the username of the contact
+     * Accessor of the username of the contact
+     * @return the username of the contact
      */
     public static String getUserName() {
         return userName;
     }
 
     /**
-     * Returns the display name of the contact
+     * Accessor of the display name of the contact
+     * @return the display name of the contact
      */
     public static String getDisplayName() {
         return displayName;

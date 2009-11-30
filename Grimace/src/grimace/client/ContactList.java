@@ -26,7 +26,7 @@ package grimace.client;
 
 import java.util.ArrayList;
 
-public class ContactList {
+public class ContactList implements java.io.Serializable {
 
     private ArrayList<Contact> list;
 
@@ -41,23 +41,24 @@ public class ContactList {
     // @TODO: Definitely get the results from a database. Somehow. Maybe.
 
     /**
-     * Adds a contact to a user's contact list.
-     * @param toAdd  The contact to be added to the user's contact list.
+     * Adds a contact to a user's contact list
+     * @param toAdd  The contact to be added to the user's contact list
      */
     public void addContact(Contact toAdd) {
         list.add(toAdd);
     }
 
     /**
-     * Removes a contact to a user's contact list.
-     * @param toRemove  The contact to be removed to the user's contact list.
+     * Removes a contact to a user's contact list
+     * @param toRemove  The contact to be removed to the user's contact list
      */
     public void removeContact(Contact toRemove) {
         list.remove(toRemove);
     }
 
     /**
-     * Public method for accessing the contact list.
+     * Public method for accessing the contact list
+     * @return the list of contacts
      */
     public ArrayList<Contact> getList() {
         return list;
