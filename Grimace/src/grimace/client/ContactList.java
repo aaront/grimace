@@ -28,10 +28,14 @@ import java.util.ArrayList;
 
 public class ContactList {
 
+    private ArrayList<Contact> list;
+
+    public ContactList() {
+        list = new ArrayList();
+    }
+
     // Assuming that we're using an array data structure
     // @TODO: Definitely get the results from a database. Somehow. Maybe.
-    
-    private static ArrayList<Contact> list = new ArrayList();
     
     public static void addContact(Contact toAdd) {
         

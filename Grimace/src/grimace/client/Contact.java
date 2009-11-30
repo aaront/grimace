@@ -31,6 +31,11 @@ public class Contact {
     private static String userName;
     private static String displayName;
 
+    public Contact(Account account) {
+        userName = account.getUserName();
+        displayName = account.getDisplayName();
+    }
+
     public static String getUserName() {
         return userName;
     }
