@@ -31,15 +31,25 @@ public class Contact {
     private static String userName;
     private static String displayName;
 
+    /**
+     * Creates an instance of Contact with an existing account.
+     * @param account  The account associated with this Contact instance.
+     */
     public Contact(Account account) {
         userName = account.getUserName();
         displayName = account.getDisplayName();
     }
 
+    /**
+     * Returns the username of the contact
+     */
     public static String getUserName() {
         return userName;
     }
 
+    /**
+     * Returns the display name of the contact
+     */
     public static String getDisplayName() {
         return displayName;
     }

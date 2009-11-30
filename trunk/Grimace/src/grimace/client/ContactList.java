@@ -30,21 +30,35 @@ public class ContactList {
 
     private ArrayList<Contact> list;
 
+    /**
+     * Creates an instance of a contact list.
+     */
     public ContactList() {
         list = new ArrayList();
     }
 
     // Assuming that we're using an array data structure
     // @TODO: Definitely get the results from a database. Somehow. Maybe.
-    
+
+    /**
+     * Adds a contact to a user's contact list.
+     * @param toAdd  The contact to be added to the user's contact list.
+     */
     public void addContact(Contact toAdd) {
-        
+        list.add(toAdd);
     }
-    
+
+    /**
+     * Removes a contact to a user's contact list.
+     * @param toRemove  The contact to be removed to the user's contact list.
+     */
     public void removeContact(Contact toRemove) {
-        
+        list.remove(toRemove);
     }
-    
+
+    /**
+     * Public method for accessing the contact list.
+     */
     public ArrayList<Contact> getList() {
         return list;
     }
