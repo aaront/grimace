@@ -1,6 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * DataHandler.java
+ *
+ * @author Vineet Sharma
+ *
+ * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
+ *        and Aaron Toth
+ *
+ * This file is part of Wernicke.
+ *
+ * Wernicke is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package grimace.server;
@@ -14,9 +33,11 @@ import grimace.client.ContactList;
  * @author Vineet Sharma
  */
 public class DataHandler {
-    private static final String DB_DRIVER = "org.apache.derby.jdbc.EmbeddedDriver";
+    private static final String DB_DRIVER =
+                                "org.apache.derby.jdbc.EmbeddedDriver";
 	private static final String DB_NAME = "WernickeData";
-	private static final String CONNECTION_URL = "jdbc:derby:" + DB_NAME + ";create=true";
+	private static final String CONNECTION_URL =
+                                "jdbc:derby:" + DB_NAME + ";create=true";
 	private static Connection connection;
 
 	public static void connect() throws SQLException, ClassNotFoundException {
@@ -25,16 +46,33 @@ public class DataHandler {
 	}
 
     public void initDatabase() throws SQLException {
-        DataHandler.createTable("Accounts", false, "userName varchar(30)", "passWord varchar(40)", "connection int");
-        DataHandler.createTable("UserSettings", false, "userName varchar(30)", "displayName varchar(100)", "displayPic varchar(100)");
-        DataHandler.createTable("FontProperties", false, "userName varchar(30)", "fontName varchar(100)", "fontSize int", "fontColour char(7)", "fontStyle - varchar(50)");
-        DataHandler.createTable("Contacts", false, "userName varchar(30)", "contactName varchar(30)", "contactNick varchar(100)");
+        DataHandler.createTable("Accounts", false,
+                                "userName varchar(30)",
+                                "passWord varchar(40)",
+                                "connection int");
+        DataHandler.createTable("UserSettings", false,
+                                "userName varchar(30)",
+                                "displayName varchar(100)",
+                                "displayPic varchar(100)");
+        DataHandler.createTable("FontProperties", false,
+                                "userName varchar(30)",
+                                "fontName varchar(100)",
+                                "fontSize int",
+                                "fontColour char(7)",
+                                "fontStyle - varchar(50)");
+        DataHandler.createTable("Contacts", false,
+                                "userName varchar(30)",
+                                "contactName varchar(30)",
+                                "contactNick varchar(100)");
     }
 
-	private static void createTable(String tableName, boolean replace, String... cols) throws SQLException {
+	private static void createTable(String tableName,
+                                    boolean replace,
+                                    String... cols) throws SQLException {
         Statement statement = connection.createStatement();
         if (cols.length < 1) { return; }
-        String sql = "CREATE TABLE " + ((replace) ? "" : " IF NOT EXISTS " ) + tableName + " (";
+        String sql = "CREATE TABLE " + ((replace) ? "" : " IF NOT EXISTS " )
+                        + tableName + " (";
         for (int i=0; i<cols.length; i++) {
             sql = sql + cols[i] + ((i == cols.length-1) ? "" : ",");
         }
@@ -48,7 +86,7 @@ public class DataHandler {
     }
 
 	public static void saveAccount(Account acc) {
-
+        
 	}
 
 	public static Account loadAccount(String username) throws SQLException {
@@ -58,12 +96,15 @@ public class DataHandler {
         return null;
 	}
 
-	public static void deleteAccount(String username) {
-
+	public static void deleteAccount(String username) throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "DELETE FROM Accounts WHERE userName="
+                        + username + " LIMIT 1";
+        statement.executeUpdate(sql);
 	}
 
 	public static void saveContactList(ContactList listt) {
-
+        
 	}
 
 	public static ContactList loadContactList(String username) {
