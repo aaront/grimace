@@ -49,8 +49,8 @@ public class ClientConversation {
      * @param options   The arrayList of options
      */
     public ClientConversation(ArrayList options){
-        getConversationIdentification();
-        optionsToggled = options;
+        conversationIdentification = getConversationIdentification();
+        optionsToggled = QuickOptions.toggledList();
 }
 
     /**
@@ -58,8 +58,9 @@ public class ClientConversation {
      * Contacts the server and retrieves the requested
      * conversationIdentification number
      */
-    public void getConversationIdentification(){
+    public int getConversationIdentification(){
         //conversationIdentification = programController.IDmethod();
+        return 0;
     }
     
     /**
@@ -121,5 +122,12 @@ public class ClientConversation {
     public void prepareFileForSending(File filename){
         //and server sending stuff
     }
+
+    public ArrayList<Boolean> getOptions(){
+
+        return optionsToggled;
+    }
+
+
 }
 
