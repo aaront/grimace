@@ -36,6 +36,7 @@ public class OptionsForm extends javax.swing.JPanel {
         showInTray.setSelected(settings.getShowInTray());
         showEmoticons.setSelected(settings.getShowEmoticons());
         recordChatLogs.setSelected(settings.getRecordChatLogs());
+        showEquationEditor.setSelected(settings.getShowEquationEditor());
     }
 
     /** This method is called from within the constructor to
@@ -56,6 +57,7 @@ public class OptionsForm extends javax.swing.JPanel {
         acceptButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
         serverAddress = new javax.swing.JTextField();
+        showEquationEditor = new javax.swing.JCheckBox();
 
         jLabel1.setText("Server IP");
 
@@ -85,6 +87,8 @@ public class OptionsForm extends javax.swing.JPanel {
 
         serverAddress.setText("127.0.0.1");
 
+        showEquationEditor.setText("Always show equation editor");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -102,12 +106,15 @@ public class OptionsForm extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(serverPort)
                             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cancelButton)
-                        .addGap(18, 18, 18)
-                        .addComponent(acceptButton))
-                    .addComponent(recordChatLogs))
-                .addContainerGap(50, Short.MAX_VALUE))
+                    .addComponent(recordChatLogs)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(cancelButton)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(acceptButton))
+                        .addComponent(showEquationEditor, javax.swing.GroupLayout.Alignment.LEADING)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -126,11 +133,13 @@ public class OptionsForm extends javax.swing.JPanel {
                 .addComponent(showEmoticons)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(recordChatLogs)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(showEquationEditor)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(acceptButton))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -156,6 +165,10 @@ public class OptionsForm extends javax.swing.JPanel {
         if (!enabled.equals(settings.getRecordChatLogs())) {
             settings.setRecordChatLogs(enabled);
         }
+        enabled = showEquationEditor.isSelected();
+        if (!enabled.equals(settings.getShowEquationEditor())) {
+            settings.setShowEquationEditor(enabled);
+        }
         this.setVisible(false);
         this.getParent().validate();
     }//GEN-LAST:event_acceptButtonActionPerformed
@@ -174,6 +187,7 @@ public class OptionsForm extends javax.swing.JPanel {
     private javax.swing.JTextField serverAddress;
     private javax.swing.JTextField serverPort;
     private javax.swing.JCheckBox showEmoticons;
+    private javax.swing.JCheckBox showEquationEditor;
     private javax.swing.JCheckBox showInTray;
     // End of variables declaration//GEN-END:variables
 }

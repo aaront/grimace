@@ -42,6 +42,7 @@ public class ProgramSettings {
             setShowInTray(true);
             setShowEmoticons(true);
             setRecordChatLogs(false);
+            setShowEquationEditor(false);
         }
     }
 
@@ -83,5 +84,13 @@ public class ProgramSettings {
 
     public Boolean getRecordChatLogs() {
         return prefs.getBoolean("RecordChatLogs", false);
+    }
+
+    public void setShowEquationEditor(Boolean enabled) {
+        prefs.putBoolean("ShowEquationEditor", enabled);
+    }
+
+    public Boolean getShowEquationEditor() {
+        return prefs.getBoolean("ShowEquationEditor", false);
     }
 }
