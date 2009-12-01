@@ -56,7 +56,7 @@ public class DataHandler {
      *
      * @throws java.sql.SQLException
      */
-    public void initDatabase() throws SQLException {
+    public static void initDatabase() throws SQLException {
         DataHandler.createTable("Accounts", false,
                                 "userName varchar(30) PRIMARY KEY",
                                 "password varchar(40)",

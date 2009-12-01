@@ -77,13 +77,13 @@ public class QuickOptionsBox extends javax.swing.JPanel {
 
     private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
        if (jCheckBox1.isSelected() == true){
-           options.optionEqn();
+           //options.optionEqn();
        }
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jCheckBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox2ActionPerformed
         if (jCheckBox2.isSelected() == true){
-           options.optionLog();
+           //options.optionLog();
        }
     }//GEN-LAST:event_jCheckBox2ActionPerformed
 
