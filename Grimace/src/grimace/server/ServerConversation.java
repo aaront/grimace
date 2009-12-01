@@ -27,26 +27,47 @@ package grimace.server;
 import java.util.ArrayList;
 
 /**
- *
+ * ServerConversation tracks the users involved in a single chat conversation.
+ * 
  * @author Vineet Sharma
  */
 public class ServerConversation {
     private int conId;
     private ArrayList<String> users;
 
+    /**
+     * Creates an empty ServerConversation.
+     *
+     * @param conId An integer identifying this ServerConversation instance.
+     */
     public ServerConversation(int conId) {
         this.conId = conId;
         users = new ArrayList<String>();
     }
 
+    /**
+     * Adds a user to this ServerConversation.
+     *
+     * @param userName  The name of a user to add to the ServerConversation.
+     */
     public void addUser(String userName) {
         users.add(userName);
     }
 
+    /**
+     * Removes a user from this ServerConversation.
+     *
+     * @param userName Name of the user to remove from the ServerConversation.
+     */
     public void removeUser(String userName) {
         users.remove(userName);
     }
 
+    /**
+     * Returns the number of users in this ServerConversation
+     *
+     * @return The number of users in this ServerConversation.
+     */
     public String[] getUsers() {
         return (String[]) users.toArray();
     }

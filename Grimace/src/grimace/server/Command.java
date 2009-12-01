@@ -86,10 +86,10 @@ public class Command implements Serializable {
      * @return A comma-separated string with the command name and arguments.
      */
 	public String toString() {
-		String temp = cmdName;
+		StringBuffer temp = new StringBuffer(cmdName);
         for (String s : args) {
-            temp = temp + "," + s;
+            temp.append("," + s);
         }
-        return temp;
+        return temp.toString();
 	}
 }

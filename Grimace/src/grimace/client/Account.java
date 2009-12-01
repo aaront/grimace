@@ -92,6 +92,14 @@ public class Account {
      }
 
      /**
+     * Sets the contact list for an account.
+     * @param list to replace old cList.
+     */
+     public void setContactList(ContactList list){
+         cList = list;
+     }
+
+     /**
      * Changes the displayName to name.
      * @param String to replace old displayName.
      */

@@ -27,12 +27,15 @@ package grimace.server;
 import java.sql.*;
 import java.util.ArrayList;
 import java.security.MessageDigest;
+import java.awt.Font;
+import java.awt.Color;
 import grimace.client.Account;
 import grimace.client.ContactList;
 import grimace.client.Contact;
 
 /**
  * DataHandler provides methods for interfacing with Wernicke's server database.
+ * 
  * @author Vineet Sharma
  */
 public class DataHandler {
@@ -56,13 +59,13 @@ public class DataHandler {
     public void initDatabase() throws SQLException {
         DataHandler.createTable("Accounts", false,
                                 "userName varchar(30) PRIMARY KEY",
-                                "passWord varchar(40)",
+                                "password varchar(40)",
                                 "displayName varchar(100)",
-                                "displayPic text",
                                 "fontName varchar(100)",
                                 "fontSize int",
-                                "fontColour char(7)",
-                                "fontStyle varchar(50)",
+                                "fontColour int",
+                                "fontItalic int",
+                                "fontBold int",
                                 "connection int");
         DataHandler.createTable("Contacts", false,
                                 "userName varchar(30)",
@@ -86,23 +89,24 @@ public class DataHandler {
                                     String... cols) throws SQLException {
         Statement statement = connection.createStatement();
         if (cols.length == 0) { return; }
-        String sql = "CREATE TABLE " + ((replace) ? "" : " IF NOT EXISTS " )
-                        + tableName + " (";
+        StringBuffer sql = new StringBuffer("CREATE TABLE "
+                                        + ((replace) ? "" : " IF NOT EXISTS ")
+                                        + tableName + " (");
         for (int i=0; i<cols.length; i++) {
-            sql = sql + cols[i] + ((i == cols.length-1) ? "" : ",");
+            sql.append(cols[i] + ((i == cols.length-1) ? "" : ","));
         }
-        sql = sql + ")";
-        statement.execute(sql);
+        sql.append(")");
+        statement.execute(sql.toString());
         statement.close();
 	}
 
     /**
      * Returns a hash of the given password string using the SHA-1 algorithm.
      *
-     * @param passWord  The string to hash.
+     * @param password  The string to hash.
      * @return  A string of hex digits representing the hashed value.
      */
-    private static synchronized String getPasswordHash(String passWord) {
+    public static synchronized String getPasswordHash(String password) {
         MessageDigest md;
         try {
             md = MessageDigest.getInstance("SHA-1");
@@ -113,7 +117,7 @@ public class DataHandler {
 
         StringBuffer hash;
         try {
-            byte[] hashBytes = md.digest(passWord.getBytes("UTF-8"));
+            byte[] hashBytes = md.digest(password.getBytes("UTF-8"));
             hash = new StringBuffer(hashBytes.length * 2);
             for (byte b : hashBytes) {
                 String hex = String.format("%02X", b); //$NON-NLS-1$
@@ -130,20 +134,26 @@ public class DataHandler {
      * Creates an Account with the given userName and password.
      *
      * @param userName  The userName for the new account.
-     * @param passWord  The password for the new account, which will be stored
+     * @param password  The password for the new account, which will be stored
      *                  as a hexadecimal representation of the SHA-1 hash of the
      *                  string provided.
      * @throws java.sql.SQLException
      */
-    public static synchronized void createAccount(String userName,
-                                    String passWord) throws SQLException {
-        if (accountExists(userName)) { return; }
+    public static synchronized boolean createAccount(String userName,
+                                    String password) throws SQLException {
+        if (accountExists(userName)) { return false; }
         Statement statement = connection.createStatement();
-        String sql = "INSERT INTO Accounts (userName, passWord) VALUES(\'"
+        String sql = "INSERT INTO Accounts VALUES(\'"
                        + userName + "\',\'"
-                       + getPasswordHash(passWord) +"\')";
+                       + getPasswordHash(password) + "\',\'"
+                       + userName + "\',\'"
+                       + Account.DEFAULT_FONT + "\',"
+                       + String.valueOf(Account.DEFAULT_FONT_SIZE) + ","
+                       + String.valueOf(Account.DEFAULT_FONT_COLOUR.getRGB())
+                       + ",0,0,-1)";
         statement.executeUpdate(sql);
         statement.close();
+        return true;
     }
 
     /**
@@ -151,8 +161,27 @@ public class DataHandler {
      *
      * @param acc   The account to save.
      */
-	public static void saveAccount(Account acc) {
-        
+	public static boolean saveAccount(Account acc) {
+        if (!accountExists(acc.getUserName())) { return false; }
+        try {
+            Statement statement = connection.createStatement();
+            StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
+            sql.append("displayName=\'" + acc.getDisplayName() + "\',");
+            sql.append("fontName=\'" + acc.getFont().getFontName() + "\',");
+            sql.append("fontSize="
+                    + String.valueOf(acc.getFont().getSize()) + ",");
+            sql.append("fontColour="
+                    + String.valueOf(acc.getFontColour().getRGB()) + ",");
+            sql.append("fontItalic="
+                    + (acc.getFont().isItalic() ? "1" : "0") + ",");
+            sql.append("fontBold=" + (acc.getFont().isBold() ? "1" : "0"));
+            sql.append(" WHERE username=\'" + acc.getUserName() + "\'");
+            statement.executeUpdate(sql.toString());
+            statement.close();
+            saveContactList(acc.getUserName(), acc.getContactList());
+        }
+        catch (Exception e) { return false; }
+        return true;
 	}
 
     /**
@@ -166,9 +195,23 @@ public class DataHandler {
 	public static synchronized Account loadAccount(String userName) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM Accounts WHERE userName=\'" + userName +"\'";
+            String sql = "SELECT * FROM Accounts WHERE userName=\'"
+                        + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            return null;
+            if (!result.next()) {
+                result.close();
+                return null;
+            }
+            Account acc = new Account(userName);
+            acc.setDisplayName(result.getNString("displayName"));
+            acc.changeFont(result.getNString("fontName"));
+            acc.changeSize(result.getInt("fontSize"));
+            acc.setFontColour(new Color(result.getInt("fontColour")));
+            if (result.getInt("fontItalic") == 1) { acc.toggleItalic(); }
+            if (result.getInt("fontBold") == 1) { acc.toggleBold(); }
+            ContactList cList = loadContactList(userName);
+            acc.setContactList(cList);
+            return acc;
         }
         catch (Exception e) { return null; }
 	}
@@ -179,10 +222,11 @@ public class DataHandler {
      * @param userName  The userName of the account to delete.
      * @throws java.sql.SQLException
      */
-	public static synchronized void deleteAccount(String userName) throws SQLException {
+	public static synchronized void deleteAccount(String userName)
+                                                    throws SQLException {
         Statement statement = connection.createStatement();
-        String sql = "DELETE FROM Accounts WHERE userName="
-                        + userName + " LIMIT 1";
+        String sql = "DELETE FROM Accounts WHERE userName=\'"
+                        + userName + "\'";
         statement.executeUpdate(sql);
         statement.close();
 	}
@@ -223,7 +267,8 @@ public class DataHandler {
     public static String getDisplayName(String userName) {
         try {
             Statement statement = connection.createStatement();
-            String sql = "SELECT displayName FROM Accounts WHERE userName=\'" + userName +"\'";
+            String sql = "SELECT displayName FROM Accounts WHERE userName=\'"
+                        + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
             statement.close();
             if (!result.next()) {
@@ -268,7 +313,7 @@ public class DataHandler {
         Statement statement = connection.createStatement();
         String sql = "DELETE FROM Contacts WHERE userName="
                         + userName + "AND contactName=\'"
-                        + contactName + "\' LIMIT 1";
+                        + contactName + "\'";
         statement.executeUpdate(sql);
         statement.close();
 	}
