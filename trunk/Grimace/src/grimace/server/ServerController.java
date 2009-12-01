@@ -25,7 +25,8 @@
 package grimace.server;
 
 import java.net.*;
-import java.util.Hashtable;
+import java.io.*;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import grimace.client.Account;
 
@@ -36,20 +37,20 @@ import grimace.client.Account;
  */
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
-	private static Hashtable<String,ClientHandler> connections;
+	private static ArrayList<ClientHandler> connections;
     private static ServerSocket serverSocket;
     private static Socket socket;
-    private static boolean running = false;
+    private static boolean run = false;
 
     /**
      * Runs the Wernicke server.
      *
-     * @param args Arguments to the server.
+     * @param args  Command line arguments.
      */
     public static void main(String[] args) {
         ServerController.setupServer();
     }
-    
+
     /**
      * Connects to the database and begins listening for client connections
      * on a the LISTENING_PORT.
@@ -57,14 +58,10 @@ public class ServerController {
 	public static void setupServer() {
         initDataHandler();
         initServerSocket();
-        /* If we're still running right now, that's just dandy! */
+        //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
-        System.out.println("Server IP: "
-                            + serverSocket.getInetAddress().toString());
-        System.out.println("Listening on: " + String.valueOf(LISTENING_PORT));
-        System.out.println("Start accepting connections:");
-        connections = new Hashtable<String,ClientHandler>();
-        running = true;
+        connections = new ArrayList<ClientHandler>();
+        run = true;
         listen();
 	}
 
@@ -74,6 +71,7 @@ public class ServerController {
 	public static void initDataHandler() {
         try {
             DataHandler.connect();
+            //DataHandler.initDatabase();
         }
         catch (ClassNotFoundException ex) {
             System.out.println("Database driver not found.");
@@ -95,37 +93,28 @@ public class ServerController {
             serverSocket = new ServerSocket(LISTENING_PORT);
         }
         catch (Exception e) {
-            System.out.println("Unable to listen on port "
-                                + String.valueOf(LISTENING_PORT)
-                                + ".\nServer will exit.");
+            System.out.println("Could not listen on port "
+                                + String.valueOf(LISTENING_PORT));
+            System.out.println("Server will exit.");
             System.exit(1);
         }
 	}
 
     /**
-     * Waits for a connection from a client and sets up a ClientHandler for it.
+     * Waits for a command from a client and passes it on to be decoded.
      */
 	public static void listen() {
-        while (running) {
+        while (run) {
             try {
                 socket = serverSocket.accept();
-                String numstr = String.valueOf(connections.size());
-                connections.put(numstr, new ClientHandler(socket, numstr));
+                connections.add(new ClientHandler(socket));
             }
-            catch (Exception e) {
-                System.out.println("Failed to accept socket connection.");
+            catch (Exception ex) {
+                System.out.println("Failed to accept socket.");
             }
         }
 	}
 
-    /**
-     * Registers a ClientHandler with a logged on user.
-     *
-     * @param handler   The ClientHandler to register.
-     */
-    public static void registerClientHandler(ClientHandler handler) {
-        
-    }
 
     /**
      * Determines what action to perform for a given command.

@@ -24,6 +24,7 @@
 
 package grimace.client;
 import java.util.ArrayList;
+import java.io.File;
 
 /**
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
@@ -144,7 +145,7 @@ public class ProgramController {
      * @TODO: determine the correct output
      */
     public String receiveEquation() {
-
+        return "";
     }
 
     /**
@@ -163,7 +164,7 @@ public class ProgramController {
      * @return the program settings
      */
     public ProgramSettings getProgramSettings() {
-
+        return null;
     }
 
     /**
@@ -186,8 +187,8 @@ public class ProgramController {
      * Close a chat panel
      * @param cp the chat panel to be closed
      */
-    public void closeTab(ChatPanel cp) {
-
+    public void closeTab(/*ChatPanel cp*/) {
+        
     }
 
     /**
@@ -206,7 +207,7 @@ public class ProgramController {
      * @TODO: ???? lots....
      */
     public File receiveFile(ClientConversation conversation) {
-
+        return null;
     }
 
     /**
@@ -215,8 +216,8 @@ public class ProgramController {
      * @param conversation the conversation that was the origin of the file
      * @return a string asking if the account would like to download the file
      */
-    public String displayFileInvitiation(string fileName, ClientConversation conversation) {
-
+    public String displayFileInvitiation(String fileName, ClientConversation conversation) {
+        return "";
     }
 
 }

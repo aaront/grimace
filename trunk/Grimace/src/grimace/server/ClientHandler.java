@@ -27,8 +27,8 @@ public class ClientHandler {
     private Command toClient;
     private boolean run;
 
-    public ClientHandler(Socket socket, String name) {
-        this.name = name;
+    public ClientHandler(Socket socket) {
+        this.name = "";
         isLoggedIn = false;
         run = false;
         commandQueue = new ArrayList<Command>();
