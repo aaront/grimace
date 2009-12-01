@@ -37,6 +37,8 @@ public class ProgramController {
     Account accnt = new Account(username, displayname);
     ContactList list = accnt.getContactList();
     ClientConversation convo;
+    ArrayList<Contact> convoList;
+    ProgramSettings progSetting;
 
 
     public ProgramController() {
@@ -97,8 +99,8 @@ public class ProgramController {
      * @return an instance of the conversation
      */
     public ClientConversation makeConversation(ContactList list) {
-       ClientConversation convo = new ClientConversation(list);
-        return convo;
+       ClientConversation conv = new ClientConversation(list);
+       return conv;
     }
 
     /**
@@ -107,8 +109,7 @@ public class ProgramController {
      * @param conversation the conversation that receives the contact
      */
     public void addContactToConversation(Contact userName, ClientConversation conversation) {
-
-
+        conversation.addToList(userName);
     }
 
     /**
@@ -164,7 +165,8 @@ public class ProgramController {
      * @return the program settings
      */
     public ProgramSettings getProgramSettings() {
-        return null;
+        return progSetting;
+
     }
 
     /**
