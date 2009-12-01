@@ -23,12 +23,19 @@
  */
 
 package grimace.client;
+import java.awt.GraphicsEnvironment;
 
 public class ChatToolbar extends javax.swing.JPanel {
 
     /** Creates new form ChatToolbar */
     public ChatToolbar() {
         initComponents();
+
+
+        // Filling the font selector with available fonts
+        GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        String[] availableFonts = e.getAvailableFontFamilyNames();
+        fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts));
     }
 
     /** This method is called from within the constructor to
@@ -44,18 +51,22 @@ public class ChatToolbar extends javax.swing.JPanel {
         bolden = new javax.swing.JToggleButton();
         italicise = new javax.swing.JToggleButton();
         underline = new javax.swing.JToggleButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        fontSelector = new javax.swing.JComboBox();
         jComboBox1 = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(0, 36));
-        setPreferredSize(new java.awt.Dimension(300, 36));
+        setMaximumSize(new java.awt.Dimension(400, 36));
+        setMinimumSize(new java.awt.Dimension(400, 36));
+        setPreferredSize(new java.awt.Dimension(600, 36));
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
         jToolBar1.setMargin(new java.awt.Insets(2, 0, 2, 0));
+        jToolBar1.setMaximumSize(new java.awt.Dimension(400, 36));
         jToolBar1.setMinimumSize(new java.awt.Dimension(156, 36));
-        jToolBar1.setPreferredSize(new java.awt.Dimension(184, 36));
+        jToolBar1.setPreferredSize(new java.awt.Dimension(120, 36));
 
         bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         bolden.setText("<html><strong>B</strong>");
@@ -83,11 +94,17 @@ public class ChatToolbar extends javax.swing.JPanel {
         underline.setMinimumSize(new java.awt.Dimension(25, 28));
         underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(underline);
+        jToolBar1.add(jSeparator2);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Arial", "Times", "Helvetica", "Courier", "Calibri" }));
-        jComboBox1.setMaximumSize(new java.awt.Dimension(125, 27));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(125, 27));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(20, 27));
+        fontSelector.setMaximumSize(new java.awt.Dimension(150, 27));
+        fontSelector.setMinimumSize(new java.awt.Dimension(150, 27));
+        fontSelector.setPreferredSize(new java.awt.Dimension(150, 27));
+        jToolBar1.add(fontSelector);
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8", "9", "10", "11", "12", "13", "14", "15", "16", "18", "21", "24", "36", "48", "56", "72" }));
+        jComboBox1.setSelectedIndex(4);
+        jComboBox1.setMaximumSize(new java.awt.Dimension(70, 27));
+        jComboBox1.setMinimumSize(new java.awt.Dimension(70, 27));
         jToolBar1.add(jComboBox1);
         jToolBar1.add(jSeparator1);
 
@@ -101,7 +118,7 @@ public class ChatToolbar extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 565, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -114,10 +131,12 @@ public class ChatToolbar extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
+    private javax.swing.JComboBox fontSelector;
     private javax.swing.JToggleButton italicise;
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JToolBar.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JToggleButton underline;
     // End of variables declaration//GEN-END:variables
