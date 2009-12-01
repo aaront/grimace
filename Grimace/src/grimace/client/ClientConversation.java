@@ -55,7 +55,9 @@ public class ClientConversation {
         convoPeople = cList;
         currentConvoList = cList.getList();
 }
-
+    public ArrayList<Contact> getList(){
+        return convoPeople.getList();
+    }
     /**
      * getConversationIdentification
      * Contacts the server and retrieves the requested
@@ -65,6 +67,7 @@ public class ClientConversation {
         //conversationIdentification = programController.IDmethod();
         return 0;
     }
+
     
     /**
      * Logs the conversationText (where is it from?)
@@ -129,6 +132,10 @@ public class ClientConversation {
     public QuickOptions getOptions(){
 
         return convoQOptions;
+    }
+
+    public void addToList(Contact userName) {
+        currentConvoList.add(userName);
     }
 
 
