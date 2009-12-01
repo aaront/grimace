@@ -28,6 +28,7 @@ import java.awt.Font;
 
 public class Account {
 
+    public static final String DEFAULT_FONT = "Times New Roman";
     private Font font;
     private ContactList cList;
     private String userName;
@@ -44,7 +45,7 @@ public class Account {
         cList = new ContactList();
         userName = iUserName;
         displayName = userName;
-        font = new Font( "Times New Roman", Font.PLAIN, 12);
+        font = new Font( DEFAULT_FONT, Font.PLAIN, 12);
     }
 
      /**
