@@ -65,8 +65,7 @@ public class DataHandler {
                                 "fontSize int",
                                 "fontColour int",
                                 "fontItalic int",
-                                "fontBold int",
-                                "connection int");
+                                "fontBold int");
         DataHandler.createTable("Contacts", false,
                                 "userName varchar(30)",
                                 "contactName varchar(30)");
@@ -150,7 +149,7 @@ public class DataHandler {
                        + Account.DEFAULT_FONT + "\',"
                        + String.valueOf(Account.DEFAULT_FONT_SIZE) + ","
                        + String.valueOf(Account.DEFAULT_FONT_COLOUR.getRGB())
-                       + ",0,0,-1)";
+                       + ",0,0)";
         statement.executeUpdate(sql);
         statement.close();
         return true;
