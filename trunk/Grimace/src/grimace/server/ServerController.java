@@ -25,8 +25,7 @@
 package grimace.server;
 
 import java.net.*;
-import java.io.*;
-import java.util.ArrayList;
+import java.util.Hashtable;
 import java.sql.SQLException;
 import grimace.client.Account;
 
@@ -37,48 +36,96 @@ import grimace.client.Account;
  */
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
-	private static ArrayList<Socket> connections;
+	private static Hashtable<String,ClientHandler> connections;
     private static ServerSocket serverSocket;
     private static Socket socket;
+    private static boolean running = false;
 
+    /**
+     * Runs the Wernicke server.
+     *
+     * @param args Arguments to the server.
+     */
+    public static void main(String[] args) {
+        ServerController.setupServer();
+    }
+    
     /**
      * Connects to the database and begins listening for client connections
      * on a the LISTENING_PORT.
      */
 	public static void setupServer() {
+        initDataHandler();
+        initServerSocket();
+        /* If we're still running right now, that's just dandy! */
+        System.out.println("Server initialization successful.");
+        System.out.println("Server IP: "
+                            + serverSocket.getInetAddress().toString());
+        System.out.println("Listening on: " + String.valueOf(LISTENING_PORT));
+        System.out.println("Start accepting connections:");
+        connections = new Hashtable<String,ClientHandler>();
+        running = true;
+        listen();
+	}
+
+    /**
+     * Initializes the ServerSocket and binds it to the LISTENING_PORT.
+     */
+	public static void initDataHandler() {
         try {
             DataHandler.connect();
         }
         catch (ClassNotFoundException ex) {
             System.out.println("Database driver not found.");
+            System.out.println("Server will exit.");
             System.exit(1);
         }
         catch (SQLException ex) {
             System.out.println("Unable to connect to database.");
+            System.out.println("Server will exit.");
             System.exit(1);
         }
-	}
-
-    /**
-     * Waits for a command from a client and passes it on to be decoded.
-     */
-	public static void listen() {
-
 	}
 
     /**
      * Initializes the ServerSocket and binds it to the LISTENING_PORT.
      */
 	public static void initServerSocket() {
-
+        try {
+            serverSocket = new ServerSocket(LISTENING_PORT);
+        }
+        catch (Exception e) {
+            System.out.println("Unable to listen on port "
+                                + String.valueOf(LISTENING_PORT)
+                                + ".\nServer will exit.");
+            System.exit(1);
+        }
 	}
 
     /**
-     * Creates a thread to handle a connection to a client.
+     * Waits for a connection from a client and sets up a ClientHandler for it.
      */
-	public static void setupConnectionHandler() {
-
+	public static void listen() {
+        while (running) {
+            try {
+                socket = serverSocket.accept();
+                String numstr = String.valueOf(connections.size());
+                connections.put(numstr, new ClientHandler(socket, numstr));
+            }
+            catch (Exception e) {
+                System.out.println("Failed to accept socket connection.");
+            }
+        }
 	}
+
+    /**
+     * Registers a ClientHandler with a logged on user.
+     *
+     * @param handler   The ClientHandler to register.
+     */
+    public static void registerClientHandler(ClientHandler handler) {
+        
+    }
 
     /**
      * Determines what action to perform for a given command.
