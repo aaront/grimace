@@ -39,19 +39,21 @@ import java.io.*;
  */
 public class ClientConversation {
     int conversationIdentification;
-    ArrayList<Boolean> optionsToggled = new ArrayList<Boolean>();
     ArrayList<String> conversationText = new ArrayList<String>();
     QuickOptions convoQOptions;
+    ContactList convoPeople;
+    ArrayList<Contact> currentConvoList;
 
     /**
      * ClientConversation, creates an instance of a client conversation
      * @param convoId   The conversation identification integer
      * @param options   The arrayList of options
      */
-    public ClientConversation(ArrayList options){
+    public ClientConversation(ArrayList people){
         conversationIdentification = getConversationIdentification();
         convoQOptions = new QuickOptions();
-        optionsToggled = convoQOptions.toggledList();
+        convoPeople = new ContactList();
+        currentConvoList = convoPeople.getList();
 }
 
     /**
@@ -124,9 +126,9 @@ public class ClientConversation {
         //and server sending stuff
     }
 
-    public ArrayList<Boolean> getOptions(){
+    public QuickOptions getOptions(){
 
-        return optionsToggled;
+        return convoQOptions;
     }
 
 
