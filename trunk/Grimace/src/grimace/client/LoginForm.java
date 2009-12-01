@@ -147,7 +147,11 @@ public class LoginForm extends javax.swing.JPanel {
         } else if (pass.isEmpty()) {
             showError("Please enter a password.");
         } else {
-            //ServerHandler.sendLoginRequest(user,pass);
+            try {
+                ServerHandler.sendLoginRequest(user,pass);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             // @TODO: Get response and complete action or show error
         }
     }//GEN-LAST:event_loginButtonActionPerformed
