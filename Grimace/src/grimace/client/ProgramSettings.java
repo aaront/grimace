@@ -25,8 +25,9 @@
 package grimace.client;
 
 import java.util.prefs.*;
+import java.io.Serializable;
 
-public class ProgramSettings {
+public class ProgramSettings implements Serializable {
     // @TODO: Store preferences in program directory
     Preferences prefs;
 
@@ -39,6 +40,7 @@ public class ProgramSettings {
         if (!exists) {
             setServerAddress("127.0.0.1");
             setServerPort(4422);
+            setDataPath(System.getProperty("user.dir"));
             setShowInTray(true);
             setShowEmoticons(true);
             setRecordChatLogs(false);
@@ -60,6 +62,14 @@ public class ProgramSettings {
 
     public int getServerPort() {
         return prefs.getInt("ServerPort", 4422);
+    }
+
+    public void setDataPath(String path) {
+        prefs.put("DataPath", path);
+    }
+
+    public String getDataPath() {
+        return prefs.get("DataPath", System.getProperty("user.dir"));
     }
 
     public void setShowInTray(Boolean enabled) {
