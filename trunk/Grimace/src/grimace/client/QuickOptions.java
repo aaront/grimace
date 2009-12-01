@@ -31,45 +31,52 @@ import java.util.ArrayList;
  */
 public class QuickOptions {
 
-    private ArrayList<Boolean> optionsToggled;
-   
+
+      boolean eqn;
+      boolean log;
+      boolean opt;
 
     public QuickOptions(){
-      optionsToggled = new ArrayList<Boolean>();
-
-
+    eqn = false;
+    log = false;
+    opt = false;
     }
 
-    public ArrayList<Boolean> toggledList(){
-    return optionsToggled;
-}
-
-     public void optionLog(){
-        if (optionsToggled.get(0) == Boolean.TRUE){
-           optionsToggled.set(0, Boolean.FALSE);
+   
+     public void optionLog(boolean log){
+        if (log == true){
+           log = false;
         }
         else{
-        optionsToggled.set(0, Boolean.TRUE);
+        log = true;
         }
     }
 
-     public void optionEqn(){
-        if (optionsToggled.get(1) == Boolean.TRUE){
-           optionsToggled.set(1, Boolean.FALSE);
+     public void optionEqn(boolean eqn){
+        if (eqn == true){
+            eqn = false;
         }
         else{
-        optionsToggled.set(1, Boolean.TRUE);
+            eqn = true;
         }
+
      }
 
-     public void optionChange2(){
-        if (optionsToggled.get(2) == Boolean.TRUE){
-           optionsToggled.set(2, Boolean.FALSE);
+     public void optionChange(boolean opt){
+        if (opt == true){
+           opt = false;
         }
         else{
-        optionsToggled.set(2, Boolean.TRUE);
+        opt = true;
         }
     }
+
+     public boolean eqnChecked (){return eqn;}
+
+     public boolean logChecked (){return log;}
+
+     public boolean optChecked (){return opt;}
+
 }
 
 

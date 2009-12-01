@@ -23,11 +23,16 @@
  */
 
 package grimace.client;
+import java.util.ArrayList;
 
 /**
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
  */
 public class ProgramController {
+
+     ContactList contacts = new ContactList();
+     private ArrayList<Contact> list = contacts.getList();
+
 
     public ProgramController() {
         // @TODO: Create a new session with an account
@@ -46,8 +51,8 @@ public class ProgramController {
      * @param conversation the conversation that occurred
      * @return the chat log of the conversation
      */
-    public String getChatLog(ClientConversation conversation) {
-
+    public void getChatLog(ClientConversation conversation) {
+        
     }
 
     /**
@@ -55,7 +60,7 @@ public class ProgramController {
      * @param userName the contact to be added
      */
     public void addContact(Contact userName) {
-
+        contacts.addContact(userName);
     }
 
     /**
@@ -63,15 +68,15 @@ public class ProgramController {
      * @param userName the contact to be removed
      */
     public void removeContact(Contact userName) {
-
+        contacts.removeContact(userName);
     }
 
     /**
      * Retrieves a contact list from the server associated with the current
      * account.
      */
-    public void getContactList() {
-
+    public ContactList getContactList() {
+    return contacts;
     }
 
     /**
@@ -86,8 +91,9 @@ public class ProgramController {
      * @param userName an array of usernames to initiate a conversation with
      * @return an instance of the conversation
      */
-    public Conversation makeConversation(Contact[] userName) {
-
+    public ClientConversation makeConversation(ArrayList list) {
+       ClientConversation convo = new ClientConversation(list);
+        return convo;
     }
 
     /**
