@@ -36,8 +36,8 @@ public class Contact implements java.io.Serializable {
      * @param account  The account associated with this Contact instance
      */
     public Contact(Account account) {
-        userName = account.getUserName();
-        displayName = account.getDisplayName();
+        this.userName = account.getUserName();
+        this.displayName = account.getDisplayName();
     }
 
     /**
@@ -56,7 +56,7 @@ public class Contact implements java.io.Serializable {
      * @return the username of the contact
      */
     public String getUserName() {
-        return userName;
+        return this.userName;
     }
 
     /**
@@ -64,7 +64,7 @@ public class Contact implements java.io.Serializable {
      * @return the display name of the contact
      */
     public String getDisplayName() {
-        return displayName;
+        return this.displayName;
     }
 
 }
