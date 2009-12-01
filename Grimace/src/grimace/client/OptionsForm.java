@@ -24,9 +24,6 @@
 
 package grimace.client;
 
-import java.io.*;
-import javax.swing.JFileChooser;
-
 public class OptionsForm extends javax.swing.JPanel {
     ProgramSettings settings;
 
@@ -36,7 +33,6 @@ public class OptionsForm extends javax.swing.JPanel {
         settings = currentSettings;
         serverAddress.setText(settings.getServerAddress());
         serverPort.setText(Integer.toString(settings.getServerPort()));
-        dataPath.setText(settings.getDataPath());
         showInTray.setSelected(settings.getShowInTray());
         showEmoticons.setSelected(settings.getShowEmoticons());
         recordChatLogs.setSelected(settings.getRecordChatLogs());
@@ -62,9 +58,6 @@ public class OptionsForm extends javax.swing.JPanel {
         cancelButton = new javax.swing.JButton();
         serverAddress = new javax.swing.JTextField();
         showEquationEditor = new javax.swing.JCheckBox();
-        jLabel3 = new javax.swing.JLabel();
-        dataPath = new javax.swing.JTextField();
-        pathButton = new javax.swing.JButton();
 
         jLabel1.setText("Server IP");
 
@@ -96,17 +89,6 @@ public class OptionsForm extends javax.swing.JPanel {
 
         showEquationEditor.setText("Always show equation editor");
 
-        jLabel3.setText("Data Storage Location");
-
-        dataPath.setEditable(false);
-
-        pathButton.setText("...");
-        pathButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pathButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -114,38 +96,30 @@ public class OptionsForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(serverAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(pathButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(serverPort, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(acceptButton)))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel3)
-                .addContainerGap(90, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(120, 120, 120)
+                        .addComponent(acceptButton))
                     .addComponent(showEquationEditor)
                     .addComponent(recordChatLogs)
                     .addComponent(showEmoticons)
                     .addComponent(showInTray)
-                    .addComponent(dataPath, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cancelButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(serverAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(serverPort, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(34, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(cancelButton)
-                .addContainerGap(132, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
@@ -153,12 +127,6 @@ public class OptionsForm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(serverAddress, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(serverPort))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(dataPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pathButton))
                 .addGap(18, 18, 18)
                 .addComponent(showInTray)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -171,7 +139,7 @@ public class OptionsForm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(acceptButton))
-                .addContainerGap())
+                .addGap(83, 83, 83))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -184,10 +152,6 @@ public class OptionsForm extends javax.swing.JPanel {
         value = serverPort.getText();
         if (!value.equals(Integer.toString(settings.getServerPort()))) {
             settings.setServerPort(Integer.valueOf(value).intValue());
-        }
-        value = dataPath.getText();
-        if (!value.equals(settings.getDataPath())) {
-            settings.setDataPath(value);
         }
         Boolean enabled = showInTray.isSelected();
         if (!enabled.equals(settings.getShowInTray())) {
@@ -214,29 +178,11 @@ public class OptionsForm extends javax.swing.JPanel {
         this.getParent().validate();
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void pathButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pathButtonActionPerformed
-        final JFileChooser fc = new JFileChooser();
-
-        String current = dataPath.getText();
-        if (!current.isEmpty())
-            fc.setCurrentDirectory(new File(current));
-        fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-        int returnVal = fc.showDialog(this, "Select");
-
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            File file = fc.getSelectedFile();
-            dataPath.setText(file.getAbsolutePath());
-        }
-}//GEN-LAST:event_pathButtonActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton acceptButton;
     private javax.swing.JButton cancelButton;
-    private javax.swing.JTextField dataPath;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JButton pathButton;
     private javax.swing.JCheckBox recordChatLogs;
     private javax.swing.JTextField serverAddress;
     private javax.swing.JTextField serverPort;
