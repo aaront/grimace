@@ -30,7 +30,6 @@ public class Account {
 
     private Font font;
     private ContactList cList;
-    private UserSettings settings;
     private String userName;
     private String displayName;
 
@@ -43,7 +42,6 @@ public class Account {
     public Account(String iUserName){
 
         cList = new ContactList();
-        settings = new UserSettings();
         userName = iUserName;
         displayName = userName;
         font = new Font( "Times New Roman", Font.PLAIN, 12);
@@ -56,7 +54,6 @@ public class Account {
      */
     public Account (String iUserName, String iDisplayName){
         cList = new ContactList();
-        settings = new UserSettings();
         userName = iUserName;
         displayName = iDisplayName;
     }
@@ -83,14 +80,6 @@ public class Account {
      */
      public ContactList getContactList(){
          return cList;
-     }
-
-     /**
-     * Gives the settings for an account.
-     * @return Returns the Settings for an account.
-     */
-     public UserSettings getSettings(){
-         return settings;
      }
 
      /**
