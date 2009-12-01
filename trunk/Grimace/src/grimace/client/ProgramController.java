@@ -30,8 +30,12 @@ import java.util.ArrayList;
  */
 public class ProgramController {
 
-     ContactList contacts = new ContactList();
-     private ArrayList<Contact> list = contacts.getList();
+    String username;
+    String displayname;
+
+    Account accnt = new Account(username, displayname);
+    ContactList list = accnt.getContactList();
+    ClientConversation convo;
 
 
     public ProgramController() {
@@ -60,7 +64,7 @@ public class ProgramController {
      * @param userName the contact to be added
      */
     public void addContact(Contact userName) {
-        contacts.addContact(userName);
+        accnt.getContactList().addContact(userName);
     }
 
     /**
@@ -68,7 +72,7 @@ public class ProgramController {
      * @param userName the contact to be removed
      */
     public void removeContact(Contact userName) {
-        contacts.removeContact(userName);
+        accnt.getContactList().removeContact(userName);
     }
 
     /**
@@ -76,7 +80,7 @@ public class ProgramController {
      * account.
      */
     public ContactList getContactList() {
-    return contacts;
+    return accnt.getContactList();
     }
 
     /**
@@ -91,7 +95,7 @@ public class ProgramController {
      * @param userName an array of usernames to initiate a conversation with
      * @return an instance of the conversation
      */
-    public ClientConversation makeConversation(ArrayList list) {
+    public ClientConversation makeConversation(ContactList list) {
        ClientConversation convo = new ClientConversation(list);
         return convo;
     }
@@ -103,6 +107,7 @@ public class ProgramController {
      */
     public void addContactToConversation(Contact userName, ClientConversation conversation) {
 
+
     }
 
     /**
@@ -110,7 +115,8 @@ public class ProgramController {
      * @param conversation the conversation from where the message originates
      * @return the message from the conversation
      */
-    public String receiveMessage(ClientConversation conversation) {
+    public void receiveMessage(String messageIn) {
+        convo.displayRecievedMessage(messageIn);
 
     }
 
@@ -120,15 +126,15 @@ public class ProgramController {
      * @param message the sent message
      * @return the message sent to the conversation
      */
-    public String sendMessage(ClientConversation conversation, String message) {
-
+    public void sendMessage(String message) {
+        convo.prepareMessageForSending(message);
     }
 
     /**
      * Creates a new equation to send
      * @return the string-formatted equation
      */
-    public String createEquation() {
+    public void createEquation(String eqn) {
 
     }
 
@@ -146,8 +152,8 @@ public class ProgramController {
      * @param equation the equation to be sent
      * @return the string-formatted equation that was sent
      */
-    public String sendEquation(String equation) {
-
+    public void sendEquation(String eqn) {
+        convo.prepareEquationForSending(eqn);
     }
 
     // @TODO: Are we going to be leaving out "setFontProperties?????"
