@@ -55,7 +55,7 @@ public class DataHandler {
      */
     public void initDatabase() throws SQLException {
         DataHandler.createTable("Accounts", false,
-                                "userName varchar(30)",
+                                "userName varchar(30) PRIMARY KEY",
                                 "passWord varchar(40)",
                                 "displayName varchar(100)",
                                 "displayPic text",
@@ -97,25 +97,6 @@ public class DataHandler {
 	}
 
     /**
-     * Creates an Account witht the given userName and password.
-     *
-     * @param userName  The userName for the new account.
-     * @param passWord  The password for the new account, which will be stored
-     *                  as a hexadecimal representation of the SHA-1 hash of the
-     *                  string provided.
-     * @throws java.sql.SQLException
-     */
-    public static synchronized void createAccount(String userName,
-                                    String passWord) throws SQLException {
-        Statement statement = connection.createStatement();
-        String sql = "INSERT INTO Accounts (userName, passWord) VALUES(\'"
-                       + userName + "\',\'"
-                       + getPasswordHash(passWord) +"\')";
-        statement.execute(sql);
-        statement.close();
-    }
-
-    /**
      * Returns a hash of the given password string using the SHA-1 algorithm.
      *
      * @param passWord  The string to hash.
@@ -146,6 +127,26 @@ public class DataHandler {
     }
 
     /**
+     * Creates an Account with the given userName and password.
+     *
+     * @param userName  The userName for the new account.
+     * @param passWord  The password for the new account, which will be stored
+     *                  as a hexadecimal representation of the SHA-1 hash of the
+     *                  string provided.
+     * @throws java.sql.SQLException
+     */
+    public static synchronized void createAccount(String userName,
+                                    String passWord) throws SQLException {
+        if (accountExists(userName)) { return; }
+        Statement statement = connection.createStatement();
+        String sql = "INSERT INTO Accounts (userName, passWord) VALUES(\'"
+                       + userName + "\',\'"
+                       + getPasswordHash(passWord) +"\')";
+        statement.executeUpdate(sql);
+        statement.close();
+    }
+
+    /**
      * Updates the database with the information in the given account.
      *
      * @param acc   The account to save.
@@ -161,14 +162,54 @@ public class DataHandler {
      * @param userName  The userName of the Account to load.
      * @return  An Account containing the given userName and settings associated
      *          with that userName.
+     */
+	public static synchronized Account loadAccount(String userName) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM Accounts WHERE userName=\'" + userName +"\'";
+            ResultSet result = statement.executeQuery(sql);
+            return null;
+        }
+        catch (Exception e) { return null; }
+	}
+
+    /**
+     * Deletes an account with the given userName.
+     *
+     * @param userName  The userName of the account to delete.
      * @throws java.sql.SQLException
      */
-	public static synchronized Account loadAccount(String userName) throws SQLException {
+	public static synchronized void deleteAccount(String userName) throws SQLException {
         Statement statement = connection.createStatement();
-        String sql = "SELECT * FROM Accounts WHERE userName=\'" + userName +"\'";
-        ResultSet result = statement.executeQuery(sql);
-        return null;
+        String sql = "DELETE FROM Accounts WHERE userName="
+                        + userName + " LIMIT 1";
+        statement.executeUpdate(sql);
+        statement.close();
 	}
+
+    /**
+     * Returns whether or not an account with the given userName exists.
+     *
+     * @param userName  The userName to check.
+     * @return  True if an Account with the given userName exists, and false
+     *          otherwise.
+     */
+    public static synchronized boolean accountExists(String userName) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM Accounts WHERE userName=\'"
+                        + userName +"\'";
+            ResultSet result = statement.executeQuery(sql);
+            statement.close();
+            if (!result.next()) {
+                result.close();
+                return false;
+            }
+            result.close();
+        }
+        catch (Exception e) { return false; }
+        return true;
+    }
 
     /**
      * Returns the display name associated with the account with the given
@@ -185,7 +226,10 @@ public class DataHandler {
             String sql = "SELECT displayName FROM Accounts WHERE userName=\'" + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
             statement.close();
-            if (!result.next()) { return ""; }
+            if (!result.next()) {
+                result.close();
+                return "";
+            }
             String dname = result.getNString("displayName");
             result.close();
             return dname;
@@ -194,36 +238,40 @@ public class DataHandler {
     }
 
     /**
-     * Deletes an account with the given userName.
+     * Adds a contact to an Account with the given userName.
      *
-     * @param userName  The userName of the account to delete.
+     * @param userName  The userName of the account.
+     * @param contactName  The name of the contact to add to the account.
      * @throws java.sql.SQLException
      */
-	public static synchronized void deleteAccount(String userName) throws SQLException {
+    public static synchronized void addContact(String userName,
+                                    String contactName) throws SQLException {
+        if (contactExists(userName, contactName)) { return; }
         Statement statement = connection.createStatement();
-        String sql = "DELETE FROM Accounts WHERE userName="
-                        + userName + " LIMIT 1";
+        String sql = "INSERT INTO Contacts VALUES(\'"
+                       + userName + "\',\'"
+                       + contactName +"\')";
         statement.executeUpdate(sql);
-	}
+        statement.close();
+    }
 
     /**
-     * Returns whether or not an account with the given userName exists.
+     * Deletes a contact from the Account with the given userName.
      *
-     * @param userName  The userName to check.
-     * @return  True if an Account with the given userName exists, and false
-     *          otherwise.
+     * @param userName  The userName of the account.
+     * @param contactName The name of the contact to delete.
+     * @throws java.sql.SQLException
      */
-    public static synchronized boolean accountExists(String userName) {
-        try {
-            Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM Accounts WHERE userName=\'"
-                        + userName +"\'";
-            ResultSet result = statement.executeQuery(sql);
-            if (!result.next()) { return false; }
-        }
-        catch (Exception e) { return false; }
-        return true;
-    }
+	public static synchronized void deleteContact(String userName,
+                                                    String contactName)
+                                                    throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "DELETE FROM Contacts WHERE userName="
+                        + userName + "AND contactName=\'"
+                        + contactName + "\' LIMIT 1";
+        statement.executeUpdate(sql);
+        statement.close();
+	}
 
     /**
      * Returns whether or not an account has a given contact in its contactList.
@@ -242,7 +290,12 @@ public class DataHandler {
                             + userName +"\' AND contactName=\'"
                             + contactName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            if (!result.next()) { return false; }
+            statement.close();
+            if (!result.next()) {
+                result.close();
+                return false;
+            }
+            result.close();
         }
         catch (Exception e) { return false; }
         return true;
@@ -260,18 +313,20 @@ public class DataHandler {
         if (!accountExists(userName)) { return; }
         ArrayList<Contact> contacts = list.getList();
         for (Contact c : contacts) {
-            if (!contactExists(userName, c.getUserName())) {
-                try {
-                    Statement statement = connection.createStatement();
-                    String sql = "INSERT INTO Contacts VALUES(\'"
-                                + userName +"\', \'"
-                                + c.getUserName() + "\')";
-                    statement.execute(sql);
-                }
-                catch (Exception e) {}
+            try {
+                addContact(userName, c.getUserName());
             }
+            catch (Exception e) {}
         }
-
+        ArrayList<Contact> compList = loadContactList(userName).getList();
+        for (Contact c : compList) {
+            try {
+                if (!contacts.contains(c)) {
+                    deleteContact(userName,c.getUserName());
+                }
+            }
+            catch (Exception e) {}
+        }
 	}
 
     /**
@@ -279,7 +334,7 @@ public class DataHandler {
      *
      * @param userName  The userName of the account.
      * @return  A ContactList with all contacts associated with the given
-     *          userName.
+     *          userName, or null if the Account does not exist.
      */
 	public static synchronized ContactList loadContactList(String userName) {
         try {
@@ -288,10 +343,13 @@ public class DataHandler {
             String sql = "SELECT * FROM Accounts WHERE userName=\'"
                         + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
+            statement.close();
             while (result.next()) {
-                Contact c = new Contact(result.getString("contactName"),
-                                        result.getNString(""));
+                String cName = result.getNString("contactName");
+                Contact c = new Contact(cName, getDisplayName(cName));
+                cList.addContact(c);
             }
+            result.close();
             return cList;
         }
         catch (Exception e) { return null; }
