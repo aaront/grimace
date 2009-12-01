@@ -113,7 +113,7 @@ public class Account {
      * Changes the fontColour to colour.
      * @param colour to replace old fontColour.
      */
-     public void setDisplayName(Color colour){
+     public void setFontColour(Color colour){
          fontColour = colour;
      }
 
