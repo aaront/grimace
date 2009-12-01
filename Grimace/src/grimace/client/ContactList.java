@@ -34,7 +34,7 @@ public class ContactList implements java.io.Serializable {
      * Creates an instance of a contact list.
      */
     public ContactList() {
-        list = new ArrayList();
+        this.list = new ArrayList();
     }
 
     // Assuming that we're using an array data structure
@@ -45,7 +45,7 @@ public class ContactList implements java.io.Serializable {
      * @param toAdd  The contact to be added to the user's contact list
      */
     public void addContact(Contact toAdd) {
-        list.add(toAdd);
+        this.list.add(toAdd);
     }
 
     /**
@@ -53,7 +53,7 @@ public class ContactList implements java.io.Serializable {
      * @param toRemove  The contact to be removed to the user's contact list
      */
     public void removeContact(Contact toRemove) {
-        list.remove(toRemove);
+        this.list.remove(toRemove);
     }
 
     /**
@@ -61,7 +61,7 @@ public class ContactList implements java.io.Serializable {
      * @return the list of contacts
      */
     public ArrayList<Contact> getList() {
-        return list;
+        return this.list;
     }
 
 }
