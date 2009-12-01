@@ -49,11 +49,11 @@ public class ClientConversation {
      * @param convoId   The conversation identification integer
      * @param options   The arrayList of options
      */
-    public ClientConversation(ArrayList people){
+    public ClientConversation(ContactList cList){
         conversationIdentification = getConversationIdentification();
         convoQOptions = new QuickOptions();
-        convoPeople = new ContactList();
-        currentConvoList = convoPeople.getList();
+        convoPeople = cList;
+        currentConvoList = cList.getList();
 }
 
     /**
