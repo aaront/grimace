@@ -32,25 +32,43 @@ import java.util.ArrayList;
 public class QuickOptions {
 
     private ArrayList<Boolean> optionsToggled;
+   
 
     public QuickOptions(){
       optionsToggled = new ArrayList<Boolean>();
+
+
     }
 
     public ArrayList<Boolean> toggledList(){
     return optionsToggled;
 }
 
-     public void optionChange0(){
+     public void optionLog(){
+        if (optionsToggled.get(0) == Boolean.TRUE){
+           optionsToggled.set(0, Boolean.FALSE);
+        }
+        else{
         optionsToggled.set(0, Boolean.TRUE);
+        }
     }
 
-     public void optionChange1(){
+     public void optionEqn(){
+        if (optionsToggled.get(1) == Boolean.TRUE){
+           optionsToggled.set(1, Boolean.FALSE);
+        }
+        else{
         optionsToggled.set(1, Boolean.TRUE);
-    }
+        }
+     }
 
      public void optionChange2(){
+        if (optionsToggled.get(2) == Boolean.TRUE){
+           optionsToggled.set(2, Boolean.FALSE);
+        }
+        else{
         optionsToggled.set(2, Boolean.TRUE);
+        }
     }
 }
 
