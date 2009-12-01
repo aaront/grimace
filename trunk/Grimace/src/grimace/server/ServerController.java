@@ -26,17 +26,25 @@ package grimace.server;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.sql.SQLException;
+import grimace.client.Account;
 
 /**
+ *
  *
  * @author Vineet Sharma
  */
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
-	private static ServerSocket[] connections;
+	private static ArrayList<Socket> connections;
+    private static ServerSocket serverSocket;
     private static Socket socket;
 
+    /**
+     * Connects to the database and begins listening for client connections
+     * on a the LISTENING_PORT.
+     */
 	public static void setupServer() {
         try {
             DataHandler.connect();
@@ -51,35 +59,156 @@ public class ServerController {
         }
 	}
 
+    /**
+     * Waits for a command from a client and passes it on to be decoded.
+     */
 	public static void listen() {
 
 	}
 
+    /**
+     * Initializes the ServerSocket and binds it to the LISTENING_PORT.
+     */
 	public static void initServerSocket() {
 
 	}
 
-	public static void setupConnection() {
+    /**
+     * Creates a thread to handle a connection to a client.
+     */
+	public static void setupConnectionHandler() {
 
 	}
 
+    /**
+     * Determines what action to perform for a given command.
+     *
+     * @param cmd   The command to decode.
+     */
 	public static void decodeCommand(Command cmd) {
 
 	}
 
-	public static void checkAccountLoginStatus(String username) {
+    /**
+     * Returns whether or not a user with the given userName is logged in.
+     * 
+     * @param username The name of the user to check.
+     * @return  True if the user is logged in, false otherwise.
+     */
+	public static boolean checkAccountLoginStatus(String userName) {
+        return false;
+	}
+
+    /**
+     * Checks whether a given userName/password combination are correct.
+     *
+     * @param username  The name of the user to verify.
+     * @param password  The password to verify.
+     */
+	public static boolean verifyLoginRequest(String userName, String password) {
+        return false;
+	}
+
+    /**
+     * Places a request for a contact to be added.
+     *
+     * @param username  The name of the user requesting the addition.
+     * @param contactname   The name of the contact being requested.
+     */
+	public static void placeContactRequest(String username,
+                                            String contactname) {
 
 	}
 
-	public static void verifyLoginRequest(String username, String password) {
+    /**
+     * Completes the addition of a contact if confirmed by the contact.
+     * 
+     * @param username  The name of the user who requested the addition.
+     * @param contactName The name of the contact being requested.
+     * @param confirm   Whether or not to complete the addition.
+     */
+	public static void confirmContactRequest(String username,
+                                                String contactName,
+                                                boolean confirm) {
 
 	}
 
-	public static void placeContactRequest(String username, String contactname) {
+    /**
+     * Deletes a contact from the Account with the given userName.
+     *
+     * @param userName The Account from which to delete the contact.
+     * @param contactName The name of the contact to delete.
+     */
+    public static void deleteContact(String userName, String contactName) {
 
-	}
+    }
 
-	public static void confirmContactRequest(String username, String contactName) {
+    /**
+     * Creates a conversation and adds all requested users who are online.
+     *
+     * @param userNames The users requested for the conversation.
+     * @return The integer identifying the conversation.
+     */
+    public static int createConversation(String userNames) {
+        return -1;
+    }
 
-	}
+    /**
+     * Sends a message to all users in the conversation with the given id.
+     *
+     * @param conId An integer identifying a target conversation.
+     * @param message The message to send.
+     */
+    public static void sendMessage(int conId, String message) {
+
+    }
+
+    /**
+     * Places a request for users to accept a file transfer.
+     *
+     * @param userName  The user initiating the transfer.
+     * @param contactNames  The contacts to receive the file.
+     * @param file  The name of the file.
+     */
+    public static void placeFileTransferRequest(String userName,
+                                                String[] contactNames,
+                                                String file) {
+    }
+
+    /**
+     * Removes a user from a conversation.
+     *
+     * @param userName  The user to remove.
+     * @param conId An integer identifying the target conversation.
+     */
+    public static void removeFromConversation(String userName, int conId) {
+
+    }
+
+    /**
+     * 
+     * @param userNames
+     * @param conId
+     */
+    public static void addToConversation(String[] userNames, int conId) {
+
+    }
+
+    /**
+     * Updates the information in an account.
+     *
+     * @param acc  The Account to update.
+     */
+    public static void updateAccount(Account acc) {
+
+    }
+
+    /**
+     * Closes a conversation.
+     *
+     * @param conId An integer identifying the conversation to close.
+     */
+    public static void closeConversation(int conId) {
+
+    }
 }

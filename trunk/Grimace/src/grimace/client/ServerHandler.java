@@ -29,7 +29,8 @@ import java.io.*;
 import grimace.server.Command;
 
 /**
- *
+ * ServerHandler facilitates communication with the Wernicke server.
+ * 
  * @author Vineet Sharma
  */
 public final class ServerHandler {
@@ -39,22 +40,50 @@ public final class ServerHandler {
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
 
+    /**
+     * Connects to the server on the SERVER_PORT.
+     *
+     * @throws java.net.UnknownHostException
+     * @throws java.io.IOException
+     */
 	private static void connect() throws UnknownHostException, IOException {
 		socket = new Socket(SERVER_HOSTNAME, SERVER_PORT);
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
 	}
 
+    /**
+     * Sends a command to the server and returns the server's response.
+     *
+     * @param cmd   The command to send.
+     * @return  The response from the server.
+     * @throws java.lang.Exception
+     */
 	private static Command sendCommand(Command cmd) throws Exception {
         if (!socket.isConnected()) { throw new Exception("Not connected"); }
         out.writeObject(cmd);
         return (Command) in.readObject();
 	}
 
+    /**
+     * Sends a request to register a new user.
+     *
+     * @param userName  The userName to register with.
+     * @param passWord  The password to register with.
+     * @throws java.lang.Exception
+     */
     public static void sendRegisterRequest(String userName, String passWord) throws Exception {
         sendCommand(new Command("register", userName, passWord));
     }
-    
+
+    /**
+     * Sends a request to login a user.
+     *
+     * @param userName The name of the user to login as.
+     * @param passWord  The password for the user's account.
+     * @return  True if the login was successful, false otherwise.
+     * @throws java.lang.Exception
+     */
 	public static boolean sendLoginRequest(String userName, String passWord) throws Exception {
         connect();
         Command response = null;
@@ -69,6 +98,14 @@ public final class ServerHandler {
         return true;
 	}
 
+    /**
+     * Requests an Account from the server. This can only be done if the user
+     * is logged in.
+     *
+     * @param userName The userName for the Account to retreive.
+     * @return  The Account corresponding to the username, or null if it does
+     *          not exist.
+     */
     public static Account getAccount(String userName) {
         Command response = null;
         try {
@@ -83,39 +120,106 @@ public final class ServerHandler {
         return null;
     }
 
+    /**
+     * Sends a request to the server to add a contact to an account.
+     *
+     * @param userName  The username of the account.
+     * @param contactName The name of the contact being requested.
+     * @throws java.lang.Exception
+     */
 	public static void sendAddContactRequest(String userName, String contactName) throws Exception {
         sendCommand(new Command("contactRequest", userName, contactName));
 	}
 
+    /**
+     * Sends a request to the server to delete a contact from an account.
+     *
+     * @param userName The userName of the account.
+     * @param contactName   The name of the contact to delete.
+     * @throws java.lang.Exception
+     */
 	public static void sendDeleteContactRequest(String userName, String contactName) throws Exception {
         sendCommand(new Command("delContact", userName, contactName));
 	}
 
+    /**
+     * Sends a request to start a conversation with one or more contacts.
+     *
+     * @param userName  The user initiating the conversation.
+     * @param contactNames  The names of the contacts to request.
+     * @throws java.lang.Exception
+     */
 	public static void sendConversationRequest(String userName, String[] contactNames) throws Exception {
         //sendCommand(new Command("startConversation", userName, ));
 	}
 
+    /**
+     * Sends a request to the server to post a message to a conversation.
+     *
+     * @param userName The name of the user sending the message.
+     * @param message   The message being sent.
+     * @param conId     An integer identifying a target conversation.
+     * @throws java.lang.Exception
+     */
 	public static void sendMessagePostRequest(String userName, String message, int conId) throws Exception {
         sendCommand(new Command("sendMessage", userName, message, String.valueOf(conId)));
 	}
 
+    /**
+     * Sends a request to the server to transfer a file to one or more contacts.
+     *
+     * @param username The name of the user initiating the transfer.
+     * @param filename The name of the file to be sent.
+     * @param contactNames The names of contacts receiving the file.
+     * @throws java.lang.Exception
+     */
 	public static void sendFileTransferRequest(String username, String filename, String[] contactNames) throws Exception {
         //sendCommand(new Command("fileTransferRequest", userName, filename, ));
 	}
 
+    /**
+     * Sends a notification to the server that a contact has left a
+     * conversation.
+     *
+     * @param userName  The name of the user leaving the conversation.
+     * @param conId An integer identifying the conversation.
+     * @throws java.lang.Exception
+     */
     public static void sendQuitConversationNotification(String userName, int conId) throws Exception {
         sendCommand(new Command("quitConversation", userName, String.valueOf(conId)));
     }
 
+    /**
+     * Sends a response to a file transfer request given by the server.
+     *
+     * @param userName  The name of the user initiating the request.
+     * @param contactName The name of the user responding.
+     * @param response  Whether or not the request is accepted.
+     * @throws java.lang.Exception
+     */
     public static void sendFileTransferResponse(String userName, String contactName, boolean response) throws Exception {
         sendCommand(new Command("fileTransferResponse", userName, contactName, String.valueOf(response)));
     }
 
+    /**
+     * Sends a response to a contact request given by the server.
+     *
+     * @param userName The name of the user initiating the request.
+     * @param contactName The name of the user responding.
+     * @param response Whether or not the request is accepted.
+     * @throws java.lang.Exception
+     */
     public static void sendContactRequestResponse(String userName, String contactName, boolean response) throws Exception {
         sendCommand(new Command("contactRequestResponse", userName, contactName, String.valueOf(response)));
     }
 
-    public static void sendAccountUpdateRequest(String userName, Account account) throws Exception {
+    /**
+     * Sends a request to the server to update an account.
+     *
+     * @param account The account to update.
+     * @throws java.lang.Exception
+     */
+    public static void sendAccountUpdateRequest(Account account) throws Exception {
         //sendCommand(new Command("updateAccount", userName, ));
     }
 }
