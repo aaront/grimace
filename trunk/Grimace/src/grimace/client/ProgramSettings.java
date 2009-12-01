@@ -24,83 +24,93 @@
 
 package grimace.client;
 
-import java.util.prefs.*;
-import java.io.Serializable;
+import java.io.*;
 
 public class ProgramSettings implements Serializable {
-    // @TODO: Store preferences in program directory
-    Preferences prefs;
+    // @TODO: Store preferences in working directory
+    //Preferences prefs;
+    String SETTINGS_FILE = System.getProperty("user.dir") + "ProgramSettings.ser";
+    String serverAddress;
+    int serverPort;
+    Boolean showInTray;
+    Boolean showEmoticons;
+    Boolean recordChatLogs;
+    Boolean showEquationEditor;
 
-    public ProgramSettings() throws BackingStoreException {
-        loadSettings(Preferences.systemRoot().nodeExists(this.getClass().getName()));
+    public ProgramSettings() {
+        loadSettings();
     }
 
-    public void loadSettings(Boolean exists) {
-        prefs = Preferences.systemRoot().node(this.getClass().getName());
-        if (!exists) {
+    public void loadSettings() {
+        //prefs = Preferences.systemRoot().node(this.getClass().getName());
+        File file = new File(SETTINGS_FILE);
+        if (!file.exists()) {
             setServerAddress("127.0.0.1");
             setServerPort(4422);
-            setDataPath(System.getProperty("user.dir"));
             setShowInTray(true);
             setShowEmoticons(true);
             setRecordChatLogs(false);
             setShowEquationEditor(false);
+        } else {
+            ProgramSettings saved = (ProgramSettings) FileSystem.loadFile(SETTINGS_FILE);
+            setServerAddress(saved.getServerAddress());
+            setServerPort(saved.getServerPort());
+            setShowInTray(saved.getShowInTray());
+            setShowEmoticons(saved.getShowEmoticons());
+            setRecordChatLogs(saved.getRecordChatLogs());
+            setShowEquationEditor(saved.getShowEquationEditor());
         }
     }
 
+    public void saveSettings() {
+        FileSystem.saveFile(this, SETTINGS_FILE);
+    }
+
     public void setServerAddress(String address) {
-        prefs.put("ServerAddress", address);
+        serverAddress = address;
     }
 
     public String getServerAddress() {
-        return prefs.get("ServerAddress", "127.0.0.1");
+        return serverAddress;
     }
 
     public void setServerPort(int port) {
-        prefs.putInt("ServerPort", port);
+        serverPort = port;
     }
 
     public int getServerPort() {
-        return prefs.getInt("ServerPort", 4422);
-    }
-
-    public void setDataPath(String path) {
-        prefs.put("DataPath", path);
-    }
-
-    public String getDataPath() {
-        return prefs.get("DataPath", System.getProperty("user.dir"));
+        return serverPort;
     }
 
     public void setShowInTray(Boolean enabled) {
-        prefs.putBoolean("ShowInTray", enabled);
+        showInTray = enabled;
     }
 
     public Boolean getShowInTray() {
-        return prefs.getBoolean("ShowInTray", true);
+        return showInTray;
     }
 
     public void setShowEmoticons(Boolean enabled) {
-        prefs.putBoolean("ShowEmoticons", enabled);
+        showEmoticons = enabled;
     }
 
     public Boolean getShowEmoticons() {
-        return prefs.getBoolean("ShowEmoticons", true);
+        return showEmoticons;
     }
 
     public void setRecordChatLogs(Boolean enabled) {
-        prefs.putBoolean("RecordChatLogs", enabled);
+        recordChatLogs = enabled;
     }
 
     public Boolean getRecordChatLogs() {
-        return prefs.getBoolean("RecordChatLogs", false);
+        return recordChatLogs;
     }
 
     public void setShowEquationEditor(Boolean enabled) {
-        prefs.putBoolean("ShowEquationEditor", enabled);
+        showEquationEditor = enabled;
     }
 
     public Boolean getShowEquationEditor() {
-        return prefs.getBoolean("ShowEquationEditor", false);
+        return showEquationEditor;
     }
 }

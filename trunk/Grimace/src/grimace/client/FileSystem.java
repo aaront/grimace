@@ -29,7 +29,7 @@ import java.io.*;
 public class FileSystem {
     // @TODO: Which methods will need to use FileSystem?
 
-    public void saveFile(Serializable data, String path) throws Exception {
+    public static void saveFile(Serializable data, String path) {
         try {
             FileOutputStream outFile = new FileOutputStream(path);
             ObjectOutputStream out = new ObjectOutputStream(outFile);
@@ -42,7 +42,7 @@ public class FileSystem {
         }
     }
 
-    public Object loadFile(String path) throws Exception {
+    public static Object loadFile(String path) {
         try {
             FileInputStream inFile = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(inFile);
