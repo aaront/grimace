@@ -124,7 +124,7 @@ public class ProgramController {
      * Send message to a conversation
      * @param conversation the conversation to send the message to
      * @param message the sent message
-     * @return the message sent to the conversation
+     * 
      */
     public void sendMessage(String message) {
         convo.prepareMessageForSending(message);
