@@ -28,8 +28,8 @@ public class Contact implements java.io.Serializable {
 
     // @TODO: Interact with the database somehow. I think. Maybe not.
 
-    private static String userName;
-    private static String displayName;
+    private String userName;
+    private String displayName;
 
     /**
      * Creates an instance of Contact with an existing account
@@ -41,10 +41,21 @@ public class Contact implements java.io.Serializable {
     }
 
     /**
+     * Creates an instance of Contact with the user name and display name of
+     * an existing account.
+     * @param userName  The user name associated with this Contact instance.
+     * @param dispName  The display name associated with this Contact instance.
+     */
+    public Contact(String userName, String dispName) {
+        this.userName = userName;
+        this.displayName = dispName;
+    }
+
+    /**
      * Accessor of the username of the contact
      * @return the username of the contact
      */
-    public static String getUserName() {
+    public String getUserName() {
         return userName;
     }
 
@@ -52,7 +63,7 @@ public class Contact implements java.io.Serializable {
      * Accessor of the display name of the contact
      * @return the display name of the contact
      */
-    public static String getDisplayName() {
+    public String getDisplayName() {
         return displayName;
     }
 
