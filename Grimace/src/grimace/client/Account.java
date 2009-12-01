@@ -24,12 +24,17 @@
 
 package grimace.client;
 import java.awt.Font;
+import java.awt.Color;
 
 
 public class Account {
 
     public static final String DEFAULT_FONT = "Times New Roman";
+    public static final int DEFAULT_FONT_SIZE = 12;
+    public static final Color DEFAULT_FONT_COLOUR = Color.BLACK;
+
     private Font font;
+    private Color fontColour;
     private ContactList cList;
     private String userName;
     private String displayName;
@@ -45,7 +50,8 @@ public class Account {
         cList = new ContactList();
         userName = iUserName;
         displayName = userName;
-        font = new Font( DEFAULT_FONT, Font.PLAIN, 12);
+        font = new Font( DEFAULT_FONT, Font.PLAIN, DEFAULT_FONT_SIZE);
+        fontColour = DEFAULT_FONT_COLOUR;
     }
 
      /**
@@ -57,6 +63,8 @@ public class Account {
         cList = new ContactList();
         userName = iUserName;
         displayName = iDisplayName;
+        font = new Font( DEFAULT_FONT, Font.PLAIN, DEFAULT_FONT_SIZE);
+        fontColour = DEFAULT_FONT_COLOUR;
     }
 
      /**
@@ -92,6 +100,22 @@ public class Account {
      }
 
 
+
+    /**
+     * Returns the current Font Colour for the settings
+     * @return the font colour that the user is currently using
+     */
+    public Color getFontColour(){
+        return fontColour;
+    }
+    
+    /**
+     * Changes the fontColour to colour.
+     * @param colour to replace old fontColour.
+     */
+     public void setDisplayName(Color colour){
+         fontColour = colour;
+     }
 
 
      /**
