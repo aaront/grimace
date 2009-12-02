@@ -34,7 +34,7 @@ import grimace.server.Command;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    private static final String SERVER_HOSTNAME = "host_ip";
+    private static final String SERVER_HOSTNAME = "localhost";
 	private static final int SERVER_PORT = 1234;
 	private static Socket socket;
     private static ObjectOutputStream out;
