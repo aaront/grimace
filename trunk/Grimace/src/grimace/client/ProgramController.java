@@ -30,19 +30,29 @@ import java.io.File;
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
  */
 public class ProgramController {
-
-    String username;
-    String displayname;
-
-    Account accnt = new Account(username, displayname);
-    ContactList list = accnt.getContactList();
-    ClientConversation convo;
-    ArrayList<Contact> convoList;
-    ProgramSettings progSetting;
-
+    private static Account accnt;
+    private ClientConversation convo;
+    private static ArrayList<Contact> convoList;
+    private static ProgramSettings progSetting;
 
     public ProgramController() {
-        // @TODO: Create a new session with an account
+        // @TODO: Set up window and show login form
+    }
+
+    /**
+     * Changes the currently active user
+     * @param newAccount The new active Account
+     */
+    public static void setAccount(Account newAccount) {
+        accnt = newAccount;
+        // @TODO: Set up contact list, etc.
+    }
+
+    /**
+     * Returns the currently active Account
+     */
+    public static Account getAccount() {
+        return accnt;
     }
 
     /**
