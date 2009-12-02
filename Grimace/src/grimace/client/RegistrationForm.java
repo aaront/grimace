@@ -144,15 +144,15 @@ public class RegistrationForm extends javax.swing.JPanel {
             showError("Please enter a password.");
         } else if (!pass.equals(confirmPassField.getText())) {
             showError("Passwords do not match.");
+        } else {
+            try {
+                Command response = ServerHandler.sendRegisterRequest(user, pass);
+                System.out.println(response.getCommandName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // @TODO: Get response and complete action or show error
         }
-
-        try {
-            Command response = ServerHandler.sendRegisterRequest(user, pass);
-            System.out.println(response.getCommandName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        // @TODO: Get response and complete action or show error
     }//GEN-LAST:event_registerbuttonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed

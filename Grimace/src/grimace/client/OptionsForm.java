@@ -139,7 +139,7 @@ public class OptionsForm extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancelButton)
                     .addComponent(acceptButton))
-                .addGap(83, 83, 83))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -169,6 +169,7 @@ public class OptionsForm extends javax.swing.JPanel {
         if (!enabled.equals(settings.getShowEquationEditor())) {
             settings.setShowEquationEditor(enabled);
         }
+        settings.saveSettings();
         this.setVisible(false);
         this.getParent().validate();
     }//GEN-LAST:event_acceptButtonActionPerformed
