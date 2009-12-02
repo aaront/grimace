@@ -23,10 +23,8 @@
  */
 
 package grimace.client;
+
 import java.awt.GraphicsEnvironment;
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.awt.Font;
 
 public class ChatToolbar extends javax.swing.JPanel {
 
@@ -34,19 +32,17 @@ public class ChatToolbar extends javax.swing.JPanel {
     public ChatToolbar() {
         initComponents();
 
-
         // Filling the font selector with available fonts
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ArrayList<Font> availableFonts = new ArrayList(Arrays.asList(e.getAvailableFontFamilyNames()));
-        Integer[] fs = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
-        ArrayList<Integer> fontSizes = new ArrayList(Arrays.asList(fs));
+        String[] availableFonts = e.getAvailableFontFamilyNames();
+        Integer[] fontSizes = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
 
-        fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts.toArray()));
-        sizeSelector.setModel(new javax.swing.DefaultComboBoxModel(fontSizes.toArray()));
+        fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts));
+        sizeSelector.setModel(new javax.swing.DefaultComboBoxModel(fontSizes));
 
         // @TODO: Fill in with proper stuff when ProgramController is all hooked up and shit
-        fontSelector.setSelectedIndex(availableFonts.indexOf(Account.DEFAULT_FONT));
-        sizeSelector.setSelectedIndex(fontSizes.indexOf(Account.DEFAULT_FONT_SIZE));
+        fontSelector.setSelectedItem(Account.DEFAULT_FONT);
+        sizeSelector.setSelectedItem(Account.DEFAULT_FONT_SIZE);
     }
 
     /** This method is called from within the constructor to
