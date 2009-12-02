@@ -24,6 +24,9 @@
 
 package grimace.client;
 import java.awt.GraphicsEnvironment;
+import java.util.Arrays;
+import java.util.ArrayList;
+import java.awt.Font;
 
 public class ChatToolbar extends javax.swing.JPanel {
 
@@ -34,8 +37,16 @@ public class ChatToolbar extends javax.swing.JPanel {
 
         // Filling the font selector with available fonts
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        String[] availableFonts = e.getAvailableFontFamilyNames();
-        fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts));
+        ArrayList<Font> availableFonts = new ArrayList(Arrays.asList(e.getAvailableFontFamilyNames()));
+        Integer[] fs = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
+        ArrayList<Integer> fontSizes = new ArrayList(Arrays.asList(fs));
+
+        fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts.toArray()));
+        sizeSelector.setModel(new javax.swing.DefaultComboBoxModel(fontSizes.toArray()));
+
+        // @TODO: Fill in with proper stuff when ProgramController is all hooked up and shit
+        fontSelector.setSelectedIndex(availableFonts.indexOf(Account.DEFAULT_FONT));
+        sizeSelector.setSelectedIndex(fontSizes.indexOf(Account.DEFAULT_FONT_SIZE));
     }
 
     /** This method is called from within the constructor to
@@ -53,7 +64,7 @@ public class ChatToolbar extends javax.swing.JPanel {
         underline = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         fontSelector = new javax.swing.JComboBox();
-        jComboBox1 = new javax.swing.JComboBox();
+        sizeSelector = new javax.swing.JComboBox();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
 
@@ -101,11 +112,9 @@ public class ChatToolbar extends javax.swing.JPanel {
         fontSelector.setPreferredSize(new java.awt.Dimension(150, 27));
         jToolBar1.add(fontSelector);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "8", "9", "10", "11", "12", "13", "14", "15", "16", "18", "21", "24", "36", "48", "56", "72" }));
-        jComboBox1.setSelectedIndex(4);
-        jComboBox1.setMaximumSize(new java.awt.Dimension(70, 27));
-        jComboBox1.setMinimumSize(new java.awt.Dimension(70, 27));
-        jToolBar1.add(jComboBox1);
+        sizeSelector.setMaximumSize(new java.awt.Dimension(70, 27));
+        sizeSelector.setMinimumSize(new java.awt.Dimension(70, 27));
+        jToolBar1.add(sizeSelector);
         jToolBar1.add(jSeparator1);
 
         jButton1.setText("Add Equation");
@@ -134,10 +143,10 @@ public class ChatToolbar extends javax.swing.JPanel {
     private javax.swing.JComboBox fontSelector;
     private javax.swing.JToggleButton italicise;
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
+    private javax.swing.JComboBox sizeSelector;
     private javax.swing.JToggleButton underline;
     // End of variables declaration//GEN-END:variables
 
