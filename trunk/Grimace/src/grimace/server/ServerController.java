@@ -124,12 +124,14 @@ public class ServerController {
                     }
                     else {
                         String userName = cmd.getCommandArg(0);
-                        connections.put(userName, new ClientHandler(socket, userName));
+                        out.writeObject(DataHandler.loadAccount(userName));
+                        connections.put(userName, new ClientHandler(socket, userName, in, out));
                     }
                 }
             }
-            catch (Exception ex) {
+            catch (Exception e) {
                 System.out.println("Failed to accept socket.");
+                e.printStackTrace();
             }
         }
 	}
@@ -164,18 +166,20 @@ public class ServerController {
             else {
                 String userName = cmd.getCommandArg(0);
                 String password = cmd.getCommandArg(1);
+                String display = cmd.getCommandArg(2);
                 try {
-                    if (DataHandler.createAccount(userName, password)) {
+                    if (DataHandler.createAccount(userName, password,
+                                                            display)) {
                         resp = new Command("registerSuccess");
                     }
                     else {
                         resp = new Command("registerFailure",
-                                                "userNameExists");
+                                            "userNameExists");
                     }
                 }
                 catch (Exception ex) {
                     resp = new Command("registerFailure",
-                                            "accountCreationError");
+                                        "accountCreationError");
                 }
             }
         }

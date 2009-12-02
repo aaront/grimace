@@ -26,33 +26,25 @@ public class ClientHandler {
     private Command toClient;
     private boolean run;
 
-    public ClientHandler(Socket socket, String name) {
+    public ClientHandler(Socket socket, String name, ObjectInputStream in, ObjectOutputStream out) {
         this.name = name;
-        run = false;
         commandQueue = new ArrayList<Command>();
         this.socket = socket;
-        try {
-            out = new ObjectOutputStream(socket.getOutputStream());
-            in = new ObjectInputStream(socket.getInputStream());
-            run = true;
-            listen = new Thread(new Runnable() {
-                                public void run() {
-                                    listenSocket();
-                                }
-                            });
-            listen.start();
-            active = new Thread(new Runnable() {
-                                public void run() {
-                                    activeSocket();
-                                }
-                            });
-            active.start();
-        }
-        catch (Exception e) {
-            System.out.println("Socket IO Problem:");
-            e.printStackTrace();
-            run = false;
-        }
+        this.in = in;
+        this.out = out;
+        listen = new Thread(new Runnable() {
+                            public void run() {
+                                listenSocket();
+                            }
+                        });
+        active = new Thread(new Runnable() {
+                            public void run() {
+                                activeSocket();
+                            }
+                        });
+        run = true;
+        listen.start();
+        active.start();
     }
 
     private void setName(String str) {
@@ -64,15 +56,13 @@ public class ClientHandler {
     }
 
     private void listenSocket() {
-        while (true) {
-            if (!run) { break; }
+        while (run) {
             try {
                 fromClient = (Command)in.readObject();
                 handleCommand(fromClient);
             }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            catch (java.io.EOFException e) { }
+            catch (Exception e) { e.printStackTrace(); }
         }
     }
 

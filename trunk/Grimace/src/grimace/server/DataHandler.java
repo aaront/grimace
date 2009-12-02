@@ -46,6 +46,11 @@ public class DataHandler {
                                 "jdbc:sqlite:" + DB_NAME;
 	private static Connection connection;
 
+
+    public static Connection getConnection() {
+        return connection;
+    }
+
 	public static void connect() throws SQLException, ClassNotFoundException {
 		Class.forName(DB_DRIVER);
         connection = DriverManager.getConnection(CONNECTION_URL);
@@ -144,13 +149,16 @@ public class DataHandler {
      * @throws Exception
      */
     public static synchronized boolean createAccount(String userName,
-                                    String password) throws Exception {
+                                                    String password,
+                                                    String displayName)
+                                                    throws Exception {
         if (accountExists(userName)) { return false; }
         Statement statement = connection.createStatement();
+        String passHash = getPasswordHash(password);
         String sql = "INSERT INTO Accounts VALUES(\'"
                        + userName + "\',\'"
-                       + getPasswordHash(password) + "\',\'"
-                       + userName + "\',\'"
+                       + passHash + "\',\'"
+                       + displayName + "\',\'"
                        + Account.DEFAULT_FONT + "\',"
                        + String.valueOf(Account.DEFAULT_FONT_SIZE) + ","
                        + String.valueOf(Account.DEFAULT_FONT_COLOUR.getRGB())
@@ -207,8 +215,8 @@ public class DataHandler {
                 return null;
             }
             Account acc = new Account(userName);
-            acc.setDisplayName(result.getNString("displayName"));
-            acc.changeFont(result.getNString("fontName"));
+            acc.setDisplayName(result.getString("displayName"));
+            acc.changeFont(result.getString("fontName"));
             acc.changeSize(result.getInt("fontSize"));
             acc.setFontColour(new Color(result.getInt("fontColour")));
             if (result.getInt("fontItalic") == 1) { acc.toggleItalic(); }
@@ -248,12 +256,12 @@ public class DataHandler {
             String sql = "SELECT * FROM Accounts WHERE userName=\'"
                         + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            statement.close();
             if (!result.next()) {
                 result.close();
                 return false;
             }
             result.close();
+            statement.close();
         }
         catch (Exception e) { return false; }
         return true;
@@ -274,13 +282,13 @@ public class DataHandler {
             String sql = "SELECT displayName FROM Accounts WHERE userName=\'"
                         + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            statement.close();
             if (!result.next()) {
                 result.close();
                 return "";
             }
-            String dname = result.getNString("displayName");
+            String dname = result.getString("displayName");
             result.close();
+            statement.close();
             return dname;
         }
         catch (Exception e) { return ""; }
@@ -301,14 +309,14 @@ public class DataHandler {
         String sql = "SELECT password FROM Accounts WHERE userName=\'"
                     + userName +"\'";
         ResultSet result = statement.executeQuery(sql);
-        statement.close();
         if (!result.next()) {
             result.close();
             return "";
         }
-        String dname = result.getNString("password");
+        String hash = result.getString("password");
         result.close();
-        return dname;
+        statement.close();
+        return hash;
     }
 
     /**
@@ -364,12 +372,12 @@ public class DataHandler {
                             + userName +"\' AND contactName=\'"
                             + contactName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            statement.close();
             if (!result.next()) {
                 result.close();
                 return false;
             }
             result.close();
+            statement.close();
         }
         catch (Exception e) { return false; }
         return true;
@@ -417,13 +425,13 @@ public class DataHandler {
             String sql = "SELECT * FROM Accounts WHERE userName=\'"
                         + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
-            statement.close();
             while (result.next()) {
-                String cName = result.getNString("contactName");
+                String cName = result.getString("contactName");
                 Contact c = new Contact(cName, getDisplayName(cName));
                 cList.addContact(c);
             }
             result.close();
+            statement.close();
             return cList;
         }
         catch (Exception e) { return null; }

@@ -72,10 +72,15 @@ public final class ServerHandler {
      * @param passWord  The password to register with.
      * @throws java.lang.Exception
      */
-    public static Command sendRegisterRequest(String userName, String passWord) throws Exception {
+    public static Command sendRegisterRequest(String userName, String passWord,
+                                                String displayName)
+                                                throws Exception {
         connect();
         Command response = null;
-        response = sendCommand(new Command("register", userName, passWord));
+        response = sendCommand(new Command("register", userName, passWord,
+                                            displayName));
+        out.close();
+        in.close();
         socket.close();
         return response;
     }
@@ -88,11 +93,14 @@ public final class ServerHandler {
      * @return  True if the login was successful, false otherwise.
      * @throws java.lang.Exception
      */
-	public static boolean sendLoginRequest(String userName, String passWord) throws Exception {
+	public static boolean sendLoginRequest(String userName, String passWord)
+                                            throws Exception {
         connect();
         Command response = null;
         response = sendCommand(new Command("login", userName, passWord));
         if (!response.getCommandName().equals("loginSuccess")) {
+            out.close();
+            in.close();
             socket.close();
             return false;
         }
@@ -112,16 +120,6 @@ public final class ServerHandler {
      *          not exist.
      */
     public static Account getAccount(String userName) {
-        Command response = null;
-        try {
-            response = sendCommand(new Command("getAccount", userName));
-        }
-        catch (Exception e) {
-            return null;
-        }
-        if (!response.getCommandName().equals("readUser")) {
-
-        }
         return null;
     }
 
@@ -132,7 +130,9 @@ public final class ServerHandler {
      * @param contactName The name of the contact being requested.
      * @throws java.lang.Exception
      */
-	public static void sendAddContactRequest(String userName, String contactName) throws Exception {
+	public static void sendAddContactRequest(String userName,
+                                                String contactName)
+                                                throws Exception {
         sendCommand(new Command("contactRequest", userName, contactName));
 	}
 
@@ -143,7 +143,9 @@ public final class ServerHandler {
      * @param contactName   The name of the contact to delete.
      * @throws java.lang.Exception
      */
-	public static void sendDeleteContactRequest(String userName, String contactName) throws Exception {
+	public static void sendDeleteContactRequest(String userName,
+                                                String contactName)
+                                                throws Exception {
         sendCommand(new Command("delContact", userName, contactName));
 	}
 
@@ -154,7 +156,9 @@ public final class ServerHandler {
      * @param contactNames  The names of the contacts to request.
      * @throws java.lang.Exception
      */
-	public static void sendConversationRequest(String userName, String[] contactNames) throws Exception {
+	public static void sendConversationRequest(String userName,
+                                                String[] contactNames)
+                                                throws Exception {
         //sendCommand(new Command("startConversation", userName, ));
 	}
 
@@ -166,8 +170,10 @@ public final class ServerHandler {
      * @param conId     An integer identifying a target conversation.
      * @throws java.lang.Exception
      */
-	public static void sendMessagePostRequest(String userName, String message, int conId) throws Exception {
-        sendCommand(new Command("sendMessage", userName, message, String.valueOf(conId)));
+	public static void sendMessagePostRequest(String userName, String message,
+                                                int conId) throws Exception {
+        sendCommand(new Command("sendMessage", userName, message,
+                                String.valueOf(conId)));
 	}
 
     /**
@@ -178,7 +184,9 @@ public final class ServerHandler {
      * @param contactNames The names of contacts receiving the file.
      * @throws java.lang.Exception
      */
-	public static void sendFileTransferRequest(String username, String filename, String[] contactNames) throws Exception {
+	public static void sendFileTransferRequest(String username, String filename,
+                                                String[] contactNames)
+                                                throws Exception {
         //sendCommand(new Command("fileTransferRequest", userName, filename, ));
 	}
 
@@ -190,8 +198,11 @@ public final class ServerHandler {
      * @param conId An integer identifying the conversation.
      * @throws java.lang.Exception
      */
-    public static void sendQuitConversationNotification(String userName, int conId) throws Exception {
-        sendCommand(new Command("quitConversation", userName, String.valueOf(conId)));
+    public static void sendQuitConversationNotification(String userName,
+                                                        int conId)
+                                                        throws Exception {
+        sendCommand(new Command("quitConversation", userName,
+                                String.valueOf(conId)));
     }
 
     /**
@@ -202,8 +213,12 @@ public final class ServerHandler {
      * @param response  Whether or not the request is accepted.
      * @throws java.lang.Exception
      */
-    public static void sendFileTransferResponse(String userName, String contactName, boolean response) throws Exception {
-        sendCommand(new Command("fileTransferResponse", userName, contactName, String.valueOf(response)));
+    public static void sendFileTransferResponse(String userName,
+                                                String contactName,
+                                                boolean response)
+                                                throws Exception {
+        sendCommand(new Command("fileTransferResponse", userName, contactName,
+                                String.valueOf(response)));
     }
 
     /**
@@ -214,8 +229,12 @@ public final class ServerHandler {
      * @param response Whether or not the request is accepted.
      * @throws java.lang.Exception
      */
-    public static void sendContactRequestResponse(String userName, String contactName, boolean response) throws Exception {
-        sendCommand(new Command("contactRequestResponse", userName, contactName, String.valueOf(response)));
+    public static void sendContactRequestResponse(String userName,
+                                                    String contactName,
+                                                    boolean response)
+                                                    throws Exception {
+        sendCommand(new Command("contactRequestResponse", userName, contactName,
+                        String.valueOf(response)));
     }
 
     /**
@@ -224,7 +243,8 @@ public final class ServerHandler {
      * @param account The account to update.
      * @throws java.lang.Exception
      */
-    public static void sendAccountUpdateRequest(Account account) throws Exception {
+    public static void sendAccountUpdateRequest(Account account)
+                                                throws Exception {
         //sendCommand(new Command("updateAccount", userName, ));
     }
 }

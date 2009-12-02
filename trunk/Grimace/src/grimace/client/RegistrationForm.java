@@ -146,7 +146,7 @@ public class RegistrationForm extends javax.swing.JPanel {
             showError("Passwords do not match.");
         } else {
             try {
-                Command response = ServerHandler.sendRegisterRequest(user, pass);
+                Command response = ServerHandler.sendRegisterRequest(user, pass, display);
                 System.out.println(response.getCommandName());
             } catch (Exception e) {
                 e.printStackTrace();

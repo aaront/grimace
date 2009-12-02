@@ -25,9 +25,10 @@
 package grimace.client;
 import java.awt.Font;
 import java.awt.Color;
+import java.io.Serializable;
 
 
-public class Account {
+public class Account implements Serializable {
 
     public static final String DEFAULT_FONT = "Times New Roman";
     public static final int DEFAULT_FONT_SIZE = 12;
