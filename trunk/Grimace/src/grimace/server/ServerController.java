@@ -25,7 +25,6 @@
 package grimace.server;
 
 import java.net.*;
-import java.io.*;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import grimace.client.Account;
@@ -71,7 +70,7 @@ public class ServerController {
 	public static void initDataHandler() {
         try {
             DataHandler.connect();
-            //DataHandler.initDatabase();
+            DataHandler.initDatabase();
         }
         catch (ClassNotFoundException ex) {
             System.out.println("Database driver not found.");
@@ -81,6 +80,7 @@ public class ServerController {
         catch (SQLException ex) {
             System.out.println("Unable to connect to database.");
             System.out.println("Server will exit.");
+            ex.printStackTrace();
             System.exit(1);
         }
 	}
