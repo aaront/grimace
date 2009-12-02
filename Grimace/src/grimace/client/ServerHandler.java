@@ -96,6 +96,10 @@ public final class ServerHandler {
             socket.close();
             return false;
         }
+        else {
+            Account acc = (Account)in.readObject();
+            ProgramController.setAccount(acc);
+        }
         return true;
 	}
 

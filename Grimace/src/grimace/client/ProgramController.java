@@ -32,7 +32,7 @@ import java.io.File;
 public class ProgramController {
     private static Account accnt;
     private ClientConversation convo;
-    private static ArrayList<Contact> convoList;
+    private static ArrayList<ClientConversation> convoList;
     private static ProgramSettings progSetting;
 
     public ProgramController() {
