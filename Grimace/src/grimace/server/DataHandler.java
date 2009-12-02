@@ -39,11 +39,11 @@ import grimace.client.Contact;
  * @author Vineet Sharma
  */
 public class DataHandler {
-    private static final String DB_DRIVER =
-                                "org.apache.derby.jdbc.EmbeddedDriver";
-	private static final String DB_NAME = "WernickeData";
+    private static final String DB_DRIVER = "org.sqlite.JDBC";
+                                //"org.apache.derby.jdbc.EmbeddedDriver";
+	private static final String DB_NAME = "WernickeData.db";
 	private static final String CONNECTION_URL =
-                                "jdbc:derby:" + DB_NAME + ";create=true";
+                                "jdbc:sqlite:" + DB_NAME;
 	private static Connection connection;
 
 	public static void connect() throws SQLException, ClassNotFoundException {
@@ -56,8 +56,9 @@ public class DataHandler {
      *
      * @throws java.sql.SQLException
      */
-    public static void initDatabase() throws SQLException {
-        DataHandler.createTable("Accounts", false,
+    public static void initDatabase() {
+        try {
+            DataHandler.createTable("Accounts", false,
                                 "userName varchar(30) PRIMARY KEY",
                                 "password varchar(40)",
                                 "displayName varchar(100)",
@@ -66,9 +67,13 @@ public class DataHandler {
                                 "fontColour int",
                                 "fontItalic int",
                                 "fontBold int");
-        DataHandler.createTable("Contacts", false,
+            DataHandler.createTable("Contacts", false,
                                 "userName varchar(30)",
                                 "contactName varchar(30)");
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -88,8 +93,8 @@ public class DataHandler {
                                     String... cols) throws SQLException {
         Statement statement = connection.createStatement();
         if (cols.length == 0) { return; }
-        StringBuffer sql = new StringBuffer("CREATE TABLE "
-                                        + ((replace) ? "" : " IF NOT EXISTS ")
+        StringBuffer sql = new StringBuffer("CREATE TABLE"
+                                        + ((replace) ? " " : " IF NOT EXISTS ")
                                         + tableName + " (");
         for (int i=0; i<cols.length; i++) {
             sql.append(cols[i] + ((i == cols.length-1) ? "" : ","));
