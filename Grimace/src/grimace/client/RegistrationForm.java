@@ -24,6 +24,8 @@
 
 package grimace.client;
 
+import grimace.server.Command;
+
 public class RegistrationForm extends javax.swing.JPanel {
 
     /** Creates new form RegistrationForm */
@@ -100,7 +102,7 @@ public class RegistrationForm extends javax.swing.JPanel {
                     .addComponent(displayField)
                     .addComponent(jLabel3)
                     .addComponent(confirmPassField, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,7 +147,8 @@ public class RegistrationForm extends javax.swing.JPanel {
         }
 
         try {
-            ServerHandler.sendRegisterRequest(user, pass);
+            Command response = ServerHandler.sendRegisterRequest(user, pass);
+            System.out.println(response.getCommandName());
         } catch (Exception e) {
             e.printStackTrace();
         }
