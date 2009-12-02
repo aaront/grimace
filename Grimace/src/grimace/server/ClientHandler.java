@@ -16,7 +16,6 @@ import java.util.ArrayList;
  */
 public class ClientHandler {
     private String name;
-    private boolean isLoggedIn;
     private ArrayList<Command> commandQueue;
     private Socket socket;
     private ObjectOutputStream out;
@@ -29,7 +28,6 @@ public class ClientHandler {
 
     public ClientHandler(Socket socket) {
         this.name = "";
-        isLoggedIn = false;
         run = false;
         commandQueue = new ArrayList<Command>();
         this.socket = socket;

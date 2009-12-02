@@ -25,7 +25,8 @@
 package grimace.server;
 
 import java.net.*;
-import java.util.ArrayList;
+import java.io.*;
+import java.util.Hashtable;
 import java.sql.SQLException;
 import grimace.client.Account;
 
@@ -36,7 +37,7 @@ import grimace.client.Account;
  */
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
-	private static ArrayList<ClientHandler> connections;
+    private static Hashtable<String,ClientHandler> connections;
     private static ServerSocket serverSocket;
     private static Socket socket;
     private static boolean run = false;
@@ -59,7 +60,7 @@ public class ServerController {
         initServerSocket();
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
-        connections = new ArrayList<ClientHandler>();
+        connections = new Hashtable<String,ClientHandler>();
         run = true;
         listen();
 	}
@@ -107,7 +108,13 @@ public class ServerController {
         while (run) {
             try {
                 socket = serverSocket.accept();
-                connections.add(new ClientHandler(socket));
+                ObjectInputStream in = new ObjectInputStream(
+                                            socket.getInputStream());
+                ObjectOutputStream out = new ObjectOutputStream(
+                                            socket.getOutputStream());
+                Command cmd = (Command)in.readObject();
+                Command resp = processConnectionCommand(cmd);
+                out.writeObject(resp);
             }
             catch (Exception ex) {
                 System.out.println("Failed to accept socket.");
@@ -121,8 +128,50 @@ public class ServerController {
      *
      * @param cmd   The command to decode.
      */
-	public static void decodeCommand(Command cmd) {
+	public static Command processConnectionCommand(Command cmd) {
+        Command resp = null;
+        if (cmd.getCommandName().equals("login")) {
+            if (cmd.getArgumentNumber() < 2) {
+                resp = new Command("loginFailure");
+            }
+            else {
+                String userName = cmd.getCommandArg(0);
+                String password = cmd.getCommandArg(1);
+                if (verifyLoginRequest(userName, password)) {
+                    resp = new Command("loginSuccess");
+                }
+                else {
+                    resp = new Command("loginFailure");
+                }
+            }
+        }
+        else if (cmd.getCommandName().equals("register")) {
+            if (cmd.getArgumentNumber() < 2) {
+                resp = new Command("registerFailure");
+            }
+            else {
+                String userName = cmd.getCommandArg(0);
+                String password = cmd.getCommandArg(1);
+                try {
+                    if (DataHandler.createAccount(userName, password)) {
+                        resp = new Command("registerSuccess");
+                    }
+                    else {
+                        resp = new Command("registerFailure",
+                                                "userNameExists");
+                    }
+                }
+                catch (Exception ex) {
+                    resp = new Command("registerFailure",
+                                            "accountCreationError");
+                }
+            }
+        }
+        else {
+            resp = new Command("invalidCommand");
+        }
 
+        return resp;
 	}
 
     /**
@@ -132,7 +181,7 @@ public class ServerController {
      * @return  True if the user is logged in, false otherwise.
      */
 	public static boolean checkAccountLoginStatus(String userName) {
-        return false;
+        return connections.containsKey(userName);
 	}
 
     /**
@@ -142,7 +191,14 @@ public class ServerController {
      * @param password  The password to verify.
      */
 	public static boolean verifyLoginRequest(String userName, String password) {
-        return false;
+        try {
+            String passHash = DataHandler.getPasswordHash(password);
+            String realHash = DataHandler.getAccountPasswordHash(userName);
+            return realHash.equals(passHash);
+        }
+        catch (Exception ex) {
+            return false;
+        }
 	}
 
     /**
