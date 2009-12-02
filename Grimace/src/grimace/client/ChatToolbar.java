@@ -25,6 +25,9 @@
 package grimace.client;
 
 import java.awt.GraphicsEnvironment;
+import java.awt.Color;
+
+import javax.swing.JColorChooser;
 
 public class ChatToolbar extends javax.swing.JPanel {
 
@@ -43,6 +46,7 @@ public class ChatToolbar extends javax.swing.JPanel {
         // @TODO: Fill in with proper stuff when ProgramController is all hooked up and shit
         fontSelector.setSelectedItem(Account.DEFAULT_FONT);
         sizeSelector.setSelectedItem(Account.DEFAULT_FONT_SIZE);
+        btnColour.setForeground(Account.DEFAULT_FONT_COLOUR);
     }
 
     /** This method is called from within the constructor to
@@ -54,6 +58,7 @@ public class ChatToolbar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jColorChooser1 = new javax.swing.JColorChooser();
         jToolBar1 = new javax.swing.JToolBar();
         bolden = new javax.swing.JToggleButton();
         italicise = new javax.swing.JToggleButton();
@@ -61,6 +66,7 @@ public class ChatToolbar extends javax.swing.JPanel {
         jSeparator2 = new javax.swing.JToolBar.Separator();
         fontSelector = new javax.swing.JComboBox();
         sizeSelector = new javax.swing.JComboBox();
+        btnColour = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         jButton1 = new javax.swing.JButton();
 
@@ -111,6 +117,17 @@ public class ChatToolbar extends javax.swing.JPanel {
         sizeSelector.setMaximumSize(new java.awt.Dimension(70, 27));
         sizeSelector.setMinimumSize(new java.awt.Dimension(70, 27));
         jToolBar1.add(sizeSelector);
+
+        btnColour.setText("Color");
+        btnColour.setFocusable(false);
+        btnColour.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnColour.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnColour.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnColourActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(btnColour);
         jToolBar1.add(jSeparator1);
 
         jButton1.setText("Add Equation");
@@ -133,12 +150,20 @@ public class ChatToolbar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnColourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColourActionPerformed
+        // TODO add your handling code here:
+        Color newColor = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
+        btnColour.setForeground(newColor);
+    }//GEN-LAST:event_btnColourActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
+    private javax.swing.JButton btnColour;
     private javax.swing.JComboBox fontSelector;
     private javax.swing.JToggleButton italicise;
     private javax.swing.JButton jButton1;
+    private javax.swing.JColorChooser jColorChooser1;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
