@@ -115,6 +115,18 @@ public class ServerController {
                 Command cmd = (Command)in.readObject();
                 Command resp = processConnectionCommand(cmd);
                 out.writeObject(resp);
+                if (!cmd.getCommandName().equals("login")) {
+                    socket.close();
+                }
+                else {
+                    if (!resp.getCommandName().equals("loginSuccess")) {
+                        socket.close();
+                    }
+                    else {
+                        String userName = cmd.getCommandArg(0);
+                        connections.put(userName, new ClientHandler(socket, userName));
+                    }
+                }
             }
             catch (Exception ex) {
                 System.out.println("Failed to accept socket.");
