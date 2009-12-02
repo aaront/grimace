@@ -49,7 +49,6 @@ public class LoginForm extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
-        logoLabel = new javax.swing.JLabel();
 
         userField.setText("Wernicke");
 
@@ -79,9 +78,6 @@ public class LoginForm extends javax.swing.JPanel {
             }
         });
 
-        logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        logoLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/grimace/logo.png"))); // NOI18N
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -105,17 +101,11 @@ public class LoginForm extends javax.swing.JPanel {
                         .addGap(48, 48, 48))
                     .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
                 .addGap(89, 89, 89))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
-                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(21, 21, 21)
-                .addComponent(logoLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(186, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -148,7 +138,11 @@ public class LoginForm extends javax.swing.JPanel {
             showError("Please enter a password.");
         } else {
             try {
-                ServerHandler.sendLoginRequest(user,pass);
+                if(ServerHandler.sendLoginRequest(user,pass)) {
+                    System.out.println("LoginSuccess");
+                } else {
+                    System.out.println("LoginFailure");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -172,7 +166,6 @@ public class LoginForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton loginButton;
-    private javax.swing.JLabel logoLabel;
     private javax.swing.JPasswordField passField;
     private javax.swing.JButton registerButton;
     private javax.swing.JComboBox statusBox;
