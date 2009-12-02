@@ -141,10 +141,10 @@ public class DataHandler {
      * @param password  The password for the new account, which will be stored
      *                  as a hexadecimal representation of the SHA-1 hash of the
      *                  string provided.
-     * @throws java.sql.SQLException
+     * @throws Exception
      */
     public static synchronized boolean createAccount(String userName,
-                                    String password) throws SQLException {
+                                    String password) throws Exception {
         if (accountExists(userName)) { return false; }
         Statement statement = connection.createStatement();
         String sql = "INSERT INTO Accounts VALUES(\'"
@@ -284,6 +284,31 @@ public class DataHandler {
             return dname;
         }
         catch (Exception e) { return ""; }
+    }
+
+    /**
+     * Returns the hash of the password associated with an Account.
+     *
+     * @param userName  The userName of the account whose password hash is
+     *                  required.
+     * @return  The password hash of the Account with the given userName. An
+     *          Exception is thrown if the Account does not exist.
+     * @throws Exception
+     */
+    public static String getAccountPasswordHash(String userName)
+                                                        throws Exception {
+        Statement statement = connection.createStatement();
+        String sql = "SELECT password FROM Accounts WHERE userName=\'"
+                    + userName +"\'";
+        ResultSet result = statement.executeQuery(sql);
+        statement.close();
+        if (!result.next()) {
+            result.close();
+            return "";
+        }
+        String dname = result.getNString("password");
+        result.close();
+        return dname;
     }
 
     /**

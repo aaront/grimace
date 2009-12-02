@@ -72,8 +72,12 @@ public final class ServerHandler {
      * @param passWord  The password to register with.
      * @throws java.lang.Exception
      */
-    public static void sendRegisterRequest(String userName, String passWord) throws Exception {
-        sendCommand(new Command("register", userName, passWord));
+    public static Command sendRegisterRequest(String userName, String passWord) throws Exception {
+        connect();
+        Command response = null;
+        response = sendCommand(new Command("register", userName, passWord));
+        socket.close();
+        return response;
     }
 
     /**
@@ -87,10 +91,7 @@ public final class ServerHandler {
 	public static boolean sendLoginRequest(String userName, String passWord) throws Exception {
         connect();
         Command response = null;
-        try {
-            response = sendCommand(new Command("login", userName, passWord));
-        }
-        catch (Exception e) { return false; }
+        response = sendCommand(new Command("login", userName, passWord));
         if (!response.getCommandName().equals("loginSuccess")) {
             socket.close();
             return false;
