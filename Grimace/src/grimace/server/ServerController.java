@@ -102,6 +102,14 @@ public class ServerController {
         }
 	}
 
+    private static void registerConnection(String userName, ClientHandler handler) {
+        connections.put(userName, handler);
+    }
+    
+    public static void closeConnection(String userName) {
+        connections.remove(userName);
+    }
+
     /**
      * Waits for a command from a client and passes it on to be decoded.
      */
@@ -126,7 +134,7 @@ public class ServerController {
                     else {
                         String userName = cmd.getCommandArg(0);
                         out.writeObject(DataHandler.loadAccount(userName));
-                        connections.put(userName, new ClientHandler(socket, userName, in, out));
+                        registerConnection(userName, new ClientHandler(socket, userName, in, out));
                     }
                 }
             }
@@ -151,8 +159,8 @@ public class ServerController {
             }
             else {
                 String userName = cmd.getCommandArg(0);
-                String password = cmd.getCommandArg(1);
-                if (verifyLoginRequest(userName, password)) {
+                String passHash = cmd.getCommandArg(1);
+                if (verifyLoginRequest(userName, passHash)) {
                     resp = new Command("loginSuccess");
                 }
                 else {
@@ -166,10 +174,10 @@ public class ServerController {
             }
             else {
                 String userName = cmd.getCommandArg(0);
-                String password = cmd.getCommandArg(1);
+                String passHash = cmd.getCommandArg(1);
                 String display = cmd.getCommandArg(2);
                 try {
-                    if (DataHandler.createAccount(userName, password,
+                    if (DataHandler.createAccount(userName, passHash,
                                                             display)) {
                         resp = new Command("registerSuccess");
                     }
@@ -198,7 +206,7 @@ public class ServerController {
      * @return  True if the user is logged in, false otherwise.
      */
 	public static boolean checkAccountLoginStatus(String userName) {
-        return connections.containsKey(userName);
+        return connections.containsKey(new String(userName));
 	}
 
     /**
@@ -207,11 +215,10 @@ public class ServerController {
      * @param username  The name of the user to verify.
      * @param password  The password to verify.
      */
-	public static boolean verifyLoginRequest(String userName, String password) {
+	public static boolean verifyLoginRequest(String userName, String passHash) {
         try {
-            /* String passHash = DataHandler.getPasswordHash(password); */
             String realHash = DataHandler.getAccountPasswordHash(userName);
-            return realHash.equals(password);
+            return realHash.equals(passHash);
         }
         catch (Exception ex) {
             return false;

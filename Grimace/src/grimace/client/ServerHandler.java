@@ -27,6 +27,7 @@ package grimace.client;
 import java.net.*;
 import java.io.*;
 import grimace.server.Command;
+import java.security.MessageDigest;
 
 /**
  * ServerHandler facilitates communication with the Wernicke server.
@@ -36,7 +37,8 @@ import grimace.server.Command;
 public final class ServerHandler {
     private static final String SERVER_HOSTNAME = "localhost";
 	private static final int SERVER_PORT = 1234;
-	private static Socket socket;
+	private static Thread listen;
+    private static Socket socket;
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
 
@@ -66,23 +68,59 @@ public final class ServerHandler {
 	}
 
     /**
+     * Returns a hash of the given password string using the SHA-1 algorithm.
+     *
+     * @param password  The string to hash.
+     * @return  A string of hex digits representing the hashed value.
+     */
+    public static synchronized String getPasswordHash(String password) {
+        MessageDigest md;
+        try {
+            md = MessageDigest.getInstance("SHA-1");
+        }
+        catch (Exception e) {
+            return "";
+        }
+
+        StringBuffer hash;
+        try {
+            byte[] hashBytes = md.digest(password.getBytes("UTF-8"));
+            hash = new StringBuffer(hashBytes.length * 2);
+            for (byte b : hashBytes) {
+                String hex = String.format("%02X", b); //$NON-NLS-1$
+                hash.append(hex);
+            }
+        }
+        catch (Exception e) {
+            return "";
+        }
+        return hash.toString();
+    }
+
+    /**
      * Sends a request to register a new user.
      *
      * @param userName  The userName to register with.
      * @param passWord  The password to register with.
      * @throws java.lang.Exception
      */
-    public static Command sendRegisterRequest(String userName, String passHash,
-                                                String displayName)
-                                                throws Exception {
-        connect();
-        Command response = null;
-        response = sendCommand(new Command("register", userName, passHash,
-                                            displayName));
-        out.close();
-        in.close();
-        socket.close();
-        return response;
+    public static Command sendRegisterRequest(String userName, String password,
+                                                String displayName) {
+        try {
+            connect();
+            Command response = null;
+            response = sendCommand(new Command("register",
+                                        userName,
+                                        getPasswordHash(password),
+                                        displayName));
+            out.close();
+            in.close();
+            socket.close();
+            return response;
+        }
+        catch (Exception e) {
+            return new Command("registerFailure", "serverConnectFailure");
+        }
     }
 
     /**
@@ -93,23 +131,48 @@ public final class ServerHandler {
      * @return  True if the login was successful, false otherwise.
      * @throws java.lang.Exception
      */
-	public static boolean sendLoginRequest(String userName, String passHash)
-                                            throws Exception {
-        connect();
-        Command response = null;
-        response = sendCommand(new Command("login", userName, passHash));
-        if (!response.getCommandName().equals("loginSuccess")) {
-            out.close();
-            in.close();
-            socket.close();
+	public static boolean sendLoginRequest(String userName, String password) {
+        try {
+            connect();
+            Command response = null;
+            response = sendCommand(new Command("login",
+                                        userName,
+                                        getPasswordHash(password)));
+            if (!response.getCommandName().equals("loginSuccess")) {
+                out.close();
+                in.close();
+                socket.close();
+                return false;
+            }
+            else {
+                Account acc = (Account)in.readObject();
+                ProgramController.setAccount(acc);
+                listen = new Thread(new Runnable() {
+                                        public void run() {
+                                            listen();
+                                        }
+                                    });
+                listen.start();
+            }
+            return true;
+        }
+        catch (Exception e) {
             return false;
         }
-        else {
-            Account acc = (Account)in.readObject();
-            ProgramController.setAccount(acc);
-        }
-        return true;
 	}
+
+    /**
+     * Waits for commands from the server and executes them.
+     */
+    private static void listen() {
+        while (true) {
+            try {
+                Command cmd = (Command)in.readObject();
+                System.out.println(cmd.getCommandName());
+            }
+            catch (Exception e) {}
+        }
+    }
 
     /**
      * Requests an Account from the server. This can only be done if the user

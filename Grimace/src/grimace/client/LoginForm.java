@@ -24,8 +24,6 @@
 
 package grimace.client;
 
-import grimace.server.DataHandler;
-
 public class LoginForm extends javax.swing.JPanel {
 
     /** Creates new form LoginForm */
@@ -135,7 +133,6 @@ public class LoginForm extends javax.swing.JPanel {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String user = userField.getText();
         String pass = passField.getText();
-        String hash = DataHandler.getPasswordHash(pass);
         String status = (String) statusBox.getSelectedItem();
 
         if (user.isEmpty()) {
@@ -144,7 +141,7 @@ public class LoginForm extends javax.swing.JPanel {
             showError("Please enter a password.");
         } else {
             try {
-                if(ServerHandler.sendLoginRequest(user,hash)) {
+                if(ServerHandler.sendLoginRequest(user,pass)) {
                     System.out.println("LoginSuccess");
                     this.setVisible(false);
                     ProgramController.setRightPane(null);
