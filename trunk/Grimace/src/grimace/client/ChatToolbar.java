@@ -33,10 +33,12 @@ import javax.swing.JColorChooser;
 public class ChatToolbar extends javax.swing.JPanel {
 
     private Color currentFontColor;
+    private ChatBox cb;
 
     /** Creates new form ChatToolbar */
-    public ChatToolbar() {
+    public ChatToolbar(ChatBox cb) {
         initComponents();
+        this.cb = cb;
 
         // Filling the font selector with available fonts
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -165,6 +167,7 @@ public class ChatToolbar extends javax.swing.JPanel {
         // TODO add your handling code here:
         currentFontColor = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
         btnColour.setForeground(currentFontColor);
+        this.cb.getCurrentMessageBox().setForeground(currentFontColor);
     }//GEN-LAST:event_btnColourActionPerformed
 
 

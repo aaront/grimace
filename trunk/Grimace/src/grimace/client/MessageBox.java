@@ -30,9 +30,13 @@ package grimace.client;
  */
 public class MessageBox extends javax.swing.JPanel {
 
+    private ChatBox cb;
+
     /** Creates new form MessageBox */
-    public MessageBox() {
+    public MessageBox(ChatBox cb) {
         initComponents();
+
+        this.cb = cb;
     }
 
     /** This method is called from within the constructor to
