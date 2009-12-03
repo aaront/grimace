@@ -1,0 +1,24 @@
+Trying to change property 'svn:ignore' from 'FileSystemTest.java
+OptionsFormTest_1.java
+RegistrationFormTest.java
+OptionsFormTest.java
+LoginFormTest.java
+' to 'OptionsFormTest_1.java
+FileSystemTest.java
+RegistrationFormTest.java
+ServerTest.java
+OptionsFormTest.java
+LoginFormTest.java
+',
+but the property has been locally changed from 'FileSystemTest.java
+OptionsFormTest_1.java
+RegistrationFormTest.java
+OptionsFormTest.java
+LoginFormTest.java
+' to 'FileSystemTest.java
+OptionsFormTest_1.java
+temp.java
+temp.form
+OptionsFormTest.java
+LoginFormTest.java
+'.
