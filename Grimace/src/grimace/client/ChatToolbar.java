@@ -26,10 +26,13 @@ package grimace.client;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Color;
+import java.awt.Font;
 
 import javax.swing.JColorChooser;
 
 public class ChatToolbar extends javax.swing.JPanel {
+
+    private Color currentFontColor;
 
     /** Creates new form ChatToolbar */
     public ChatToolbar() {
@@ -48,6 +51,22 @@ public class ChatToolbar extends javax.swing.JPanel {
         sizeSelector.setSelectedItem(Account.DEFAULT_FONT_SIZE);
         btnColour.setForeground(Account.DEFAULT_FONT_COLOUR);
     }
+    
+    // @TODO: Will be eventually replaced by getting the font from the account.
+    Font newFont = new Font(Account.DEFAULT_FONT, Font.PLAIN, Account.DEFAULT_FONT_SIZE);
+
+    private void setNewFont(Font font) {
+        if (font.isBold()) {
+            bolden.setSelected(true);
+        }
+        if (font.isItalic()) {
+            italicise.setSelected(true);
+        }
+    }
+
+    public Color getCurrentFontColor() {
+        return currentFontColor;
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -62,7 +81,6 @@ public class ChatToolbar extends javax.swing.JPanel {
         jToolBar1 = new javax.swing.JToolBar();
         bolden = new javax.swing.JToggleButton();
         italicise = new javax.swing.JToggleButton();
-        underline = new javax.swing.JToggleButton();
         jSeparator2 = new javax.swing.JToolBar.Separator();
         fontSelector = new javax.swing.JComboBox();
         sizeSelector = new javax.swing.JComboBox();
@@ -76,7 +94,6 @@ public class ChatToolbar extends javax.swing.JPanel {
 
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
-        jToolBar1.setMargin(new java.awt.Insets(2, 0, 2, 0));
         jToolBar1.setMaximumSize(new java.awt.Dimension(400, 36));
         jToolBar1.setMinimumSize(new java.awt.Dimension(156, 36));
         jToolBar1.setPreferredSize(new java.awt.Dimension(120, 36));
@@ -98,15 +115,6 @@ public class ChatToolbar extends javax.swing.JPanel {
         italicise.setMinimumSize(new java.awt.Dimension(25, 28));
         italicise.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         jToolBar1.add(italicise);
-
-        underline.setFont(new java.awt.Font("Lucida Grande", 0, 14));
-        underline.setText("<html><u>U</u>");
-        underline.setFocusable(false);
-        underline.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        underline.setMaximumSize(new java.awt.Dimension(25, 28));
-        underline.setMinimumSize(new java.awt.Dimension(25, 28));
-        underline.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(underline);
         jToolBar1.add(jSeparator2);
 
         fontSelector.setMaximumSize(new java.awt.Dimension(150, 27));
@@ -140,7 +148,9 @@ public class ChatToolbar extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 600, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 455, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(145, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,8 +162,8 @@ public class ChatToolbar extends javax.swing.JPanel {
 
     private void btnColourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColourActionPerformed
         // TODO add your handling code here:
-        Color newColor = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
-        btnColour.setForeground(newColor);
+        currentFontColor = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
+        btnColour.setForeground(currentFontColor);
     }//GEN-LAST:event_btnColourActionPerformed
 
 
@@ -168,7 +178,6 @@ public class ChatToolbar extends javax.swing.JPanel {
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JComboBox sizeSelector;
-    private javax.swing.JToggleButton underline;
     // End of variables declaration//GEN-END:variables
 
 }
