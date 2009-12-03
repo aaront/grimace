@@ -50,10 +50,11 @@ public class ChatToolbar extends javax.swing.JPanel {
         fontSelector.setSelectedItem(Account.DEFAULT_FONT);
         sizeSelector.setSelectedItem(Account.DEFAULT_FONT_SIZE);
         btnColour.setForeground(Account.DEFAULT_FONT_COLOUR);
+
+        // @TODO: Will be eventually replaced by getting the font from the account.
+        Font newFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
+        setNewFont(newFont);
     }
-    
-    // @TODO: Will be eventually replaced by getting the font from the account.
-    Font newFont = new Font(Account.DEFAULT_FONT, Font.PLAIN, Account.DEFAULT_FONT_SIZE);
 
     private void setNewFont(Font font) {
         if (font.isBold()) {
