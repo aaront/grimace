@@ -132,7 +132,7 @@ public class LoginForm extends javax.swing.JPanel {
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         String user = userField.getText();
-        String pass = passField.getText();
+        String pass = new String(passField.getPassword());
         String status = (String) statusBox.getSelectedItem();
 
         if (user.isEmpty()) {
