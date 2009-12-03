@@ -26,6 +26,7 @@ package grimace.client;
 
 import java.net.*;
 import java.io.*;
+import java.util.ArrayList;
 import grimace.server.Command;
 import java.security.MessageDigest;
 
@@ -56,17 +57,47 @@ public final class ServerHandler {
 	}
 
     /**
-     * Sends a command to the server and returns the server's response.
+     * Sends a command to the server.
      *
      * @param cmd   The command to send.
-     * @return  The response from the server.
      * @throws java.lang.Exception
      */
-	private static Command sendCommand(Command cmd) throws Exception {
+	private static void sendCommand(Command cmd) throws Exception {
         if (!socket.isConnected()) { throw new Exception("Not connected"); }
         out.writeObject(cmd);
-        return (Command) in.readObject();
 	}
+
+    /**
+     * Creates and sends a command to the server.
+     *
+     * @param cmdName   The name of the command to send.
+     * @param args      The arguments for the command.
+     * @throws java.lang.Exception
+     */
+	private static void sendCommand(String cmdName, String... args)
+                                        throws Exception {
+        if (!socket.isConnected()) { throw new Exception("Not connected"); }
+        out.writeObject(new Command(cmdName, args));
+	}
+
+    /**
+     * Merges a set of arguments and appends an array of arguments
+     * to the resulting array.
+     *
+     * @param append    Arguments to append to the merged array.
+     * @param args      Arguments to merge.
+     * @return          A String array containing all arguments.
+     */
+    public static String[] mergeStrings(String[] append, String... args) {
+        ArrayList<String> merged = new ArrayList<String>();
+        for (String s : args) {
+            merged.add(s);
+        }
+        for (String s : append) {
+            merged.add(s);
+        }
+        return (String[])merged.toArray();
+    }
 
     /**
      * Returns a hash of the given password string using the SHA-1 algorithm.
@@ -109,11 +140,11 @@ public final class ServerHandler {
                                                 String displayName) {
         try {
             connect();
-            Command response = null;
-            response = sendCommand(new Command("register",
-                                        userName,
-                                        getPasswordHash(password),
-                                        displayName));
+            sendCommand("register",
+                        userName,
+                        getPasswordHash(password),
+                        displayName);
+            Command response = (Command)in.readObject();
             out.close();
             in.close();
             socket.close();
@@ -135,10 +166,8 @@ public final class ServerHandler {
 	public static boolean sendLoginRequest(String userName, String password) {
         try {
             connect();
-            Command response = null;
-            response = sendCommand(new Command("login",
-                                        userName,
-                                        getPasswordHash(password)));
+            sendCommand("login", userName, getPasswordHash(password));
+            Command response = (Command)in.readObject();
             if (!response.getCommandName().equals("loginSuccess")) {
                 out.close();
                 in.close();
@@ -197,7 +226,7 @@ public final class ServerHandler {
 	public static void sendAddContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
-        sendCommand(new Command("contactRequest", userName, contactName));
+        sendCommand("contactRequest", userName, contactName);
 	}
 
     /**
@@ -210,20 +239,21 @@ public final class ServerHandler {
 	public static void sendDeleteContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
-        sendCommand(new Command("delContact", userName, contactName));
+        sendCommand("delContact", userName, contactName);
 	}
 
     /**
      * Sends a request to start a conversation with one or more contacts.
      *
-     * @param userName  The user initiating the conversation.
-     * @param contactNames  The names of the contacts to request.
+     * @param userName      The user initiating the conversation.
+     * @param contactNames  The names of the contacts requested.
      * @throws java.lang.Exception
      */
 	public static void sendConversationRequest(String userName,
-                                                String[] contactNames)
+                                                String... contactNames)
                                                 throws Exception {
-        //sendCommand(new Command("startConversation", userName, ));
+        String[] args = mergeStrings(contactNames, userName);
+        sendCommand("startConversation", args);
 	}
 
     /**
@@ -234,24 +264,10 @@ public final class ServerHandler {
      * @param conId     An integer identifying a target conversation.
      * @throws java.lang.Exception
      */
-	public static void sendMessagePostRequest(String userName, String message,
+	public static void sendMessagePostRequest(String userName,
+                                                String message,
                                                 int conId) throws Exception {
-        sendCommand(new Command("sendMessage", userName, message,
-                                String.valueOf(conId)));
-	}
-
-    /**
-     * Sends a request to the server to transfer a file to one or more contacts.
-     *
-     * @param username The name of the user initiating the transfer.
-     * @param filename The name of the file to be sent.
-     * @param contactNames The names of contacts receiving the file.
-     * @throws java.lang.Exception
-     */
-	public static void sendFileTransferRequest(String username, String filename,
-                                                String[] contactNames)
-                                                throws Exception {
-        //sendCommand(new Command("fileTransferRequest", userName, filename, ));
+        sendCommand("sendMessage", userName, message, String.valueOf(conId));
 	}
 
     /**
@@ -265,9 +281,24 @@ public final class ServerHandler {
     public static void sendQuitConversationNotification(String userName,
                                                         int conId)
                                                         throws Exception {
-        sendCommand(new Command("quitConversation", userName,
-                                String.valueOf(conId)));
+        sendCommand("quitConversation", userName, String.valueOf(conId));
     }
+
+    /**
+     * Sends a request to the server to transfer a file to one or more contacts.
+     *
+     * @param username The name of the user initiating the transfer.
+     * @param filename The name of the file to be sent.
+     * @param contactNames The names of contacts receiving the file.
+     * @throws java.lang.Exception
+     */
+	public static void sendFileTransferRequest(String userName,
+                                                String fileName,
+                                                String... contactNames)
+                                                throws Exception {
+        String[] args = mergeStrings(contactNames, userName, fileName);
+        sendCommand("fileTransferRequest", args);
+	}
 
     /**
      * Sends a response to a file transfer request given by the server.
@@ -281,8 +312,10 @@ public final class ServerHandler {
                                                 String contactName,
                                                 boolean response)
                                                 throws Exception {
-        sendCommand(new Command("fileTransferResponse", userName, contactName,
-                                String.valueOf(response)));
+        sendCommand("fileTransferResponse",
+                    userName,
+                    contactName,
+                    String.valueOf(response));
     }
 
     /**
@@ -297,8 +330,10 @@ public final class ServerHandler {
                                                     String contactName,
                                                     boolean response)
                                                     throws Exception {
-        sendCommand(new Command("contactRequestResponse", userName, contactName,
-                        String.valueOf(response)));
+        sendCommand("contactRequestResponse",
+                    userName,
+                    contactName,
+                    String.valueOf(response));
     }
 
     /**
@@ -309,6 +344,7 @@ public final class ServerHandler {
      */
     public static void sendAccountUpdateRequest(Account account)
                                                 throws Exception {
-        //sendCommand(new Command("updateAccount", userName, ));
+        sendCommand("updateAccount", account.getUserName());
+        out.writeObject(account);
     }
 }
