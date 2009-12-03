@@ -41,6 +41,7 @@ public final class ServerHandler {
     private static Socket socket;
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
+    private static Command fromServer;
 
     /**
      * Connects to the server on the SERVER_PORT.
@@ -167,10 +168,10 @@ public final class ServerHandler {
     private static void listen() {
         while (true) {
             try {
-                Command cmd = (Command)in.readObject();
-                System.out.println(cmd.getCommandName());
+                fromServer = (Command)in.readObject();
             }
-            catch (Exception e) {}
+            catch (EOFException e) {}
+            catch (Exception e) { e.printStackTrace(); }
         }
     }
 

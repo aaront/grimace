@@ -57,7 +57,11 @@ public class ClientHandler {
 
     private void listenSocket() {
         while (run) {
-
+            try {
+                fromClient = (Command)in.readObject();
+            }
+            catch (EOFException e) {}
+            catch (Exception e) {}
         }
         try {
             in.close();
@@ -69,8 +73,11 @@ public class ClientHandler {
     private void sendSocket() {
         while (run) {
             try {
-                out.writeObject(new Command("hello!"));
-                Thread.sleep(1000);
+                if (!commandQueue.isEmpty()) {
+                    toClient = commandQueue.get(0);
+                    out.writeObject(toClient);
+                    commandQueue.remove(0);
+                }
             }
             catch (IOException e) {
                 System.out.println("Connection lost.");
