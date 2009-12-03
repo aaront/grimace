@@ -16,27 +16,21 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="messageBox1" alignment="1" min="0" pref="0" max="32767" attributes="2"/>
-                  <Component id="chatToolbar1" alignment="0" min="0" pref="0" max="32767" attributes="2"/>
-                  <Component id="chatDisplayBox1" alignment="0" max="32767" attributes="2"/>
-              </Group>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="103" groupAlignment="1" max="-2" attributes="0">
+              <Component id="messageBox1" alignment="0" min="0" pref="0" max="32767" attributes="3"/>
+              <Component id="chatDisplayBox1" alignment="0" max="32767" attributes="3"/>
           </Group>
+          <Component id="chatToolbar1" alignment="0" pref="454" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="chatDisplayBox1" max="32767" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+          <Group type="102" alignment="1" attributes="0">
+              <Component id="chatDisplayBox1" pref="291" max="32767" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
               <Component id="chatToolbar1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
-              <Component id="messageBox1" min="-2" pref="59" max="-2" attributes="0"/>
-              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="messageBox1" min="-2" pref="58" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -44,9 +38,16 @@
   <SubComponents>
     <Component class="grimace.client.ChatDisplayBox" name="chatDisplayBox1">
     </Component>
-    <Component class="grimace.client.ChatToolbar" name="chatToolbar1">
-    </Component>
     <Component class="grimace.client.MessageBox" name="messageBox1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new grimace.client.MessageBox(this);"/>
+      </AuxValues>
+    </Component>
+    <Component class="grimace.client.ChatToolbar" name="chatToolbar1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new grimace.client.ChatToolbar(this);"/>
+        <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>
