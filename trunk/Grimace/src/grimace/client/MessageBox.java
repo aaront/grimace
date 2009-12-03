@@ -44,13 +44,8 @@ public class MessageBox extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        chatToolbar1 = new grimace.client.ChatToolbar();
         jScrollPane1 = new javax.swing.JScrollPane();
         jEditorPane1 = new javax.swing.JEditorPane();
-
-        setMaximumSize(new java.awt.Dimension(500, 200));
-        setMinimumSize(new java.awt.Dimension(500, 200));
-        setPreferredSize(new java.awt.Dimension(500, 300));
 
         jScrollPane1.setViewportView(jEditorPane1);
 
@@ -58,24 +53,15 @@ public class MessageBox extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(chatToolbar1, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(6, 6, 6)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
-                .addGap(6, 6, 6))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 488, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(chatToolbar1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 224, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private grimace.client.ChatToolbar chatToolbar1;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables

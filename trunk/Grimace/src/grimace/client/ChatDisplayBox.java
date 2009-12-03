@@ -47,25 +47,17 @@ public class ChatDisplayBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         chatDisplayBox = new javax.swing.JEditorPane();
 
-        setPreferredSize(new java.awt.Dimension(500, 300));
-
         jScrollPane1.setViewportView(chatDisplayBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
