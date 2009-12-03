@@ -23,6 +23,7 @@
  */
 
 package grimace.client;
+import java.awt.Component;
 import java.util.ArrayList;
 import java.io.File;
 
@@ -33,10 +34,27 @@ public class ProgramController {
     private static Account accnt;
     private ClientConversation convo;
     private static ArrayList<ClientConversation> convoList;
-    private static ProgramSettings progSetting;
+    private static ProgramSettings progSettings;
+    private static Window window;
 
     public ProgramController() {
         // @TODO: Set up window and show login form
+        progSettings = new ProgramSettings();
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                window = new Window();
+                window.setVisible(true);
+            }
+        });
+    }
+
+    public static void setLeftPane(Component comp) {
+        window.setLeftPane(comp);
+    }
+
+    public static void setRightPane(Component comp) {
+        window.setRightPane(comp);
     }
 
     /**
@@ -45,7 +63,6 @@ public class ProgramController {
      */
     public static void setAccount(Account newAccount) {
         accnt = newAccount;
-        // @TODO: Set up contact list, etc.
     }
 
     /**
@@ -175,7 +192,7 @@ public class ProgramController {
      * @return the program settings
      */
     public ProgramSettings getProgramSettings() {
-        return progSetting;
+        return progSettings;
 
     }
 
@@ -232,4 +249,7 @@ public class ProgramController {
         return "";
     }
 
+    public static void main(String[] args) {
+        new ProgramController();
+    }
 }
