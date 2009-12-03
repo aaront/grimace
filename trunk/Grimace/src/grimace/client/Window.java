@@ -1,5 +1,5 @@
 /**
- * ProgramController.java
+ * Window.java
  *
  * @author Justin Cole
  * @author David Marczak
@@ -32,33 +32,28 @@ public class Window extends javax.swing.JFrame {
     /** Creates new form Window */
     public Window() {
         initComponents();
+        splitPane.setRightComponent(null);
+        this.setSize(300,this.getHeight());
     }
 
     public void setLeftPane(Component comp) {
         splitPane.setLeftComponent(comp);
         if (comp == null) {
-            splitPane.getLeftComponent().setVisible(false);
+            this.setSize(splitPane.getRightComponent().getMinimumSize().width, this.getHeight());
             splitPane.setDividerLocation(0.0);
-            //this.setSize(splitPane.getRightComponent().getSize());
         } else {
-            splitPane.setRightComponent(comp);
-            comp.setVisible(true);
-            //this.setSize(splitPane.getWidth(), this.getHeight());
+            this.setSize(this.getWidth() + comp.getMinimumSize().width, this.getHeight());
         }
-        splitPane.validate();
     }
 
     public void setRightPane(Component comp) {
+        splitPane.setRightComponent(comp);
         if (comp == null) {
-            splitPane.getRightComponent().setVisible(false);
+            this.setSize(splitPane.getLeftComponent().getMinimumSize().width, this.getHeight());
             splitPane.setDividerLocation(1.0);
-            this.setSize(splitPane.getLeftComponent().getSize());
         } else {
-            splitPane.setRightComponent(comp);
-            comp.setVisible(true);
-            this.setSize(this.getWidth() + comp.getWidth(), this.getHeight());
+            this.setSize(this.getWidth() + comp.getMinimumSize().width, this.getHeight());
         }
-        splitPane.validate();
     }
 
 
@@ -87,7 +82,7 @@ public class Window extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 770, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
