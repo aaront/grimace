@@ -72,12 +72,12 @@ public final class ServerHandler {
      * @param passWord  The password to register with.
      * @throws java.lang.Exception
      */
-    public static Command sendRegisterRequest(String userName, String passWord,
+    public static Command sendRegisterRequest(String userName, String passHash,
                                                 String displayName)
                                                 throws Exception {
         connect();
         Command response = null;
-        response = sendCommand(new Command("register", userName, passWord,
+        response = sendCommand(new Command("register", userName, passHash,
                                             displayName));
         out.close();
         in.close();
@@ -93,11 +93,11 @@ public final class ServerHandler {
      * @return  True if the login was successful, false otherwise.
      * @throws java.lang.Exception
      */
-	public static boolean sendLoginRequest(String userName, String passWord)
+	public static boolean sendLoginRequest(String userName, String passHash)
                                             throws Exception {
         connect();
         Command response = null;
-        response = sendCommand(new Command("login", userName, passWord));
+        response = sendCommand(new Command("login", userName, passHash));
         if (!response.getCommandName().equals("loginSuccess")) {
             out.close();
             in.close();
