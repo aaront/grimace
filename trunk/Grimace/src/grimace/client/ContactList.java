@@ -25,8 +25,9 @@
 package grimace.client;
 
 import java.util.ArrayList;
+import java.io.Serializable;
 
-public class ContactList implements java.io.Serializable {
+public class ContactList implements Serializable {
 
     private ArrayList<Contact> list;
 
@@ -34,7 +35,7 @@ public class ContactList implements java.io.Serializable {
      * Creates an instance of a contact list.
      */
     public ContactList() {
-        this.list = new ArrayList();
+        list = new ArrayList<Contact>();
     }
 
     // Assuming that we're using an array data structure
@@ -45,7 +46,7 @@ public class ContactList implements java.io.Serializable {
      * @param toAdd  The contact to be added to the user's contact list
      */
     public void addContact(Contact toAdd) {
-        this.list.add(toAdd);
+        list.add(toAdd);
     }
 
     /**
@@ -53,7 +54,7 @@ public class ContactList implements java.io.Serializable {
      * @param toRemove  The contact to be removed to the user's contact list
      */
     public void removeContact(Contact toRemove) {
-        this.list.remove(toRemove);
+        list.remove(toRemove);
     }
 
     /**
@@ -61,7 +62,7 @@ public class ContactList implements java.io.Serializable {
      * @return the list of contacts
      */
     public ArrayList<Contact> getList() {
-        return this.list;
+        return list;
     }
 
 }
