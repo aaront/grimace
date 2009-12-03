@@ -48,6 +48,7 @@ public class ServerController {
      * @param args  Command line arguments.
      */
     public static void main(String[] args) {
+        System.setProperty("java.net.preferIPv4Stack", "true");
         ServerController.setupServer();
     }
 
@@ -208,9 +209,9 @@ public class ServerController {
      */
 	public static boolean verifyLoginRequest(String userName, String password) {
         try {
-            String passHash = DataHandler.getPasswordHash(password);
+            /* String passHash = DataHandler.getPasswordHash(password); */
             String realHash = DataHandler.getAccountPasswordHash(userName);
-            return realHash.equals(passHash);
+            return realHash.equals(password);
         }
         catch (Exception ex) {
             return false;
