@@ -52,6 +52,9 @@ public class LoginForm extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(300, 450));
+        setMinimumSize(new java.awt.Dimension(300, 450));
+
         userField.setText("Wernicke");
 
         passField.setText("password");
@@ -102,12 +105,12 @@ public class LoginForm extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
                         .addGap(48, 48, 48))
                     .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                .addGap(89, 89, 89))
+                .addGap(97, 97, 97))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(186, Short.MAX_VALUE)
+                .addContainerGap(194, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -144,8 +147,8 @@ public class LoginForm extends javax.swing.JPanel {
                 if(ServerHandler.sendLoginRequest(user,hash)) {
                     System.out.println("LoginSuccess");
                     this.setVisible(false);
-                    this.getParent().add(new ContactListBox());
-                    this.getParent().validate();
+                    ProgramController.setRightPane(null);
+                    ProgramController.setLeftPane(new ContactListBox());
                 } else {
                     System.out.println("LoginFailure");
                 }
@@ -156,9 +159,7 @@ public class LoginForm extends javax.swing.JPanel {
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void registerButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerButtonActionPerformed
-        this.setVisible(false);
-        this.getParent().add(new RegistrationForm());
-        this.getParent().validate();
+        ProgramController.setRightPane(new RegistrationForm());
     }//GEN-LAST:event_registerButtonActionPerformed
 
     private void showError(String message) {

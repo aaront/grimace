@@ -1,26 +1,66 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
- * Window.java
+/**
+ * ProgramController.java
  *
- * Created on Nov 30, 2009, 8:49:25 PM
+ * @author Justin Cole
+ * @author David Marczak
+ *
+ * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
+ *        and Aaron Toth
+ *
+ * This file is part of Wernicke.
+ *
+ * Wernicke is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package grimace.client;
 
-/**
- *
- * @author David
- */
+import java.awt.Component;
+
 public class Window extends javax.swing.JFrame {
 
     /** Creates new form Window */
     public Window() {
         initComponents();
     }
+
+    public void setLeftPane(Component comp) {
+        splitPane.setLeftComponent(comp);
+        if (comp == null) {
+            splitPane.getLeftComponent().setVisible(false);
+            splitPane.setDividerLocation(0.0);
+            //this.setSize(splitPane.getRightComponent().getSize());
+        } else {
+            splitPane.setRightComponent(comp);
+            comp.setVisible(true);
+            //this.setSize(splitPane.getWidth(), this.getHeight());
+        }
+        splitPane.validate();
+    }
+
+    public void setRightPane(Component comp) {
+        if (comp == null) {
+            splitPane.getRightComponent().setVisible(false);
+            splitPane.setDividerLocation(1.0);
+            this.setSize(splitPane.getLeftComponent().getSize());
+        } else {
+            splitPane.setRightComponent(comp);
+            comp.setVisible(true);
+            this.setSize(this.getWidth() + comp.getWidth(), this.getHeight());
+        }
+        splitPane.validate();
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -31,41 +71,27 @@ public class Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jInternalFrame1 = new javax.swing.JInternalFrame();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        splitPane = new javax.swing.JSplitPane();
+        loginForm1 = new grimace.client.LoginForm();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Wernicke");
 
-        jInternalFrame1.setVisible(true);
-
-        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
-        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
-        jInternalFrame1Layout.setHorizontalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 394, Short.MAX_VALUE)
-        );
-        jInternalFrame1Layout.setVerticalGroup(
-            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
+        splitPane.setContinuousLayout(true);
+        splitPane.setMinimumSize(new java.awt.Dimension(300, 450));
+        splitPane.setOneTouchExpandable(true);
+        splitPane.setPreferredSize(new java.awt.Dimension(300, 450));
+        splitPane.setLeftComponent(loginForm1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jInternalFrame1)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(374, 374, 374)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10))
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jInternalFrame1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(splitPane, javax.swing.GroupLayout.DEFAULT_SIZE, 541, Short.MAX_VALUE)
         );
 
         pack();
@@ -78,13 +104,14 @@ public class Window extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Window().setVisible(true);
+                
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame jInternalFrame1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private grimace.client.LoginForm loginForm1;
+    private javax.swing.JSplitPane splitPane;
     // End of variables declaration//GEN-END:variables
 
 }
