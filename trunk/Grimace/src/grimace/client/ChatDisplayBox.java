@@ -47,6 +47,8 @@ public class ChatDisplayBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         chatDisplayBox = new javax.swing.JEditorPane();
 
+        chatDisplayBox.setEditable(false);
+        chatDisplayBox.setAutoscrolls(false);
         jScrollPane1.setViewportView(chatDisplayBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
