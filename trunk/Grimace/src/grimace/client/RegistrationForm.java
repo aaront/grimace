@@ -135,14 +135,14 @@ public class RegistrationForm extends javax.swing.JPanel {
 
     private void registerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbuttonActionPerformed
         String user = userField.getText();
-        String pass = passField.getText();
+        String pass = new String(passField.getPassword());
         String display = displayField.getText();
 
         if (user.isEmpty()) {
             showError("Please enter a username.");
         } else if (pass.isEmpty()) {
             showError("Please enter a password.");
-        } else if (!pass.equals(confirmPassField.getText())) {
+        } else if (!pass.equals(new String(confirmPassField.getPassword()))) {
             showError("Passwords do not match.");
         } else {
             try {
