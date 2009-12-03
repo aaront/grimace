@@ -25,6 +25,7 @@
 package grimace.client;
 
 import grimace.server.Command;
+import grimace.server.DataHandler;
 
 public class RegistrationForm extends javax.swing.JPanel {
 
@@ -136,6 +137,7 @@ public class RegistrationForm extends javax.swing.JPanel {
     private void registerbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerbuttonActionPerformed
         String user = userField.getText();
         String pass = passField.getText();
+        String hash = DataHandler.getPasswordHash(pass);
         String display = displayField.getText();
 
         if (user.isEmpty()) {
@@ -146,12 +148,18 @@ public class RegistrationForm extends javax.swing.JPanel {
             showError("Passwords do not match.");
         } else {
             try {
-                Command response = ServerHandler.sendRegisterRequest(user, pass, display);
+                Command response = ServerHandler.sendRegisterRequest(user, hash, display);
                 System.out.println(response.getCommandName());
+                if (response.getCommandName().equals("registerSuccess")) {
+                    showError("Registration successful.");
+                    this.setVisible(false);
+                    this.getParent().validate();
+                } else {
+                    showError("Registration failed.");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            // @TODO: Get response and complete action or show error
         }
     }//GEN-LAST:event_registerbuttonActionPerformed
 
