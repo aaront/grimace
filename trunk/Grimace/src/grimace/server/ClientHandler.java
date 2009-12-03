@@ -21,7 +21,7 @@ public class ClientHandler {
     private ObjectOutputStream out;
     private ObjectInputStream in;
     private Thread listen;
-    private Thread active;
+    private Thread send;
     private Command fromClient;
     private Command toClient;
     private boolean run;
@@ -32,19 +32,19 @@ public class ClientHandler {
         this.socket = socket;
         this.in = in;
         this.out = out;
+        this.run = true;
         listen = new Thread(new Runnable() {
                             public void run() {
                                 listenSocket();
                             }
                         });
-        active = new Thread(new Runnable() {
+        send = new Thread(new Runnable() {
                             public void run() {
-                                activeSocket();
+                                sendSocket();
                             }
                         });
-        run = true;
         listen.start();
-        active.start();
+        send.start();
     }
 
     private void setName(String str) {
@@ -57,22 +57,30 @@ public class ClientHandler {
 
     private void listenSocket() {
         while (run) {
+
+        }
+        try {
+            in.close();
+        }
+        catch (Exception e) {}
+        ServerController.closeConnection(name);
+    }
+
+    private void sendSocket() {
+        while (run) {
             try {
-                fromClient = (Command)in.readObject();
-                handleCommand(fromClient);
+                out.writeObject(new Command("hello!"));
+                Thread.sleep(1000);
             }
-            catch (java.io.EOFException e) { }
-            catch (Exception e) { e.printStackTrace(); }
+            catch (IOException e) {
+                System.out.println("Connection lost.");
+                run = false;
+            }
+            catch (Exception e) {}
         }
-    }
-
-    private void activeSocket() {
-        while (true) {
-            if (!run) { break; }
+        try {
+            out.close();
         }
-    }
-
-    private void handleCommand(Command cmd) {
-        
+        catch (Exception e) {}
     }
 }

@@ -26,8 +26,6 @@ package grimace.server;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.security.MessageDigest;
-import java.awt.Font;
 import java.awt.Color;
 import grimace.client.Account;
 import grimace.client.ContactList;
@@ -110,36 +108,6 @@ public class DataHandler {
 	}
 
     /**
-     * Returns a hash of the given password string using the SHA-1 algorithm.
-     *
-     * @param password  The string to hash.
-     * @return  A string of hex digits representing the hashed value.
-     */
-    public static synchronized String getPasswordHash(String password) {
-        MessageDigest md;
-        try {
-            md = MessageDigest.getInstance("SHA-1");
-        }
-        catch (Exception e) {
-            return "";
-        }
-
-        StringBuffer hash;
-        try {
-            byte[] hashBytes = md.digest(password.getBytes("UTF-8"));
-            hash = new StringBuffer(hashBytes.length * 2);
-            for (byte b : hashBytes) {
-                String hex = String.format("%02X", b); //$NON-NLS-1$
-                hash.append(hex);
-            }
-        }
-        catch (Exception e) {
-            return "";
-        }
-        return hash.toString();
-    }
-
-    /**
      * Creates an Account with the given userName and password.
      *
      * @param userName  The userName for the new account.
@@ -149,12 +117,11 @@ public class DataHandler {
      * @throws Exception
      */
     public static synchronized boolean createAccount(String userName,
-                                                    String password,
+                                                    String passHash,
                                                     String displayName)
                                                     throws Exception {
         if (accountExists(userName)) { return false; }
         Statement statement = connection.createStatement();
-        String passHash = getPasswordHash(password);
         String sql = "INSERT INTO Accounts VALUES(\'"
                        + userName + "\',\'"
                        + passHash + "\',\'"
