@@ -140,7 +140,7 @@ public final class ServerHandler {
                                                 String displayName) {
         try {
             connect();
-            sendCommand("register",
+            sendCommand(Command.REGISTER,
                         userName,
                         getPasswordHash(password),
                         displayName);
@@ -151,7 +151,7 @@ public final class ServerHandler {
             return response;
         }
         catch (Exception e) {
-            return new Command("registerFailure", "serverConnectFailure");
+            return new Command(Command.REGISTER_FAILURE, Command.SERVER_CONNECT_FAILURE);
         }
     }
 
@@ -166,9 +166,9 @@ public final class ServerHandler {
 	public static boolean sendLoginRequest(String userName, String password) {
         try {
             connect();
-            sendCommand("login", userName, getPasswordHash(password));
+            sendCommand(Command.LOGIN, userName, getPasswordHash(password));
             Command response = (Command)in.readObject();
-            if (!response.getCommandName().equals("loginSuccess")) {
+            if (!response.getCommandName().equals(Command.LOGIN_SUCCESS)) {
                 out.close();
                 in.close();
                 socket.close();
@@ -226,7 +226,7 @@ public final class ServerHandler {
 	public static void sendAddContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
-        sendCommand("contactRequest", userName, contactName);
+        sendCommand(Command.CONTACT_REQUEST, userName, contactName);
 	}
 
     /**
@@ -239,7 +239,7 @@ public final class ServerHandler {
 	public static void sendDeleteContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
-        sendCommand("delContact", userName, contactName);
+        sendCommand(Command.DELETE_CONTACT, userName, contactName);
 	}
 
     /**
@@ -253,7 +253,7 @@ public final class ServerHandler {
                                                 String... contactNames)
                                                 throws Exception {
         String[] args = mergeStrings(contactNames, userName);
-        sendCommand("startConversation", args);
+        sendCommand(Command.START_CONVERSATION, args);
 	}
 
     /**
@@ -267,7 +267,7 @@ public final class ServerHandler {
 	public static void sendMessagePostRequest(String userName,
                                                 String message,
                                                 int conId) throws Exception {
-        sendCommand("sendMessage", userName, message, String.valueOf(conId));
+        sendCommand(Command.SEND_MESSAGE, userName, message, String.valueOf(conId));
 	}
 
     /**
@@ -281,7 +281,7 @@ public final class ServerHandler {
     public static void sendQuitConversationNotification(String userName,
                                                         int conId)
                                                         throws Exception {
-        sendCommand("quitConversation", userName, String.valueOf(conId));
+        sendCommand(Command.QUIT_CONVERSATION, userName, String.valueOf(conId));
     }
 
     /**
@@ -297,7 +297,7 @@ public final class ServerHandler {
                                                 String... contactNames)
                                                 throws Exception {
         String[] args = mergeStrings(contactNames, userName, fileName);
-        sendCommand("fileTransferRequest", args);
+        sendCommand(Command.FILE_TRANSFER_REQUEST, args);
 	}
 
     /**
@@ -312,7 +312,7 @@ public final class ServerHandler {
                                                 String contactName,
                                                 boolean response)
                                                 throws Exception {
-        sendCommand("fileTransferResponse",
+        sendCommand(Command.FILE_TRANSFER_RESPONSE,
                     userName,
                     contactName,
                     String.valueOf(response));
@@ -330,7 +330,7 @@ public final class ServerHandler {
                                                     String contactName,
                                                     boolean response)
                                                     throws Exception {
-        sendCommand("contactRequestResponse",
+        sendCommand(Command.CONTACT_REQUEST_RESPONSE,
                     userName,
                     contactName,
                     String.valueOf(response));
@@ -344,7 +344,7 @@ public final class ServerHandler {
      */
     public static void sendAccountUpdateRequest(Account account)
                                                 throws Exception {
-        sendCommand("updateAccount", account.getUserName());
+        sendCommand(Command.UPDATE_ACCOUNT, account.getUserName());
         out.writeObject(account);
     }
 }

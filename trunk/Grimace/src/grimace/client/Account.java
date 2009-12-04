@@ -44,7 +44,7 @@ public class Account implements Serializable {
     private ContactList cList;
     private String userName;
     private String displayName;
-
+    private String status;
 
 
     /**
@@ -58,6 +58,7 @@ public class Account implements Serializable {
         displayName = userName;
         font = new Font( DEFAULT_FONT, Font.PLAIN, DEFAULT_FONT_SIZE);
         fontColour = DEFAULT_FONT_COLOUR;
+        status = STATUS_INVISIBLE;
     }
 
      /**
@@ -66,11 +67,8 @@ public class Account implements Serializable {
      * @param iDisplayName     Desired Display name for the account
      */
     public Account (String iUserName, String iDisplayName){
-        cList = new ContactList();
-        userName = iUserName;
+        this(iUserName);
         displayName = iDisplayName;
-        font = new Font( DEFAULT_FONT, Font.PLAIN, DEFAULT_FONT_SIZE);
-        fontColour = DEFAULT_FONT_COLOUR;
     }
 
      /**
@@ -113,6 +111,21 @@ public class Account implements Serializable {
          displayName = name;
      }
 
+     /**
+     * Gives the contact list for an account.
+     * @return Returns the ContactList for an account.
+     */
+     public String getStatus(){
+         return status;
+     }
+
+     /**
+     * Sets the contact list for an account.
+     * @param list to replace old cList.
+     */
+     public void setStatus(String stat){
+         status = stat;
+     }
 
 
     /**
