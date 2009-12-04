@@ -24,6 +24,8 @@
 
 package grimace.client;
 import java.awt.Component;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 
@@ -85,8 +87,8 @@ public class ProgramController {
      * @param conversation the conversation that occurred
      * @return the chat log of the conversation
      */
-    public void getChatLog(ClientConversation conversation) {
-        
+    public void getChatLog(ClientConversation conversation, String fileName) throws FileNotFoundException, IOException {
+        convo.openLog(fileName);
     }
 
     /**
