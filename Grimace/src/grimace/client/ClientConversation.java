@@ -26,6 +26,8 @@
 package grimace.client;
 import java.util.ArrayList;
 import java.io.*;
+import java.io.DataInputStream;
+
 
 
 /**
@@ -92,7 +94,21 @@ public class ClientConversation {
         }
                  
     }
+/**
+ * I believe this should take a filename and print it out with file.io
+ * @param filename
+ * @throws FileNotFoundException
+ * @throws IOException
+ */
+    public void openLog(String filename) throws FileNotFoundException, IOException{
 
+        FileInputStream log = new FileInputStream(filename);
+
+        System.out.println(new DataInputStream(log).readLine());
+
+        log.close();
+
+    }
     /**
      * New message recieved and added to conversationText
      * @param newMessage    The new recieved message
