@@ -78,7 +78,7 @@ public class RequestDialog extends javax.swing.JDialog {
         msgLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         msgLabel.setText("Default message text.");
 
-        denyButton.setText("Deny");
+        denyButton.setText("Reject");
         denyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 denyButtonActionPerformed(evt);

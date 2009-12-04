@@ -202,7 +202,21 @@ public final class ServerHandler {
                     ProgramController.showMessage(fromServer.getCommandArg(0));
                 }
                 if (fromServer.getCommandName().equals(Command.CONTACT_REQUEST)) {
-                    ProgramController.showMessage("You have a contact request. Once I this is updated we can let you confirm it");
+                    RequestDialog rd = new RequestDialog("You have a contact request from "
+                            + fromServer.getCommandArg(0) + ". What would you like to do?");
+                    switch (rd.getReturnStatus()) {
+                        case RequestDialog.RET_ACCEPT:
+                            sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(), Command.ACCEPT);
+                            break;
+                        case RequestDialog.RET_DENY:
+                            sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(), Command.REJECT);
+                            break;
+                        case RequestDialog.RET_IGNORE:
+                            ProgramController.showMessage("Your contact requests will be displayed on your next login.");
+                            break;
+                    }
                 }
             }
             catch (EOFException e) {}

@@ -63,6 +63,12 @@ public class ClientHandler {
                     ServerController.placeContactRequest(fromClient.getCommandArg(0),
                                                             fromClient.getCommandArg(1));
                 }
+                if (fromClient.getCommandName().equals(Command.CONTACT_REQUEST_RESPONSE)) {
+                    ServerController.confirmContactRequest(
+                            fromClient.getCommandArg(0),
+                            fromClient.getCommandArg(1),
+                            fromClient.getCommandArg(2).equals(Command.ACCEPT));
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}
