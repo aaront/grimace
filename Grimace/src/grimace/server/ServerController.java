@@ -61,6 +61,7 @@ public class ServerController {
         initServerSocket();
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
+        DataHandler.printAccounts();
         connections = new Hashtable<String,ClientHandler>();
         run = true;
         listen();
@@ -107,6 +108,9 @@ public class ServerController {
     }
     
     public static void closeConnection(String userName) {
+        System.out.println("Closing connection session for user \'" + userName + "\':");
+        getClientHandler(userName).closeSocket();
+        System.out.println("Removing connection handler for use \'" + userName + "\'");
         connections.remove(userName);
     }
 
@@ -116,30 +120,45 @@ public class ServerController {
 	public static void listen() {
         while (run) {
             try {
+                System.out.println("Waiting for next connection...");
                 socket = serverSocket.accept();
                 ObjectInputStream in = new ObjectInputStream(
                                             socket.getInputStream());
                 ObjectOutputStream out = new ObjectOutputStream(
                                             socket.getOutputStream());
+                System.out.println("Received connection from " + socket.getInetAddress().toString());
                 Command cmd = (Command)in.readObject();
+                System.out.println("Received command: " + cmd.getCommandName());
                 Command resp = processConnectionCommand(cmd);
                 out.writeObject(resp);
                 if (!cmd.getCommandName().equals(Command.LOGIN)) {
+                    System.out.println("Done processing command: " + cmd.getCommandName());
+                    System.out.println("Closing connection to " + socket.getInetAddress().toString());
                     socket.close();
                 }
                 else {
                     if (!resp.getCommandName().equals(Command.LOGIN_SUCCESS)) {
+                        System.out.println("Done processing command: " + cmd.getCommandName());
+                        System.out.println("Closing connection to " + socket.getInetAddress().toString());
                         socket.close();
                     }
                     else {
                         String userName = cmd.getCommandArg(0);
+                        System.out.print("Sending Account data for user \'" + userName + "\': ");
                         out.writeObject(DataHandler.loadAccount(userName));
+                        System.out.println("done");
+                        System.out.print("Setting up handler for connection session with user \'" + userName + "\': ");
                         registerConnection(userName, new ClientHandler(socket, userName, in, out));
+                        System.out.println("done");
+                        System.out.print("Presenting contact requests for user \'" + userName + "\': ");
+                        presentContactRequests(userName);
+                        System.out.println("done");
+                        System.out.println("Done processing command: " + cmd.getCommandName());
                     }
                 }
             }
             catch (Exception e) {
-                System.out.println("Failed to accept socket.");
+                System.out.println("Error: Failed to accept socket.");
                 e.printStackTrace();
             }
         }
@@ -154,46 +173,67 @@ public class ServerController {
 	public static Command processConnectionCommand(Command cmd) {
         Command resp = null;
         if (cmd.getCommandName().equals(Command.LOGIN)) {
+            System.out.println("Processing login request with username: " + cmd.getCommandArg(0));
             if (cmd.getArgumentNumber() < 2) {
                 resp = new Command(Command.LOGIN_FAILURE);
+                System.out.println("Login failed for username: " + cmd.getCommandArg(0) + ", too few arguments");
             }
             else {
                 String userName = cmd.getCommandArg(0);
                 String passHash = cmd.getCommandArg(1);
+                System.out.print("Verifying login for username " + userName + ": ");
                 if (verifyLoginRequest(userName, passHash)) {
                     resp = new Command(Command.LOGIN_SUCCESS);
+                    System.out.println("valid");
+                    System.out.println("Response: " + Command.LOGIN_SUCCESS);
                 }
                 else {
                     resp = new Command(Command.LOGIN_FAILURE);
+                    System.out.println("invalid");
+                    System.out.println("Response: " + Command.LOGIN_FAILURE);
                 }
             }
         }
         else if (cmd.getCommandName().equals(Command.REGISTER)) {
-            if (cmd.getArgumentNumber() < 2) {
+            System.out.println("Processing registration request with username: " + cmd.getCommandArg(0));
+            if (cmd.getArgumentNumber() < 3) {
                 resp = new Command(Command.REGISTER_FAILURE);
+                System.out.println("Login failed for username: " + cmd.getCommandArg(0) + ", too few arguments");
             }
             else {
                 String userName = cmd.getCommandArg(0);
                 String passHash = cmd.getCommandArg(1);
                 String display = cmd.getCommandArg(2);
+                System.out.print("Creating account with username " + userName + ": ");
                 try {
                     if (DataHandler.createAccount(userName, passHash,
                                                             display)) {
                         resp = new Command(Command.REGISTER_SUCCESS);
+                        System.out.println("done");
+                        System.out.println("Response: " + Command.REGISTER_SUCCESS);
                     }
                     else {
                         resp = new Command(Command.REGISTER_FAILURE,
                                             Command.USERNAME_EXISTS);
+                        System.out.println("failed, username exists");
+                        System.out.println("Response: " + Command.REGISTER_FAILURE
+                                            + ", " + Command.USERNAME_EXISTS);
                     }
                 }
-                catch (Exception ex) {
+                catch (Exception e) {
                     resp = new Command(Command.REGISTER_FAILURE,
                                         Command.ACCOUNT_CREATION_ERROR);
+                    System.out.println("failed, error:\n");
+                    e.printStackTrace();
+                    System.out.println("Response: " + Command.REGISTER_FAILURE
+                                            + ", " + Command.ACCOUNT_CREATION_ERROR);
                 }
             }
         }
         else {
+            System.out.println("Rejected invlid command: " + cmd.getCommandName());
             resp = new Command(Command.INVALID_COMMAND);
+            System.out.println("Response: " + Command.INVALID_COMMAND);
         }
 
         return resp;
@@ -250,22 +290,21 @@ public class ServerController {
 	public static void placeContactRequest(String userName,
                                             String contactName) {
         if (!DataHandler.accountExists(contactName)) {
-            getClientHandler(userName).placeCommand(
-                new Command(Command.DISPLAY_NOTIFICATION,
-                "The requested account does not exist."));
+            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                "The requested account does not exist."), userName);
             return;
         }
         try {
             DataHandler.placeContactRequest(userName, contactName);
+            DataHandler.printContactRequests();
         }
         catch (Exception e) {
-            getClientHandler(userName).placeCommand(
-                new Command(Command.DISPLAY_NOTIFICATION,
-                "The requested account does not exist."));
+            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                "An error occurred while placing your contact request for contact: "
+                + contactName), userName);
             return;
         }
-        getClientHandler(contactName).placeCommand(new Command(
-                                            Command.CONTACT_REQUEST, userName));
+        sendCommand(new Command(Command.CONTACT_REQUEST, userName), contactName);
 	}
 
     /**
@@ -275,34 +314,47 @@ public class ServerController {
      * @param contactName The name of the contact being requested.
      * @param confirm   Whether or not to complete the addition.
      */
-	public static void confirmContactRequest(String username,
+	public static void confirmContactRequest(String userName,
                                                 String contactName,
                                                 boolean confirm) {
-        if (!DataHandler.accountExists(username)) {
+        if (!DataHandler.accountExists(userName)) {
             return;
         }
         if (confirm) {
             try {
-                DataHandler.addContact(username, contactName);
-                DataHandler.clearContactRequest(username, contactName);
+                DataHandler.addContact(userName, contactName);
+                DataHandler.printContacts();
+                DataHandler.clearContactRequest(userName, contactName);
+                DataHandler.printContactRequests();
             }
             catch (Exception e) {
                 sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
                         "Your request to add " + contactName
-                        + " to your contact list was accepted, "
+                        + " to your contact list was accepted,\n"
                         + "but an error occured while updating your contact list."),
-                        username);
+                        userName);
             }
         }
         else {
             try {
-                DataHandler.clearContactRequest(username, contactName);
+                DataHandler.clearContactRequest(userName, contactName);
+                DataHandler.printContactRequests();
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
         }
 	}
+
+    public static void presentContactRequests(String userName) {
+        if (!DataHandler.accountExists(userName)) {
+            return;
+        }
+        Object[] rList = DataHandler.getContactRequestCommands(userName);
+        for (Object cmd : rList) {
+            sendCommand((Command)cmd, userName);
+        }
+    }
 
     /**
      * Deletes a contact from the Account with the given userName.
