@@ -141,7 +141,7 @@ public final class ServerHandler {
         try {
             connect();
             sendCommand(Command.REGISTER,
-                        userName,
+                        userName.toLowerCase(),
                         getPasswordHash(password),
                         displayName);
             Command response = (Command)in.readObject();
@@ -166,7 +166,9 @@ public final class ServerHandler {
 	public static boolean sendLoginRequest(String userName, String password) {
         try {
             connect();
-            sendCommand(Command.LOGIN, userName, getPasswordHash(password));
+            sendCommand(Command.LOGIN,
+                    userName.toLowerCase(),
+                    getPasswordHash(password));
             Command response = (Command)in.readObject();
             if (!response.getCommandName().equals(Command.LOGIN_SUCCESS)) {
                 out.close();
@@ -206,12 +208,18 @@ public final class ServerHandler {
                             + fromServer.getCommandArg(0) + ". What would you like to do?");
                     switch (resp) {
                         case 0:
-                            sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(), Command.ACCEPT);
+                            sendContactRequestResponse(fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(),
+                                    Command.ACCEPT);
+                            /*sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(), Command.ACCEPT);*/
                             break;
                         case 1:
-                            sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(), Command.REJECT);
+                            sendContactRequestResponse(fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(),
+                                    Command.REJECT);
+                            /*sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
+                                    ProgramController.getAccount().getUserName(), Command.REJECT);*/
                             break;
                         case 2:
                             ProgramController.showMessage("Your contact requests will be displayed on your next login.");
@@ -246,7 +254,7 @@ public final class ServerHandler {
 	public static void sendAddContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
-        sendCommand(Command.CONTACT_REQUEST, userName, contactName);
+        sendCommand(Command.CONTACT_REQUEST, userName, contactName.toLowerCase());
 	}
 
     /**
@@ -259,12 +267,10 @@ public final class ServerHandler {
      */
     public static void sendContactRequestResponse(String userName,
                                                     String contactName,
-                                                    boolean response)
+                                                    String response)
                                                     throws Exception {
         sendCommand(Command.CONTACT_REQUEST_RESPONSE,
-                    userName,
-                    contactName,
-                    String.valueOf(response));
+                    userName, contactName, response);
     }
 
     /**

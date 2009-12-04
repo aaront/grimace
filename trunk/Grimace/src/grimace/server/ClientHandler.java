@@ -70,6 +70,15 @@ public class ClientHandler {
         return name;
     }
 
+    public void closeSocket() {
+        try {
+            socket.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void placeCommand(Command cmd) {
         commandQueue.add(cmd);
     }
@@ -88,6 +97,7 @@ public class ClientHandler {
                             fromClient.getCommandArg(1),
                             fromClient.getCommandArg(2).equals(Command.ACCEPT));
                 }
+                Thread.sleep(500);
             }
             catch (EOFException e) {}
             catch (Exception e) {}

@@ -39,7 +39,7 @@ import grimace.client.Contact;
 public class DataHandler {
     private static final String DB_DRIVER = "org.sqlite.JDBC";
                                 //"org.apache.derby.jdbc.EmbeddedDriver";
-	private static final String DB_NAME = "WernickeData.db";
+	private static final String DB_NAME = "WernickeData/WernickeData.db";
 	private static final String CONNECTION_URL =
                                 "jdbc:sqlite:" + DB_NAME;
 	private static Connection connection;
@@ -115,6 +115,48 @@ public class DataHandler {
         statement.close();
 	}
 
+    public static void printContactRequests() {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM ContactRequests");
+            System.out.println("Requests:");
+            while (result.next()) {
+                System.out.println(result.getString(1) + ", " + result.getString(2));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printContacts() {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM Contacts");
+            System.out.println("Contacts:");
+            while (result.next()) {
+                System.out.println(result.getString(1) + ", " + result.getString(2));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void printAccounts() {
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM Accounts");
+            System.out.println("Accounts:");
+            while (result.next()) {
+                System.out.println(result.getString(1) + ", " + result.getString(2) + ", " + result.getString(3));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Creates an Account with the given userName and password.
      *
@@ -149,7 +191,7 @@ public class DataHandler {
      *
      * @param acc   The account to save.
      */
-	public static boolean saveAccount(Account acc) {
+	public static synchronized boolean saveAccount(Account acc) {
         if (!accountExists(acc.getUserName())) { return false; }
         try {
             Statement statement = connection.createStatement();
@@ -253,7 +295,7 @@ public class DataHandler {
      * @return  The displayName of the Account with the given userName, or an
      *          empty string if that Account does not exist.
      */
-    public static String getDisplayName(String userName) {
+    public static synchronized String getDisplayName(String userName) {
         try {
             Statement statement = connection.createStatement();
             String sql = "SELECT displayName FROM Accounts WHERE userName=\'"
@@ -280,7 +322,7 @@ public class DataHandler {
      *          Exception is thrown if the Account does not exist.
      * @throws Exception
      */
-    public static String getAccountPasswordHash(String userName)
+    public static synchronized String getAccountPasswordHash(String userName)
                                                         throws Exception {
         Statement statement = connection.createStatement();
         String sql = "SELECT password FROM Accounts WHERE userName=\'"
@@ -296,6 +338,25 @@ public class DataHandler {
         return hash;
     }
 
+    public static synchronized boolean contactRequestExists(String userName,
+                                                        String contactName) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT * FROM ContactRequests WHERE contactName=\'"
+                            + contactName +"\' AND senderName=\'"
+                            + userName +"\'";
+            ResultSet result = statement.executeQuery(sql);
+            if (!result.next()) {
+                result.close();
+                return false;
+            }
+            result.close();
+            statement.close();
+        }
+        catch (Exception e) { return false; }
+        return true;
+    }
+
     /**
      * Places a contact request.
      *
@@ -306,6 +367,7 @@ public class DataHandler {
     public static synchronized void placeContactRequest(String userName,
                                     String contactName) throws SQLException {
         if (contactExists(userName, contactName)) { return; }
+        if (contactRequestExists(userName, contactName)) { return; }
         Statement statement = connection.createStatement();
         String sql = "INSERT INTO ContactRequests VALUES(\'"
                        + contactName + "\',\'"
@@ -325,12 +387,29 @@ public class DataHandler {
                                                     String contactName)
                                                     throws SQLException {
         Statement statement = connection.createStatement();
-        String sql = "DELETE FROM ContactRequests WHERE contactName="
-                        + contactName + " AND senderName=\'"
+        String sql = "DELETE FROM ContactRequests WHERE contactName=\'"
+                        + contactName + "\' AND senderName=\'"
                         + userName + "\'";
         statement.executeUpdate(sql);
         statement.close();
 	}
+
+    public static synchronized Object[] getContactRequestCommands(String userName) {
+        ArrayList<Command> cmdList = new ArrayList<Command>();
+        try {
+            Statement statement = connection.createStatement();
+            ResultSet result = statement.executeQuery("SELECT * FROM ContactRequests "
+                                                        + "WHERE contactName=\'"
+                                                        + userName + "\'");
+            while (result.next()) {
+                cmdList.add(new Command(Command.CONTACT_REQUEST,result.getString("senderName")));
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cmdList.toArray();
+    }
 
     /**
      * Adds a contact to an Account with the given userName.
@@ -361,8 +440,8 @@ public class DataHandler {
                                                     String contactName)
                                                     throws SQLException {
         Statement statement = connection.createStatement();
-        String sql = "DELETE FROM Contacts WHERE userName="
-                        + userName + " AND contactName=\'"
+        String sql = "DELETE FROM Contacts WHERE userName=\'"
+                        + userName + "\' AND contactName=\'"
                         + contactName + "\'";
         statement.executeUpdate(sql);
         statement.close();
