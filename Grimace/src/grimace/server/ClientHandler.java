@@ -88,12 +88,13 @@ public class ClientHandler {
                     out.writeObject(toClient);
                     commandQueue.remove(0);
                 }
+                Thread.sleep(500);
             }
             catch (IOException e) {
                 System.out.println("Connection lost.");
                 run = false;
             }
-            catch (Exception e) {}
+            catch (Exception e) {}            
         }
         try {
             out.close();
