@@ -251,6 +251,14 @@ public class ProgramController {
         return "";
     }
 
+    /**
+     * Returns a reference to the ProgramWindow frame
+     * @return The currently active ProgramWindow frame
+     */
+    public static java.awt.Frame getWindow() {
+        return window;
+    }
+
     public static void main(String[] args) {
         new ProgramController();
     }

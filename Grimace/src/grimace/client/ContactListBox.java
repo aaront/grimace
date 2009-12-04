@@ -58,7 +58,6 @@ public class ContactListBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         listBox = new javax.swing.JList();
         addButton = new javax.swing.JButton();
-        removeButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(300, 450));
 
@@ -78,13 +77,6 @@ public class ContactListBox extends javax.swing.JPanel {
             }
         });
 
-        removeButton.setText("Remove Contact");
-        removeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                removeButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,9 +84,7 @@ public class ContactListBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(removeButton)
-                .addContainerGap())
+                .addContainerGap(197, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -102,27 +92,21 @@ public class ContactListBox extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addButton)
-                    .addComponent(removeButton))
+                .addComponent(addButton)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // TODO add your handling code here:
+        AddContactDialog dlg = new AddContactDialog();
+        dlg.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
-
-    private void removeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_removeButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
-    private javax.swing.JButton removeButton;
     // End of variables declaration//GEN-END:variables
 
 }
