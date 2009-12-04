@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import javax.swing.UIManager;
+import javax.swing.JOptionPane;
 
 /**
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
@@ -69,7 +70,23 @@ public class ProgramController {
     }
 
     public static void showMessage(String message) {
-        javax.swing.JOptionPane.showMessageDialog(window, message);
+        JOptionPane.showMessageDialog(window, message);
+    }
+
+    public static int showRequestDialog(String message) {
+        //Custom button text
+        Object[] options = {"Accept",
+                            "Reject",
+                            "Ignore"};
+        int n = JOptionPane.showOptionDialog(window,
+            message,
+            "Response Required",
+            JOptionPane.YES_NO_CANCEL_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[2]);
+        return n;
     }
 
     /**
