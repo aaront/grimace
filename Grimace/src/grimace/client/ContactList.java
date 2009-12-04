@@ -24,7 +24,7 @@
 
 package grimace.client;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.io.Serializable;
 
 public class ContactList implements Serializable {
@@ -36,6 +36,17 @@ public class ContactList implements Serializable {
      */
     public ContactList() {
         list = new ArrayList<Contact>();
+    }
+
+    /**
+     * Creates an instance of a contact list with specified contacts.
+     */
+    public ContactList(Contact[] contacts) {
+        list = new ArrayList<Contact>();
+        int i;
+        for (i = 0; i < contacts.length; i++) {
+            list.add(contacts[i]);
+        }
     }
 
     // Assuming that we're using an array data structure
