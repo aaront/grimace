@@ -15,12 +15,17 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JColorChooser;
+import javax.swing.JComboBox;
 
 public class ChatBox extends javax.swing.JPanel {
 
-    private Color currentFontColor;
+    private Color currentFontColour;
+    private Font currentFont;
+
     /** Creates new form ChatBox */
     public ChatBox() {
+        currentFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
+
         initComponents();
 
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -36,11 +41,10 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour.setForeground(Account.DEFAULT_FONT_COLOUR);
 
         // @TODO: Will be eventually replaced by getting the font from the account.
-        Font newFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
-        setNewFont(newFont);
+        loadFontProperties(currentFont);
     }
 
-    private void setNewFont(Font font) {
+    private void loadFontProperties(Font font) {
         if (font.isBold()) {
             bolden.setSelected(true);
         }
@@ -49,6 +53,22 @@ public class ChatBox extends javax.swing.JPanel {
         }
 
         messageBox.setFont(font);
+    }
+
+    /**
+     * Gets the current font being used in the messageBox
+     * @return the font of the messageBox
+     */
+    public Font getCurrentFont() {
+        return currentFont;
+    }
+
+    /**
+     * Gets the current font color being used in the messageBox
+     * @return
+     */
+    public Color getCurrentFontColour() {
+        return currentFontColour;
     }
 
     /** This method is called from within the constructor to
@@ -60,8 +80,6 @@ public class ChatBox extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        chatDisplayBox = new javax.swing.JEditorPane();
         toolbar = new javax.swing.JToolBar();
         bolden = new javax.swing.JToggleButton();
         italicize = new javax.swing.JToggleButton();
@@ -71,10 +89,10 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnAddEquation = new javax.swing.JButton();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        messageBox = new javax.swing.JEditorPane();
-
-        jScrollPane1.setViewportView(chatDisplayBox);
+        jScrollPane3 = new javax.swing.JScrollPane();
+        chatDisplayBox = new javax.swing.JTextArea();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        messageBox = new javax.swing.JTextArea();
 
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
@@ -82,7 +100,7 @@ public class ChatBox extends javax.swing.JPanel {
         toolbar.setMinimumSize(new java.awt.Dimension(156, 36));
         toolbar.setPreferredSize(new java.awt.Dimension(120, 36));
 
-        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         bolden.setText("<html><strong>B</strong>");
         bolden.setFocusable(false);
         bolden.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -90,9 +108,14 @@ public class ChatBox extends javax.swing.JPanel {
         bolden.setMinimumSize(new java.awt.Dimension(30, 28));
         bolden.setPreferredSize(new java.awt.Dimension(30, 28));
         bolden.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        bolden.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boldenActionPerformed(evt);
+            }
+        });
         toolbar.add(bolden);
 
-        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         italicize.setText("<html><i>i</i>");
         italicize.setFocusable(false);
         italicize.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -100,16 +123,31 @@ public class ChatBox extends javax.swing.JPanel {
         italicize.setMinimumSize(new java.awt.Dimension(30, 28));
         italicize.setPreferredSize(new java.awt.Dimension(30, 28));
         italicize.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        italicize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                italicizeActionPerformed(evt);
+            }
+        });
         toolbar.add(italicize);
         toolbar.add(jSeparator2);
 
         fontSelector.setMaximumSize(new java.awt.Dimension(150, 27));
         fontSelector.setMinimumSize(new java.awt.Dimension(150, 27));
         fontSelector.setPreferredSize(new java.awt.Dimension(150, 27));
+        fontSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fontSelectorActionPerformed(evt);
+            }
+        });
         toolbar.add(fontSelector);
 
         sizeSelector.setMaximumSize(new java.awt.Dimension(70, 27));
         sizeSelector.setMinimumSize(new java.awt.Dimension(70, 27));
+        sizeSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sizeSelectorActionPerformed(evt);
+            }
+        });
         toolbar.add(sizeSelector);
 
         btnColour.setText("Color");
@@ -130,46 +168,87 @@ public class ChatBox extends javax.swing.JPanel {
         btnAddEquation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnAddEquation);
 
-        jScrollPane2.setViewportView(messageBox);
+        chatDisplayBox.setColumns(20);
+        chatDisplayBox.setEditable(false);
+        chatDisplayBox.setLineWrap(true);
+        chatDisplayBox.setRows(5);
+        jScrollPane3.setViewportView(chatDisplayBox);
+
+        messageBox.setColumns(20);
+        messageBox.setLineWrap(true);
+        jScrollPane1.setViewportView(messageBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 454, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 463, Short.MAX_VALUE)
+            .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 463, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 282, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 60, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnColourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColourActionPerformed
         // TODO add your handling code here:
-        currentFontColor = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
-        btnColour.setForeground(currentFontColor);
-        messageBox.setForeground(currentFontColor);
+        currentFontColour = JColorChooser.showDialog(null, "Choose a new font color:", btnColour.getForeground());
+        btnColour.setForeground(currentFontColour);
+        messageBox.setForeground(currentFontColour);
 }//GEN-LAST:event_btnColourActionPerformed
+
+    private void boldenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boldenActionPerformed
+        if (bolden.isSelected() == true) {
+            currentFont = currentFont.deriveFont(currentFont.getStyle() | Font.BOLD);
+        } else {
+            currentFont = currentFont.deriveFont(currentFont.getStyle() ^ Font.BOLD);
+        }
+        messageBox.setFont(currentFont);
+}//GEN-LAST:event_boldenActionPerformed
+
+    private void italicizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_italicizeActionPerformed
+        if (italicize.isSelected() == true) {
+            currentFont = currentFont.deriveFont(currentFont.getStyle() | Font.ITALIC);
+        } else {
+            currentFont = currentFont.deriveFont(currentFont.getStyle() ^ Font.ITALIC);
+        }
+        messageBox.setFont(currentFont);
+    }//GEN-LAST:event_italicizeActionPerformed
+
+    private void sizeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeSelectorActionPerformed
+        JComboBox sel = (JComboBox)evt.getSource();
+        Integer fs = (Integer)sel.getSelectedItem();
+        Float fsfl = fs.floatValue();
+        currentFont = currentFont.deriveFont(fsfl);
+        messageBox.setFont(currentFont);
+    }//GEN-LAST:event_sizeSelectorActionPerformed
+
+    private void fontSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontSelectorActionPerformed
+        JComboBox sel = (JComboBox)evt.getSource();
+        String fs = (String)sel.getSelectedItem();
+        currentFont = new Font(fs, currentFont.getStyle(), currentFont.getSize());
+        messageBox.setFont(currentFont);
+    }//GEN-LAST:event_fontSelectorActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
     private javax.swing.JButton btnAddEquation;
     private javax.swing.JButton btnColour;
-    private javax.swing.JEditorPane chatDisplayBox;
+    private javax.swing.JTextArea chatDisplayBox;
     private javax.swing.JComboBox fontSelector;
     private javax.swing.JToggleButton italicize;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
-    private javax.swing.JEditorPane messageBox;
+    private javax.swing.JTextArea messageBox;
     private javax.swing.JComboBox sizeSelector;
     private javax.swing.JToolBar toolbar;
     // End of variables declaration//GEN-END:variables
