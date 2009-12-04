@@ -24,9 +24,7 @@
 
 package grimace.client;
 
-import java.awt.Component;
-
-public class Contact extends Component implements java.io.Serializable {
+public class Contact implements java.io.Serializable {
 
     // @TODO: Interact with the database somehow. I think. Maybe not.
 
