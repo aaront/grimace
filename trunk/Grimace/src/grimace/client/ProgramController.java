@@ -28,6 +28,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
+import javax.swing.UIManager;
 
 /**
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
@@ -40,6 +41,14 @@ public class ProgramController {
     private static ProgramWindow window;
 
     public ProgramController() {
+        // Uses Nimbus as default theme. Much better than Metal. Search "Java nimbus"
+        // on Google to find out more
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        catch (Exception e) {
+        }
+
         // @TODO: Set up window and show login form
         progSettings = new ProgramSettings();
 

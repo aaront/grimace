@@ -23,6 +23,12 @@ public class ChatBox extends javax.swing.JPanel {
 
     /** Creates new form ChatBox */
     public ChatBox() {
+        try {
+            UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
+        }
+        catch (Exception e) {
+        }
+
         currentFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
 
         initComponents();
