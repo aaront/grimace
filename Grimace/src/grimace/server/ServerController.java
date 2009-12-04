@@ -278,7 +278,30 @@ public class ServerController {
 	public static void confirmContactRequest(String username,
                                                 String contactName,
                                                 boolean confirm) {
-
+        if (!DataHandler.accountExists(username)) {
+            return;
+        }
+        if (confirm) {
+            try {
+                DataHandler.addContact(username, contactName);
+                DataHandler.clearContactRequest(username, contactName);
+            }
+            catch (Exception e) {
+                sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                        "Your request to add " + contactName
+                        + " to your contact list was accepted, "
+                        + "but an error occured while updating your contact list."),
+                        username);
+            }
+        }
+        else {
+            try {
+                DataHandler.clearContactRequest(username, contactName);
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 	}
 
     /**

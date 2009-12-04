@@ -53,6 +53,8 @@ public class Command implements Serializable {
     public static final String ACCOUNT_CREATION_ERROR = "accountCreationError";
     public static final String INVALID_COMMAND = "invalidCommand";
     public static final String DISPLAY_NOTIFICATION = "displayNotification";
+    public static final String ACCEPT = "accept";
+    public static final String REJECT = "reject";
 
     /** The name indicating the task to be completed. */
     private String cmdName;
