@@ -43,6 +43,7 @@ public final class ServerHandler {
     private static ObjectOutputStream out;
     private static ObjectInputStream in;
     private static Command fromServer;
+    private static boolean run = false;
 
     /**
      * Connects to the server on the SERVER_PORT.
@@ -74,10 +75,16 @@ public final class ServerHandler {
      * @param args      The arguments for the command.
      * @throws java.lang.Exception
      */
-	private static void sendCommand(String cmdName, String... args)
-                                        throws Exception {
+	private static void sendCommand(String cmdName, String... args) throws Exception {
         if (!socket.isConnected()) { throw new Exception("Not connected"); }
-        out.writeObject(new Command(cmdName, args));
+        try {
+            out.writeObject(new Command(cmdName, args));
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            ProgramController.showMessage("The connection to the server was closed. You will be logged out.");
+            logout();
+        }
 	}
 
     /**
@@ -184,6 +191,7 @@ public final class ServerHandler {
                                             listen();
                                         }
                                     });
+                run = true;
                 listen.start();
             }
             return true;
@@ -197,7 +205,7 @@ public final class ServerHandler {
      * Waits for commands from the server and executes them.
      */
     private static void listen() {
-        while (true) {
+        while (run) {
             try {
                 fromServer = (Command)in.readObject();
                 if (fromServer.getCommandName().equals(Command.DISPLAY_NOTIFICATION)) {
@@ -226,8 +234,10 @@ public final class ServerHandler {
                             break;
                     }
                 }
+                Thread.sleep(100);
             }
             catch (EOFException e) {}
+            catch (SocketException e) {}
             catch (Exception e) { e.printStackTrace(); }
         }
     }
@@ -372,5 +382,27 @@ public final class ServerHandler {
                                                 throws Exception {
         sendCommand(Command.UPDATE_ACCOUNT, account.getUserName());
         out.writeObject(account);
+    }
+
+    public static void sendLogoutRequest() {
+        try {
+            sendCommand(Command.LOGOUT);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        logout();
+    }
+
+    public static void logout() {
+        try {
+            run = false;
+            socket.close();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+        ProgramController.setRightPane(null);
+        ProgramController.setLeftPane(new LoginForm());
     }
 }

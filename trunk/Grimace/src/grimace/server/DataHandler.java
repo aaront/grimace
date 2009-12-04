@@ -514,7 +514,7 @@ public class DataHandler {
         try {
             ContactList cList = new ContactList();
             Statement statement = connection.createStatement();
-            String sql = "SELECT * FROM Accounts WHERE userName=\'"
+            String sql = "SELECT * FROM Contacts WHERE userName=\'"
                         + userName +"\'";
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {

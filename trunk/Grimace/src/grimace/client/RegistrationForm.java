@@ -61,11 +61,7 @@ public class RegistrationForm extends javax.swing.JPanel {
 
         jLabel2.setText("Password");
 
-        passField.setText("12345");
-
         jLabel3.setText("Confirm Password");
-
-        confirmPassField.setText("12345");
 
         displayField.setText("The Great Wernicke");
 
@@ -99,11 +95,11 @@ public class RegistrationForm extends javax.swing.JPanel {
                     .addComponent(passField, javax.swing.GroupLayout.Alignment.LEADING))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(registerbutton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
-                    .addComponent(confirmPassField, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+                    .addComponent(registerbutton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
+                    .addComponent(confirmPassField, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE)
                     .addComponent(jLabel4)
                     .addComponent(jLabel3)
-                    .addComponent(displayField, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE))
+                    .addComponent(displayField, javax.swing.GroupLayout.DEFAULT_SIZE, 114, Short.MAX_VALUE))
                 .addGap(78, 78, 78))
         );
         layout.setVerticalGroup(
@@ -139,20 +135,20 @@ public class RegistrationForm extends javax.swing.JPanel {
         String display = displayField.getText();
 
         if (user.isEmpty()) {
-            showError("Please enter a username.");
+            ProgramController.showMessage("Please enter a username.");
         } else if (pass.isEmpty()) {
-            showError("Please enter a password.");
+            ProgramController.showMessage("Please enter a password.");
         } else if (!pass.equals(new String(confirmPassField.getPassword()))) {
-            showError("Passwords do not match.");
+            ProgramController.showMessage("Passwords do not match.");
         } else {
             try {
                 Command response = ServerHandler.sendRegisterRequest(user, pass, display);
                 System.out.println(response.getCommandName());
                 if (response.getCommandName().equals("registerSuccess")) {
-                    showError("Registration successful.");
+                    ProgramController.showMessage("Registration successful.");
                     ProgramController.setRightPane(null);
                 } else {
-                    showError("Registration failed.");
+                    ProgramController.showMessage("Registration failed.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -164,9 +160,6 @@ public class RegistrationForm extends javax.swing.JPanel {
         ProgramController.setRightPane(null);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
-    private void showError(String message) {
-        javax.swing.JOptionPane.showMessageDialog(this.getParent(), message);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelButton;

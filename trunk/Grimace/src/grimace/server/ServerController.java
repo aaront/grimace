@@ -323,6 +323,7 @@ public class ServerController {
         if (confirm) {
             try {
                 DataHandler.addContact(userName, contactName);
+                DataHandler.addContact(contactName, userName);
                 DataHandler.printContacts();
                 DataHandler.clearContactRequest(userName, contactName);
                 DataHandler.printContactRequests();

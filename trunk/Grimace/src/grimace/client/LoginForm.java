@@ -53,10 +53,6 @@ public class LoginForm extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(300, 450));
         setMinimumSize(new java.awt.Dimension(300, 450));
 
-        userField.setText("Wernicke");
-
-        passField.setText("password");
-
         statusBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Busy", "Invisible" }));
 
         jLabel1.setText("Username");
@@ -88,22 +84,16 @@ public class LoginForm extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(93, 93, 93)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                        .addGap(71, 71, 71))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                        .addGap(51, 51, 51))
-                    .addComponent(passField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(userField, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)
-                    .addComponent(statusBox, 0, 110, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 62, Short.MAX_VALUE)
-                        .addGap(48, 48, 48))
-                    .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE))
-                .addGap(97, 97, 97))
+                    .addComponent(loginButton, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(passField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(userField, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(statusBox, 0, 116, Short.MAX_VALUE)
+                    .addComponent(registerButton, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
+                .addGap(91, 91, 91))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +126,9 @@ public class LoginForm extends javax.swing.JPanel {
         String status = (String) statusBox.getSelectedItem();
 
         if (user.isEmpty()) {
-            showError("Please enter a username.");
+            ProgramController.showMessage("Please enter a username.");
         } else if (pass.isEmpty()) {
-            showError("Please enter a password.");
+            ProgramController.showMessage("Please enter a password.");
         } else {
             try {
                 if(ServerHandler.sendLoginRequest(user,pass)) {
@@ -147,6 +137,8 @@ public class LoginForm extends javax.swing.JPanel {
                     ProgramController.setLeftPane(new ContactListBox());
                 } else {
                     System.out.println("LoginFailure");
+                    ProgramController.showMessage("Login Failed: "
+                            + "You have entered an invalid username/password pair.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -158,9 +150,6 @@ public class LoginForm extends javax.swing.JPanel {
         ProgramController.setRightPane(new RegistrationForm());
     }//GEN-LAST:event_registerButtonActionPerformed
 
-    private void showError(String message) {
-        javax.swing.JOptionPane.showMessageDialog(this.getParent(), message);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
