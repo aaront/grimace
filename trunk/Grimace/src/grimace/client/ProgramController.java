@@ -38,6 +38,7 @@ public class ProgramController {
     private static Account accnt;
     private ClientConversation convo;
     private static ArrayList<ClientConversation> convoList;
+    private static ArrayList<ChatPanel> chatTabs;
     private static ProgramSettings progSettings;
     private static ProgramWindow window;
     private static ContactListBox contactListBox;
@@ -53,6 +54,8 @@ public class ProgramController {
 
         // @TODO: Set up window and show login form
         progSettings = new ProgramSettings();
+        convoList = new ArrayList<ClientConversation>();
+        chatTabs = new ArrayList<ChatPanel>();
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -96,8 +99,18 @@ public class ProgramController {
 
     public static void setContactListBox(ContactListBox clb) {
         contactListBox = clb;
-        setRightPane(null);
         setLeftPane(clb);
+        setRightPane(null);
+        ProgramWindow.updateChatTabs(chatTabs);
+    }
+
+    public static void openNewConvo(Contact[] contacts) {
+        ContactList list = new ContactList(contacts);
+        ClientConversation convo = new ClientConversation(list);
+        ChatPanel panel = new ChatPanel(convo);
+        convoList.add(convo);
+        chatTabs.add(panel);
+        ProgramWindow.updateChatTabs(chatTabs);
     }
 
     /**
@@ -241,19 +254,11 @@ public class ProgramController {
     }
 
     /**
-     * Logs into the system
-     * @param userName the username
-     * @param password the password
+     * Returns the program to the login form
      */
-    public void login(String userName, String password) {
-
-    }
-
-    /**
-     * Logout the current account
-     */
-    public void logout() {
-
+    public static void showLoginForm() {
+        setRightPane(null);
+        setLeftPane(new LoginForm());
     }
 
     /**

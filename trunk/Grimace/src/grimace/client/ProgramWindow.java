@@ -26,6 +26,8 @@
 package grimace.client;
 
 import java.awt.Component;
+import javax.swing.JTabbedPane;
+import java.util.ArrayList;
 
 public class ProgramWindow extends javax.swing.JFrame {
 
@@ -33,7 +35,7 @@ public class ProgramWindow extends javax.swing.JFrame {
     public ProgramWindow() {
         initComponents();
         splitPane.setRightComponent(null);
-        this.setSize(300,this.getHeight());
+        this.setSize(loginForm1.getMinimumSize().width + splitPane.getDividerSize(),this.getHeight());
     }
 
     public void setLeftPane(Component comp) {
@@ -43,10 +45,10 @@ public class ProgramWindow extends javax.swing.JFrame {
             this.setSize(splitPane.getRightComponent().getMinimumSize().width, this.getHeight());
             splitPane.setDividerLocation(0.0);
         } else {
-            int width = comp.getMinimumSize().width;
+            int width = comp.getMinimumSize().width + splitPane.getDividerSize();
             Component rightComp = splitPane.getRightComponent();
             if (rightComp != null) {
-                width += rightComp.getMinimumSize().width + splitPane.getDividerSize();
+                width += rightComp.getMinimumSize().width;
             }
             this.setSize(width, this.getHeight());
         }
@@ -58,15 +60,29 @@ public class ProgramWindow extends javax.swing.JFrame {
             this.setSize(splitPane.getLeftComponent().getMinimumSize().width, this.getHeight());
             splitPane.setDividerLocation(1.0);
         } else {
-            int width = comp.getMinimumSize().width;
+            int width = comp.getMinimumSize().width + splitPane.getDividerSize();
             Component leftComp = splitPane.getLeftComponent();
             if (leftComp != null) {
-                width += leftComp.getMinimumSize().width + splitPane.getDividerSize();
+                width += leftComp.getMinimumSize().width;
             }
             this.setSize(width, this.getHeight());
         }
     }
 
+    public static void updateChatTabs(ArrayList<ChatPanel> chats) {
+        JTabbedPane tabs = new JTabbedPane();
+        java.awt.Dimension min = tabs.getMinimumSize();
+        min.setSize(450, 450);
+        tabs.setMinimumSize(min);
+        int i;
+        tabs.removeAll();
+        for (i = 0; i < chats.size(); i++) {
+            String title = "ChatTab";
+            tabs.add(title, chats.get(i));;
+
+        }
+        ProgramController.setRightPane(tabs);
+    }
 
     /** This method is called from within the constructor to
      * initialize the form.

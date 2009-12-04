@@ -59,6 +59,11 @@ public class ContactListBox extends javax.swing.JPanel {
         jScrollPane1.setHorizontalScrollBar(null);
 
         listBox.setModel(new DefaultListModel());
+        listBox.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listBoxMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listBox);
 
         addButton.setText("Add Contact");
@@ -94,7 +99,7 @@ public class ContactListBox extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(logoutButton)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,6 +136,18 @@ public class ContactListBox extends javax.swing.JPanel {
             }
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
+
+    private void listBoxMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listBoxMouseClicked
+        if (evt.getClickCount() == 2) {
+            Object[] objects = listBox.getSelectedValues();
+            Contact[] contacts = new Contact[objects.length];
+            int i;
+            for (i = 0; i < objects.length; i++) {
+                contacts[i] = (Contact) objects[i];
+            }
+            ProgramController.openNewConvo(contacts);
+        }
+    }//GEN-LAST:event_listBoxMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

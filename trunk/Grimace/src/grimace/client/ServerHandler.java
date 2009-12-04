@@ -407,7 +407,6 @@ public final class ServerHandler {
         catch (Exception e) {
             e.printStackTrace();
         }
-        ProgramController.setRightPane(null);
-        ProgramController.setLeftPane(new LoginForm());
+        ProgramController.showLoginForm();
     }
 }

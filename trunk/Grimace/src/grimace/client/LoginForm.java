@@ -124,6 +124,7 @@ public class LoginForm extends javax.swing.JPanel {
         String user = userField.getText();
         String pass = new String(passField.getPassword());
         String status = (String) statusBox.getSelectedItem();
+        // @TODO: Pass in status
 
         if (user.isEmpty()) {
             ProgramController.showMessage("Please enter a username.");
