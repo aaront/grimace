@@ -14,8 +14,7 @@ package grimace.client;
 import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.JColorChooser;
-import javax.swing.JComboBox;
+import javax.swing.*;
 
 public class ChatBox extends javax.swing.JPanel {
 
@@ -42,6 +41,11 @@ public class ChatBox extends javax.swing.JPanel {
 
         // @TODO: Will be eventually replaced by getting the font from the account.
         loadFontProperties(currentFont);
+
+        // Disable using the enter key to do a line break. Enter will be used to
+        // send the message.
+        KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
+        messageBox.getInputMap().put(enter, "none");
     }
 
     private void loadFontProperties(Font font) {
@@ -69,6 +73,14 @@ public class ChatBox extends javax.swing.JPanel {
      */
     public Color getCurrentFontColour() {
         return currentFontColour;
+    }
+
+    /**
+     * Gets the instance of the chat display box
+     * @return the chat display box (where the conversation takes place)
+     */
+    public JTextArea getChatDisplayBox() {
+        return chatDisplayBox;
     }
 
     /** This method is called from within the constructor to
@@ -176,6 +188,11 @@ public class ChatBox extends javax.swing.JPanel {
 
         messageBox.setColumns(20);
         messageBox.setLineWrap(true);
+        messageBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                messageBoxKeyPressed(evt);
+            }
+        });
         jScrollPane1.setViewportView(messageBox);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -236,6 +253,15 @@ public class ChatBox extends javax.swing.JPanel {
         currentFont = new Font(fs, currentFont.getStyle(), currentFont.getSize());
         messageBox.setFont(currentFont);
     }//GEN-LAST:event_fontSelectorActionPerformed
+
+    private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed
+        // Checks and sees if the key pressed is "enter", if it is, sends away
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            // @TODO actually send the contents of the messagebox away.
+            System.out.println(messageBox.getText());
+            messageBox.setText("");
+        }
+    }//GEN-LAST:event_messageBoxKeyPressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
