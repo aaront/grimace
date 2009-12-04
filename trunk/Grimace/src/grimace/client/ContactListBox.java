@@ -36,7 +36,7 @@ public class ContactListBox extends javax.swing.JPanel {
     }
 
     public void updateContactListView() {
-        ((ContactListView)listBox).updateModel();
+        ((ContactListView)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
 
     /** This method is called from within the constructor to

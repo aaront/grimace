@@ -236,6 +236,7 @@ public final class ServerHandler {
                 }
                 if (fromServer.getCommandName().equals(Command.UPDATE_CONTACT_LIST)) {
                     ContactList cList = (ContactList)in.readObject();
+                    System.out.println(cList.getList().size());
                     ProgramController.getAccount().setContactList(cList);
                     ProgramController.getContactListBox().updateContactListView();
                 }

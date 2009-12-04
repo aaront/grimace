@@ -14,7 +14,7 @@ import javax.swing.DefaultListSelectionModel;
  * @author vs
  */
 public class ContactListView extends JList {
-    ContactList cList;
+    private ContactList cList;
 
     public ContactListView() {
         DefaultListSelectionModel lsm = new DefaultListSelectionModel();
@@ -30,8 +30,8 @@ public class ContactListView extends JList {
         setModel(m);
     }
 
-    public void updateModel(ContactList cList) {
-        this.cList = cList;
+    public void updateModel(ContactList list) {
+        cList = list;
         updateModel();
     }
 }
