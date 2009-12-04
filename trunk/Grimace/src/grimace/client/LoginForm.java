@@ -143,7 +143,6 @@ public class LoginForm extends javax.swing.JPanel {
             try {
                 if(ServerHandler.sendLoginRequest(user,pass)) {
                     System.out.println("LoginSuccess");
-                    this.setVisible(false);
                     ProgramController.setRightPane(null);
                     ProgramController.setLeftPane(new ContactListBox());
                 } else {
