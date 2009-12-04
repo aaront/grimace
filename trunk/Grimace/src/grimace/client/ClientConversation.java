@@ -104,7 +104,10 @@ public class ClientConversation {
 
         FileInputStream log = new FileInputStream(filename);
 
-        System.out.println(new DataInputStream(log).readLine());
+        /* Java 6 API says do this:
+         * new BufferedReader(new InputStreamReader(log)).readLine();
+         */
+        System.out.println(new BufferedReader(new InputStreamReader(log)).readLine());
 
         log.close();
 
