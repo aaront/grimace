@@ -25,6 +25,8 @@
 
 package grimace.client;
 
+import javax.swing.DefaultListModel;
+
 public class ContactListBox extends javax.swing.JPanel {
     ContactList list;
 
@@ -37,13 +39,11 @@ public class ContactListBox extends javax.swing.JPanel {
 
     void populateList() {
         int i;
-        listBox.removeAll();
+        DefaultListModel m = new DefaultListModel();
         for (i = 0; i < list.getList().size(); i++) {
-            listBox.add(list.getList().get(i));
+            m.addElement(list.getList().get(i));
         }
-        if (listBox.getComponentCount() == 0) {
-            listBox.add("You have no contacts.", null);
-        }
+        listBox.setModel(m);
     }
 
     /** This method is called from within the constructor to
