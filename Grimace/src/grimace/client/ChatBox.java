@@ -106,7 +106,7 @@ public class ChatBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(600, 109));
+        setMinimumSize(new java.awt.Dimension(400, 450));
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
