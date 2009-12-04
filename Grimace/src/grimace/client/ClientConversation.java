@@ -70,6 +70,17 @@ public class ClientConversation {
         return 0;
     }
 
+    public String getTitle(){
+        int numPeople = currentConvoList.size();
+        int i = 1;
+        String people = "";
+
+        for (i = 0; i == (numPeople - 1); i++){
+            people.concat(currentConvoList.get(i).getDisplayName() + ", ");
+        }
+        
+        return people;
+    }
     
     /**
      * Logs the conversationText (where is it from?)
