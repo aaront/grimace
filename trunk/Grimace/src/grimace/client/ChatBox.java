@@ -92,6 +92,8 @@ public class ChatBox extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane3 = new javax.swing.JScrollPane();
+        chatDisplayBox = new javax.swing.JTextArea();
         toolbar = new javax.swing.JToolBar();
         bolden = new javax.swing.JToggleButton();
         italicize = new javax.swing.JToggleButton();
@@ -101,18 +103,32 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnAddEquation = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        chatDisplayBox = new javax.swing.JTextArea();
         jScrollPane1 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
 
+        setMinimumSize(new java.awt.Dimension(600, 109));
+        setPreferredSize(new java.awt.Dimension(600, 170));
+        setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
+
+        chatDisplayBox.setColumns(20);
+        chatDisplayBox.setEditable(false);
+        chatDisplayBox.setLineWrap(true);
+        chatDisplayBox.setRows(5);
+        chatDisplayBox.setMinimumSize(new java.awt.Dimension(400, 16));
+        chatDisplayBox.setPreferredSize(new java.awt.Dimension(400, 80));
+        jScrollPane3.setViewportView(chatDisplayBox);
+
+        add(jScrollPane3);
+
+        toolbar.setBorder(null);
         toolbar.setFloatable(false);
         toolbar.setRollover(true);
-        toolbar.setMaximumSize(new java.awt.Dimension(400, 36));
-        toolbar.setMinimumSize(new java.awt.Dimension(156, 36));
-        toolbar.setPreferredSize(new java.awt.Dimension(120, 36));
+        toolbar.setBorderPainted(false);
+        toolbar.setMaximumSize(new java.awt.Dimension(1000, 36));
+        toolbar.setMinimumSize(new java.awt.Dimension(500, 36));
+        toolbar.setPreferredSize(new java.awt.Dimension(500, 36));
 
-        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14));
+        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         bolden.setText("<html><strong>B</strong>");
         bolden.setFocusable(false);
         bolden.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -127,7 +143,7 @@ public class ChatBox extends javax.swing.JPanel {
         });
         toolbar.add(bolden);
 
-        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         italicize.setText("<html><i>i</i>");
         italicize.setFocusable(false);
         italicize.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -143,9 +159,9 @@ public class ChatBox extends javax.swing.JPanel {
         toolbar.add(italicize);
         toolbar.add(jSeparator2);
 
-        fontSelector.setMaximumSize(new java.awt.Dimension(150, 27));
-        fontSelector.setMinimumSize(new java.awt.Dimension(150, 27));
-        fontSelector.setPreferredSize(new java.awt.Dimension(150, 27));
+        fontSelector.setMaximumSize(new java.awt.Dimension(170, 27));
+        fontSelector.setMinimumSize(new java.awt.Dimension(170, 27));
+        fontSelector.setPreferredSize(new java.awt.Dimension(170, 27));
         fontSelector.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fontSelectorActionPerformed(evt);
@@ -180,14 +196,16 @@ public class ChatBox extends javax.swing.JPanel {
         btnAddEquation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnAddEquation);
 
-        chatDisplayBox.setColumns(20);
-        chatDisplayBox.setEditable(false);
-        chatDisplayBox.setLineWrap(true);
-        chatDisplayBox.setRows(5);
-        jScrollPane3.setViewportView(chatDisplayBox);
+        add(toolbar);
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(32767, 50));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(23, 50));
+        jScrollPane1.setPreferredSize(new java.awt.Dimension(244, 50));
 
         messageBox.setColumns(20);
         messageBox.setLineWrap(true);
+        messageBox.setMinimumSize(new java.awt.Dimension(400, 16));
+        messageBox.setPreferredSize(new java.awt.Dimension(400, 16));
         messageBox.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 messageBoxKeyPressed(evt);
@@ -195,23 +213,7 @@ public class ChatBox extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(messageBox);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-            .addComponent(toolbar, javax.swing.GroupLayout.DEFAULT_SIZE, 469, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(toolbar, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
+        add(jScrollPane1);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnColourActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnColourActionPerformed
