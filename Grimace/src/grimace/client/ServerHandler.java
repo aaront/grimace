@@ -234,6 +234,11 @@ public final class ServerHandler {
                             break;
                     }
                 }
+                if (fromServer.getCommandName().equals(Command.UPDATE_CONTACT_LIST)) {
+                    ContactList cList = (ContactList)in.readObject();
+                    ProgramController.getAccount().setContactList(cList);
+                    ProgramController.getContactListBox().updateContactListView();
+                }
                 Thread.sleep(100);
             }
             catch (EOFException e) {}

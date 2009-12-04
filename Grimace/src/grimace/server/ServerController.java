@@ -324,6 +324,8 @@ public class ServerController {
             try {
                 DataHandler.addContact(userName, contactName);
                 DataHandler.addContact(contactName, userName);
+                sendCommand(new Command(Command.UPDATE_CONTACT_LIST), userName);
+                sendCommand(new Command(Command.UPDATE_CONTACT_LIST), contactName);
                 DataHandler.printContacts();
                 DataHandler.clearContactRequest(userName, contactName);
                 DataHandler.printContactRequests();

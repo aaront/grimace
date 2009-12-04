@@ -40,6 +40,7 @@ public class ProgramController {
     private static ArrayList<ClientConversation> convoList;
     private static ProgramSettings progSettings;
     private static ProgramWindow window;
+    private static ContactListBox contactListBox;
 
     public ProgramController() {
         // Uses Nimbus as default theme. Much better than Metal. Search "Java nimbus"
@@ -89,6 +90,16 @@ public class ProgramController {
         return n;
     }
 
+    public static ContactListBox getContactListBox() {
+        return contactListBox;
+    }
+
+    public static void setContactListBox(ContactListBox clb) {
+        contactListBox = clb;
+        setRightPane(null);
+        setLeftPane(clb);
+    }
+
     /**
      * Changes the currently active user
      * @param newAccount The new active Account
@@ -117,7 +128,8 @@ public class ProgramController {
      * @param conversation the conversation that occurred
      * @return the chat log of the conversation
      */
-    public void getChatLog(ClientConversation conversation, String fileName) throws FileNotFoundException, IOException {
+    public void getChatLog(ClientConversation conversation, String fileName)
+                                    throws FileNotFoundException, IOException {
         convo.openLog(fileName);
     }
 

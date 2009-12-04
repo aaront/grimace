@@ -57,6 +57,7 @@ public class Command implements Serializable {
     public static final String REJECT = "reject";
     public static final String LOGOUT = "logout";
     public static final String TEST_CONNECTION = "testConnect";
+    public static final String UPDATE_CONTACT_LIST = "updateContactList";
 
     /** The name indicating the task to be completed. */
     private String cmdName;
