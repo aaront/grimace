@@ -24,14 +24,12 @@
 
 package grimace.server;
 
-import java.io.Serializable;
-
 /**
  * Command represents a task communication between a client and server.
  *
  * @author Vineet Sharma
  */
-public class Command {
+public class Command implements java.io.Serializable {
     /** The name indicating the task to be completed. */
     private String cmdName;
     /** A list of arguments, parameters, or data. */
