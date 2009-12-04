@@ -24,12 +24,35 @@
 
 package grimace.server;
 
+import java.io.Serializable;
+
 /**
  * Command represents a task communication between a client and server.
  *
  * @author Vineet Sharma
  */
-public class Command implements java.io.Serializable {
+public class Command implements Serializable {
+
+    public static final String LOGIN = "login";
+    public static final String REGISTER = "register";
+    public static final String LOGIN_SUCCESS = "loginSuccess";
+    public static final String LOGIN_FAILURE = "loginFailure";
+    public static final String REGISTER_SUCCESS = "registerSuccess";
+    public static final String REGISTER_FAILURE = "registerFailure";
+    public static final String SERVER_CONNECT_FAILURE = "serverConnectFailure";
+    public static final String CONTACT_REQUEST = "contactRequest";
+    public static final String DELETE_CONTACT = "deleteContact";
+    public static final String START_CONVERSATION = "startConversation";
+    public static final String SEND_MESSAGE = "sendMessage";
+    public static final String QUIT_CONVERSATION = "quitConversation";
+    public static final String FILE_TRANSFER_REQUEST = "fileTransferRequest";
+    public static final String FILE_TRANSFER_RESPONSE = "fileTransferResponse";
+    public static final String CONTACT_REQUEST_RESPONSE = "contactRequestResponse";
+    public static final String UPDATE_ACCOUNT = "updateAccount";
+    public static final String USERNAME_EXISTS = "userNameExists";
+    public static final String ACCOUNT_CREATION_ERROR = "accountCreationError";
+    public static final String INVALID_COMMAND = "invalidCommand";
+
     /** The name indicating the task to be completed. */
     private String cmdName;
     /** A list of arguments, parameters, or data. */

@@ -124,11 +124,11 @@ public class ServerController {
                 Command cmd = (Command)in.readObject();
                 Command resp = processConnectionCommand(cmd);
                 out.writeObject(resp);
-                if (!cmd.getCommandName().equals("login")) {
+                if (!cmd.getCommandName().equals(Command.LOGIN)) {
                     socket.close();
                 }
                 else {
-                    if (!resp.getCommandName().equals("loginSuccess")) {
+                    if (!resp.getCommandName().equals(Command.LOGIN_SUCCESS)) {
                         socket.close();
                     }
                     else {
@@ -153,24 +153,24 @@ public class ServerController {
      */
 	public static Command processConnectionCommand(Command cmd) {
         Command resp = null;
-        if (cmd.getCommandName().equals("login")) {
+        if (cmd.getCommandName().equals(Command.LOGIN)) {
             if (cmd.getArgumentNumber() < 2) {
-                resp = new Command("loginFailure");
+                resp = new Command(Command.LOGIN_FAILURE);
             }
             else {
                 String userName = cmd.getCommandArg(0);
                 String passHash = cmd.getCommandArg(1);
                 if (verifyLoginRequest(userName, passHash)) {
-                    resp = new Command("loginSuccess");
+                    resp = new Command(Command.LOGIN_SUCCESS);
                 }
                 else {
-                    resp = new Command("loginFailure");
+                    resp = new Command(Command.LOGIN_FAILURE);
                 }
             }
         }
-        else if (cmd.getCommandName().equals("register")) {
+        else if (cmd.getCommandName().equals(Command.REGISTER)) {
             if (cmd.getArgumentNumber() < 2) {
-                resp = new Command("registerFailure");
+                resp = new Command(Command.REGISTER_FAILURE);
             }
             else {
                 String userName = cmd.getCommandArg(0);
@@ -179,21 +179,21 @@ public class ServerController {
                 try {
                     if (DataHandler.createAccount(userName, passHash,
                                                             display)) {
-                        resp = new Command("registerSuccess");
+                        resp = new Command(Command.REGISTER_SUCCESS);
                     }
                     else {
-                        resp = new Command("registerFailure",
-                                            "userNameExists");
+                        resp = new Command(Command.REGISTER_FAILURE,
+                                            Command.USERNAME_EXISTS);
                     }
                 }
                 catch (Exception ex) {
-                    resp = new Command("registerFailure",
-                                        "accountCreationError");
+                    resp = new Command(Command.REGISTER_FAILURE,
+                                        Command.ACCOUNT_CREATION_ERROR);
                 }
             }
         }
         else {
-            resp = new Command("invalidCommand");
+            resp = new Command(Command.INVALID_COMMAND);
         }
 
         return resp;

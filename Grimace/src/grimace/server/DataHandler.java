@@ -134,6 +134,7 @@ public class DataHandler {
                        + userName + "\',\'"
                        + passHash + "\',\'"
                        + displayName + "\',\'"
+                       + Account.STATUS_INVISIBLE + "\',\'"
                        + Account.DEFAULT_FONT + "\',"
                        + String.valueOf(Account.DEFAULT_FONT_SIZE) + ","
                        + String.valueOf(Account.DEFAULT_FONT_COLOUR.getRGB())
