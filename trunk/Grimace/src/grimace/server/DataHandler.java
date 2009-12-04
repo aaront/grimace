@@ -115,7 +115,7 @@ public class DataHandler {
         statement.close();
 	}
 
-    public static void printContactRequests() {
+    public static synchronized void printContactRequests() {
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM ContactRequests");
@@ -129,7 +129,7 @@ public class DataHandler {
         }
     }
 
-    public static void printContacts() {
+    public static synchronized void printContacts() {
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM Contacts");
@@ -143,7 +143,7 @@ public class DataHandler {
         }
     }
 
-    public static void printAccounts() {
+    public static synchronized void printAccounts() {
         try {
             Statement statement = connection.createStatement();
             ResultSet result = statement.executeQuery("SELECT * FROM Accounts");
