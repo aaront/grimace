@@ -65,6 +65,7 @@ public class DataHandler {
                                 "userName varchar(30) PRIMARY KEY",
                                 "password varchar(40)",
                                 "displayName varchar(100)",
+                                "displayStatus varchar(20)",
                                 "fontName varchar(100)",
                                 "fontSize int",
                                 "fontColour int",
@@ -73,6 +74,13 @@ public class DataHandler {
             DataHandler.createTable("Contacts", false,
                                 "userName varchar(30)",
                                 "contactName varchar(30)");
+            DataHandler.createTable("ContactRequests", false,
+                                    "contactName varchar(30)",
+                                    "senderName varchar(30)");
+            DataHandler.createTable("FileTransferRequests", false,
+                                    "contactName varchar(30)",
+                                    "senderName varchar(30)",
+                                    "fileName text");
         }
         catch (Exception e) {
             e.printStackTrace();
@@ -189,6 +197,7 @@ public class DataHandler {
             if (result.getInt("fontItalic") == 1) { acc.toggleItalic(); }
             if (result.getInt("fontBold") == 1) { acc.toggleBold(); }
             ContactList cList = loadContactList(userName);
+            if (cList == null) { cList = new ContactList(); }
             acc.setContactList(cList);
             return acc;
         }
