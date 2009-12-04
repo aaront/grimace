@@ -15,6 +15,9 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
+import java.io.FileReader;
+
+import javax.swing.text.ChangedCharSetException;
 
 public class ChatBox extends javax.swing.JPanel {
 
@@ -26,6 +29,15 @@ public class ChatBox extends javax.swing.JPanel {
         currentFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
 
         initComponents();
+
+        chatDisplayBox.setContentType("text/html; charset=UTF-8");
+
+        try {
+            chatDisplayBox.read(new FileReader("src/grimace/client/chatDisplayBox.html"), null);
+        }
+        catch (Exception e) {
+            System.out.println(e);
+        }
 
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] availableFonts = e.getAvailableFontFamilyNames();
@@ -103,6 +115,7 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JToolBar.Separator();
         btnAddEquation = new javax.swing.JButton();
+        btnAddFile = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
 
@@ -110,7 +123,9 @@ public class ChatBox extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
+        chatDisplayBox.setContentType("text/html");
         chatDisplayBox.setEditable(false);
+        chatDisplayBox.setText("<html>\n  <head>\n\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n    </p>\n  </body>\n</html>\n");
         chatDisplayBox.setFocusable(false);
         jScrollPane2.setViewportView(chatDisplayBox);
 
@@ -177,6 +192,9 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour.setText("Color");
         btnColour.setFocusable(false);
         btnColour.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnColour.setMaximumSize(new java.awt.Dimension(100, 27));
+        btnColour.setMinimumSize(new java.awt.Dimension(0, 27));
+        btnColour.setPreferredSize(new java.awt.Dimension(50, 27));
         btnColour.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         btnColour.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -186,11 +204,23 @@ public class ChatBox extends javax.swing.JPanel {
         toolbar.add(btnColour);
         toolbar.add(jSeparator1);
 
-        btnAddEquation.setText("Add Equation");
+        btnAddEquation.setText("Equation");
         btnAddEquation.setFocusable(false);
         btnAddEquation.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddEquation.setMaximumSize(new java.awt.Dimension(100, 27));
+        btnAddEquation.setMinimumSize(new java.awt.Dimension(0, 27));
+        btnAddEquation.setPreferredSize(new java.awt.Dimension(70, 27));
         btnAddEquation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
         toolbar.add(btnAddEquation);
+
+        btnAddFile.setText("File");
+        btnAddFile.setFocusable(false);
+        btnAddFile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnAddFile.setMaximumSize(new java.awt.Dimension(100, 27));
+        btnAddFile.setMinimumSize(new java.awt.Dimension(0, 27));
+        btnAddFile.setPreferredSize(new java.awt.Dimension(40, 27));
+        btnAddFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        toolbar.add(btnAddFile);
 
         add(toolbar);
 
@@ -264,6 +294,7 @@ public class ChatBox extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
     private javax.swing.JButton btnAddEquation;
+    private javax.swing.JButton btnAddFile;
     private javax.swing.JButton btnColour;
     private javax.swing.JTextPane chatDisplayBox;
     private javax.swing.JComboBox fontSelector;
