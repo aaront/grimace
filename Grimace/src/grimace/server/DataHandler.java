@@ -326,7 +326,7 @@ public class DataHandler {
                                                     throws SQLException {
         Statement statement = connection.createStatement();
         String sql = "DELETE FROM ContactRequests WHERE contactName="
-                        + contactName + "AND senderName=\'"
+                        + contactName + " AND senderName=\'"
                         + userName + "\'";
         statement.executeUpdate(sql);
         statement.close();
@@ -362,7 +362,7 @@ public class DataHandler {
                                                     throws SQLException {
         Statement statement = connection.createStatement();
         String sql = "DELETE FROM Contacts WHERE userName="
-                        + userName + "AND contactName=\'"
+                        + userName + " AND contactName=\'"
                         + contactName + "\'";
         statement.executeUpdate(sql);
         statement.close();
