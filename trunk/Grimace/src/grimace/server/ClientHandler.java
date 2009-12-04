@@ -47,10 +47,6 @@ public class ClientHandler {
         send.start();
     }
 
-    private void setName(String str) {
-        name = str;
-    }
-
     public String getName() {
         return name;
     }
@@ -59,6 +55,7 @@ public class ClientHandler {
         while (run) {
             try {
                 fromClient = (Command)in.readObject();
+                
             }
             catch (EOFException e) {}
             catch (Exception e) {}

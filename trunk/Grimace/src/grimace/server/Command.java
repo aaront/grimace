@@ -31,7 +31,7 @@ import java.io.Serializable;
  *
  * @author Vineet Sharma
  */
-public class Command implements Serializable {
+public class Command {
     /** The name indicating the task to be completed. */
     private String cmdName;
     /** A list of arguments, parameters, or data. */
@@ -44,7 +44,7 @@ public class Command implements Serializable {
      * @param args      A list of arguments, parameters, or data.
      */
 	public Command(String cmdName, String... args) {
-		this.cmdName = cmdName;
+        this.cmdName = cmdName;
         this.args = args;
     }
 

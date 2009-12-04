@@ -33,6 +33,11 @@ public class Account implements Serializable {
     public static final String DEFAULT_FONT = "Times New Roman";
     public static final int DEFAULT_FONT_SIZE = 12;
     public static final Color DEFAULT_FONT_COLOUR = Color.BLACK;
+    public static final String STATUS_AVAILABLE = "Available";
+    public static final String STATUS_AWAY = "Away";
+    public static final String STATUS_BUSY = "Busy";
+    public static final String STATUS_INVISIBLE = "Invisible";
+
 
     private Font font;
     private Color fontColour;
