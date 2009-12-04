@@ -67,4 +67,8 @@ public class Contact implements java.io.Serializable {
         return this.displayName;
     }
 
+    @Override
+    public String toString() {
+        return displayName;
+    }
 }
