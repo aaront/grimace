@@ -86,6 +86,7 @@ public class ClientHandler {
     private void listenSocket() {
         while (run) {
             try {
+                Thread.sleep(100);
                 fromClient = (Command)in.readObject();
                 if (fromClient.getCommandName().equals(Command.CONTACT_REQUEST)) {
                     ServerController.placeContactRequest(fromClient.getCommandArg(0),
@@ -100,7 +101,6 @@ public class ClientHandler {
                 if (fromClient.getCommandName().equals(Command.LOGOUT)) {
                     placeCommand(new Command(Command.TEST_CONNECTION));
                 }
-                Thread.sleep(100);
             }
             catch (EOFException e) {}
             catch (Exception e) {}
@@ -115,6 +115,7 @@ public class ClientHandler {
     private void sendSocket() {
         while (run) {
             try {
+                Thread.sleep(100);
                 if (!commandQueue.isEmpty()) {
                     toClient = commandQueue.get(0);
                     out.writeObject(toClient);
@@ -123,7 +124,6 @@ public class ClientHandler {
                     }
                     commandQueue.remove(0);
                 }
-                Thread.sleep(100);
             }
             catch (IOException e) {
                 System.out.println("Connection lost.");

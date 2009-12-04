@@ -207,6 +207,7 @@ public final class ServerHandler {
     private static void listen() {
         while (run) {
             try {
+                Thread.sleep(100);
                 fromServer = (Command)in.readObject();
                 if (fromServer.getCommandName().equals(Command.DISPLAY_NOTIFICATION)) {
                     ProgramController.showMessage(fromServer.getCommandArg(0));
@@ -239,7 +240,6 @@ public final class ServerHandler {
                     ProgramController.getAccount().setContactList(cList);
                     ProgramController.getContactListBox().updateContactListView();
                 }
-                Thread.sleep(100);
             }
             catch (EOFException e) {}
             catch (SocketException e) {}
