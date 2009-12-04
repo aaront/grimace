@@ -58,6 +58,7 @@ public class ContactListBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         listBox = new javax.swing.JList();
         addButton = new javax.swing.JButton();
+        logoutButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(300, 450));
 
@@ -77,6 +78,13 @@ public class ContactListBox extends javax.swing.JPanel {
             }
         });
 
+        logoutButton.setText("Logout");
+        logoutButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -84,7 +92,9 @@ public class ContactListBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addButton)
-                .addContainerGap(197, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addComponent(logoutButton)
+                .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -92,7 +102,9 @@ public class ContactListBox extends javax.swing.JPanel {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(addButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(addButton)
+                    .addComponent(logoutButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -102,11 +114,16 @@ public class ContactListBox extends javax.swing.JPanel {
         dlg.setVisible(true);
     }//GEN-LAST:event_addButtonActionPerformed
 
+    private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
+        ServerHandler.sendLogoutRequest();
+    }//GEN-LAST:event_logoutButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
+    private javax.swing.JButton logoutButton;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -97,7 +97,10 @@ public class ClientHandler {
                             fromClient.getCommandArg(1),
                             fromClient.getCommandArg(2).equals(Command.ACCEPT));
                 }
-                Thread.sleep(500);
+                if (fromClient.getCommandName().equals(Command.LOGOUT)) {
+                    placeCommand(new Command(Command.TEST_CONNECTION));
+                }
+                Thread.sleep(100);
             }
             catch (EOFException e) {}
             catch (Exception e) {}
@@ -117,13 +120,15 @@ public class ClientHandler {
                     out.writeObject(toClient);
                     commandQueue.remove(0);
                 }
-                Thread.sleep(500);
+                Thread.sleep(100);
             }
             catch (IOException e) {
                 System.out.println("Connection lost.");
                 run = false;
             }
-            catch (Exception e) {}            
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         try {
             out.close();

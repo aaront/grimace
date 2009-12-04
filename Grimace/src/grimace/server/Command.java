@@ -55,6 +55,8 @@ public class Command implements Serializable {
     public static final String DISPLAY_NOTIFICATION = "displayNotification";
     public static final String ACCEPT = "accept";
     public static final String REJECT = "reject";
+    public static final String LOGOUT = "logout";
+    public static final String TEST_CONNECTION = "testConnect";
 
     /** The name indicating the task to be completed. */
     private String cmdName;
