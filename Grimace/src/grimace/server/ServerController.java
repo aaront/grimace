@@ -110,7 +110,7 @@ public class ServerController {
     public static void closeConnection(String userName) {
         System.out.println("Closing connection session for user \'" + userName + "\':");
         getClientHandler(userName).closeSocket();
-        System.out.println("Removing connection handler for use \'" + userName + "\'");
+        System.out.println("Removing connection handler for user \'" + userName + "\'");
         connections.remove(userName);
     }
 

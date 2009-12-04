@@ -119,8 +119,6 @@ public class ClientHandler {
                     toClient = commandQueue.get(0);
                     out.writeObject(toClient);
                     if (toClient.getCommandName().equals(Command.UPDATE_CONTACT_LIST)) {
-                        grimace.client.ContactList c = DataHandler.loadContactList(name);
-                        System.out.println(c.getList().size());
                         out.writeObject(DataHandler.loadContactList(name));
                     }
                     commandQueue.remove(0);
