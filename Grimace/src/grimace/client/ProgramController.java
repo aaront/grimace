@@ -35,7 +35,7 @@ public class ProgramController {
     private ClientConversation convo;
     private static ArrayList<ClientConversation> convoList;
     private static ProgramSettings progSettings;
-    private static Window window;
+    private static ProgramWindow window;
 
     public ProgramController() {
         // @TODO: Set up window and show login form
@@ -43,7 +43,7 @@ public class ProgramController {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                window = new Window();
+                window = new ProgramWindow();
                 window.setVisible(true);
             }
         });

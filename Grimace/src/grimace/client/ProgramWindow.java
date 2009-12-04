@@ -27,10 +27,10 @@ package grimace.client;
 
 import java.awt.Component;
 
-public class Window extends javax.swing.JFrame {
+public class ProgramWindow extends javax.swing.JFrame {
 
     /** Creates new form Window */
-    public Window() {
+    public ProgramWindow() {
         initComponents();
         splitPane.setRightComponent(null);
         this.setSize(300,this.getHeight());
@@ -98,7 +98,7 @@ public class Window extends javax.swing.JFrame {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Window().setVisible(true);
+                new ProgramWindow().setVisible(true);
                 
             }
         });
