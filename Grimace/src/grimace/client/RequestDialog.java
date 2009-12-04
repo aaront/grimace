@@ -25,7 +25,7 @@ public class RequestDialog extends javax.swing.JDialog {
 
     /** Creates new form RequestDialog */
     public RequestDialog(String messageText) {
-        super(ProgramController.getWindow(), false);
+        super(ProgramController.getWindow(), true);
         initComponents();
         REQUEST_TEXT = messageText;
         msgLabel.setText(REQUEST_TEXT);
