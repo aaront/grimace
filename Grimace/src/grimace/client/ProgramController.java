@@ -68,6 +68,10 @@ public class ProgramController {
         window.setRightPane(comp);
     }
 
+    public static void showMessage(String message) {
+        javax.swing.JOptionPane.showMessageDialog(window, message);
+    }
+
     /**
      * Changes the currently active user
      * @param newAccount The new active Account

@@ -51,11 +51,18 @@ public class ClientHandler {
         return name;
     }
 
+    public void placeCommand(Command cmd) {
+        commandQueue.add(cmd);
+    }
+    
     private void listenSocket() {
         while (run) {
             try {
                 fromClient = (Command)in.readObject();
-                
+                if (fromClient.getCommandName().equals(Command.CONTACT_REQUEST)) {
+                    ServerController.placeContactRequest(fromClient.getCommandArg(0),
+                                                            fromClient.getCommandArg(1));
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}
