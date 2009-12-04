@@ -240,7 +240,6 @@ public class DataHandler {
             if (result.getInt("fontItalic") == 1) { acc.toggleItalic(); }
             if (result.getInt("fontBold") == 1) { acc.toggleBold(); }
             ContactList cList = loadContactList(userName);
-            if (cList == null) { cList = new ContactList(); }
             acc.setContactList(cList);
             return acc;
         }
@@ -526,6 +525,6 @@ public class DataHandler {
             statement.close();
             return cList;
         }
-        catch (Exception e) { return null; }
+        catch (Exception e) { return new ContactList(); }
 	}
 }

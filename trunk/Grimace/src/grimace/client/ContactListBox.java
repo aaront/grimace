@@ -28,22 +28,15 @@ package grimace.client;
 import javax.swing.DefaultListModel;
 
 public class ContactListBox extends javax.swing.JPanel {
-    ContactList list;
 
     /** Creates new form ContactListBox */
     public ContactListBox() {
         initComponents();
-        list = ProgramController.getAccount().getContactList();
-        populateList();
+        ((ContactListView)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
 
-    void populateList() {
-        int i;
-        DefaultListModel m = new DefaultListModel();
-        for (i = 0; i < list.getList().size(); i++) {
-            m.addElement(list.getList().get(i));
-        }
-        listBox.setModel(m);
+    public void updateContactListView() {
+        ((ContactListView)listBox).updateModel();
     }
 
     /** This method is called from within the constructor to
@@ -56,19 +49,16 @@ public class ContactListBox extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listBox = new javax.swing.JList();
+        listBox = new ContactListView();
         addButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
+        deleteButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(300, 450));
 
         jScrollPane1.setHorizontalScrollBar(null);
 
-        listBox.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
+        listBox.setModel(new DefaultListModel());
         jScrollPane1.setViewportView(listBox);
 
         addButton.setText("Add Contact");
@@ -85,6 +75,13 @@ public class ContactListBox extends javax.swing.JPanel {
             }
         });
 
+        deleteButton.setText("Delete");
+        deleteButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -92,7 +89,9 @@ public class ContactListBox extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(addButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(deleteButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
                 .addComponent(logoutButton)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 300, Short.MAX_VALUE)
@@ -104,7 +103,8 @@ public class ContactListBox extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
-                    .addComponent(logoutButton))
+                    .addComponent(logoutButton)
+                    .addComponent(deleteButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -118,9 +118,24 @@ public class ContactListBox extends javax.swing.JPanel {
         ServerHandler.sendLogoutRequest();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
+    private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
+        Object[] conList = listBox.getSelectedValues();
+        for (Object con : conList) {
+            try {
+                ServerHandler.sendDeleteContactRequest(
+                                            ProgramController.getAccount().getUserName(),
+                                            ((Contact)con).getUserName());
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }//GEN-LAST:event_deleteButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
     private javax.swing.JButton logoutButton;

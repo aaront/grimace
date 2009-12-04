@@ -133,8 +133,7 @@ public class LoginForm extends javax.swing.JPanel {
             try {
                 if(ServerHandler.sendLoginRequest(user,pass)) {
                     System.out.println("LoginSuccess");
-                    ProgramController.setRightPane(null);
-                    ProgramController.setLeftPane(new ContactListBox());
+                    ProgramController.setContactListBox(new ContactListBox());
                 } else {
                     System.out.println("LoginFailure");
                     ProgramController.showMessage("Login Failed: "

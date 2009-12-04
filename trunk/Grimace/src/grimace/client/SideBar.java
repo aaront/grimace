@@ -16,6 +16,7 @@ package grimace.client;
  * @author Aaron
  */
 public class SideBar extends javax.swing.JPanel {
+    ContactList cList;
 
     /** Creates new form SideBar */
     public SideBar() {
