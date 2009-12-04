@@ -297,6 +297,42 @@ public class DataHandler {
     }
 
     /**
+     * Places a contact request.
+     *
+     * @param userName  The user requesting the contact.
+     * @param contactName  The name of the contact.
+     * @throws java.sql.SQLException
+     */
+    public static synchronized void placeContactRequest(String userName,
+                                    String contactName) throws SQLException {
+        if (contactExists(userName, contactName)) { return; }
+        Statement statement = connection.createStatement();
+        String sql = "INSERT INTO ContactRequests VALUES(\'"
+                       + contactName + "\',\'"
+                       + userName +"\')";
+        statement.executeUpdate(sql);
+        statement.close();
+    }
+
+    /**
+     * Removes a contact request
+     *
+     * @param userName  The user requesting the contact
+     * @param contactName The name of the contact.
+     * @throws java.sql.SQLException
+     */
+	public static synchronized void clearContactRequest(String userName,
+                                                    String contactName)
+                                                    throws SQLException {
+        Statement statement = connection.createStatement();
+        String sql = "DELETE FROM ContactRequests WHERE contactName="
+                        + contactName + "AND senderName=\'"
+                        + userName + "\'";
+        statement.executeUpdate(sql);
+        statement.close();
+	}
+
+    /**
      * Adds a contact to an Account with the given userName.
      *
      * @param userName  The userName of the account.

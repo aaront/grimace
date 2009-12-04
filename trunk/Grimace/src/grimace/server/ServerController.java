@@ -225,15 +225,47 @@ public class ServerController {
         }
 	}
 
+    private static ClientHandler getClientHandler(String userName) {
+        return connections.get(userName);
+    }
+
+    /**
+     * Places a Command on a Command queue to send to a client
+     * @param cmd   The command to send.
+     */
+    public static boolean sendCommand(Command cmd, String userName) {
+        if (!checkAccountLoginStatus(userName)) {
+            return false;
+        }
+        getClientHandler(userName).placeCommand(cmd);
+        return true;
+    }
+
     /**
      * Places a request for a contact to be added.
      *
      * @param username  The name of the user requesting the addition.
      * @param contactname   The name of the contact being requested.
      */
-	public static void placeContactRequest(String username,
-                                            String contactname) {
-
+	public static void placeContactRequest(String userName,
+                                            String contactName) {
+        if (!DataHandler.accountExists(contactName)) {
+            getClientHandler(userName).placeCommand(
+                new Command(Command.DISPLAY_NOTIFICATION,
+                "The requested account does not exist."));
+            return;
+        }
+        try {
+            DataHandler.placeContactRequest(userName, contactName);
+        }
+        catch (Exception e) {
+            getClientHandler(userName).placeCommand(
+                new Command(Command.DISPLAY_NOTIFICATION,
+                "The requested account does not exist."));
+            return;
+        }
+        getClientHandler(contactName).placeCommand(new Command(
+                                            Command.CONTACT_REQUEST, userName));
 	}
 
     /**

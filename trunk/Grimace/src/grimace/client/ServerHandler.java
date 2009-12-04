@@ -198,6 +198,12 @@ public final class ServerHandler {
         while (true) {
             try {
                 fromServer = (Command)in.readObject();
+                if (fromServer.getCommandName().equals(Command.DISPLAY_NOTIFICATION)) {
+                    ProgramController.showMessage(fromServer.getCommandArg(0));
+                }
+                if (fromServer.getCommandName().equals(Command.CONTACT_REQUEST)) {
+                    ProgramController.showMessage("You have a contact request. Once I this is updated we can let you confirm it");
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) { e.printStackTrace(); }
@@ -228,6 +234,24 @@ public final class ServerHandler {
                                                 throws Exception {
         sendCommand(Command.CONTACT_REQUEST, userName, contactName);
 	}
+
+    /**
+     * Sends a response to a contact request given by the server.
+     *
+     * @param userName The name of the user initiating the request.
+     * @param contactName The name of the user responding.
+     * @param response Whether or not the request is accepted.
+     * @throws java.lang.Exception
+     */
+    public static void sendContactRequestResponse(String userName,
+                                                    String contactName,
+                                                    boolean response)
+                                                    throws Exception {
+        sendCommand(Command.CONTACT_REQUEST_RESPONSE,
+                    userName,
+                    contactName,
+                    String.valueOf(response));
+    }
 
     /**
      * Sends a request to the server to delete a contact from an account.
@@ -313,24 +337,6 @@ public final class ServerHandler {
                                                 boolean response)
                                                 throws Exception {
         sendCommand(Command.FILE_TRANSFER_RESPONSE,
-                    userName,
-                    contactName,
-                    String.valueOf(response));
-    }
-
-    /**
-     * Sends a response to a contact request given by the server.
-     *
-     * @param userName The name of the user initiating the request.
-     * @param contactName The name of the user responding.
-     * @param response Whether or not the request is accepted.
-     * @throws java.lang.Exception
-     */
-    public static void sendContactRequestResponse(String userName,
-                                                    String contactName,
-                                                    boolean response)
-                                                    throws Exception {
-        sendCommand(Command.CONTACT_REQUEST_RESPONSE,
                     userName,
                     contactName,
                     String.valueOf(response));
