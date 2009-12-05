@@ -26,12 +26,15 @@ package grimace.client;
 
 public class ChatPanel extends javax.swing.JPanel {
     ClientConversation convo;
-    String title = "Conversation";
 
     /** Creates new form ChatPanel */
     public ChatPanel(ClientConversation conversation) {
         initComponents();
         convo = conversation;
+    }
+
+    public String getTitle() {
+        return convo.getTitle();
     }
 
     /** This method is called from within the constructor to
@@ -44,6 +47,8 @@ public class ChatPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         chatBox1 = new grimace.client.ChatBox();
+
+        setMinimumSize(new java.awt.Dimension(400, 420));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
