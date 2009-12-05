@@ -44,8 +44,7 @@ public class ClientConversation {
     ArrayList<String> conversationText = new ArrayList<String>();
     QuickOptions convoQOptions;
     ContactList convoPeople;
-    ArrayList<Contact> currentConvoList;
-
+    
     /**
      * ClientConversation, creates an instance of a client conversation
      * @param convoId   The conversation identification integer
@@ -55,7 +54,7 @@ public class ClientConversation {
         this.conId = conId;
         convoQOptions = new QuickOptions();
         convoPeople = cList;
-        currentConvoList = cList.getList();
+     
 }
     public ArrayList<Contact> getList(){
         return convoPeople.getList();
@@ -66,7 +65,7 @@ public class ClientConversation {
      * @return String containing the names of the participants
      */
     public String getTitle(){
-        int numPeople = currentConvoList.size();
+        int numPeople = convoPeople.getList().size();
         int i = 1;
         String people = "";
 
@@ -74,7 +73,7 @@ public class ClientConversation {
             if (i > 0) {
                 people = people.concat(", ");
             }
-            people = people.concat(currentConvoList.get(i).getDisplayName());
+            people = people.concat(convoPeople.getList().get(i).getDisplayName());
         }
         
         return people;
@@ -162,8 +161,12 @@ public class ClientConversation {
         return convoQOptions;
     }
 
+    public int getCondId(){
+        return this.conId;
+    }
+
     public void addToList(Contact userName) {
-        currentConvoList.add(userName);
+        convoPeople.getList().add(userName);
     }
 
 
