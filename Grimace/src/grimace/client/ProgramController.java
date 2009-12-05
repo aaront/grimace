@@ -116,9 +116,9 @@ public class ProgramController {
         }
     }
 
-    public static void openNewConvo(Contact[] contacts) {
+    public static void openNewConvo(int conId, Contact[] contacts) {
         ContactList list = new ContactList(contacts);
-        ClientConversation convo = new ClientConversation(list);
+        ClientConversation convo = new ClientConversation(conId, list);
         ChatPanel panel = new ChatPanel(convo);
         convoList.add(convo);
         chatTabs.add(panel);
