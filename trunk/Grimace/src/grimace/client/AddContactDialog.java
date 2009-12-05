@@ -142,7 +142,7 @@ public class AddContactDialog extends javax.swing.JDialog {
         setVisible(false);
         if (retStatus == RET_OK) {
             try {
-                ServerHandler.sendAddContactRequest(ProgramController.getAccount().getUserName(), CONTACT_NAME);
+                ServerHandler.sendAddContactRequest(CONTACT_NAME);
                 System.out.println("Request sent to add contact: " + CONTACT_NAME);
             } catch (Exception e) {
                 e.printStackTrace();

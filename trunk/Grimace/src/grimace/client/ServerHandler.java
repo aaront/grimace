@@ -275,14 +275,14 @@ public final class ServerHandler {
      * @param contactName The name of the contact being requested.
      * @throws java.lang.Exception
      */
-	public static void sendAddContactRequest(String userName,
-                                                String contactName)
-                                                throws Exception {
-        if (contactName.equals(userName)) {
+	public static void sendAddContactRequest(String contactName) throws Exception {
+        if (contactName.equals(ProgramController.getAccount().getUserName())) {
             ProgramController.showMessage("You can't add yourself as a contact. That's cheating!");
             return;
         }
-        sendCommand(Command.CONTACT_REQUEST, userName, contactName.toLowerCase());
+        sendCommand(Command.CONTACT_REQUEST,
+                ProgramController.getAccount().getUserName(),
+                contactName.toLowerCase());
 	}
 
     /**
@@ -340,10 +340,10 @@ public final class ServerHandler {
      * @param conId     An integer identifying a target conversation.
      * @throws java.lang.Exception
      */
-	public static void sendMessagePostRequest(String userName,
-                                                String message,
+	public static void sendMessagePostRequest(String message,
                                                 int conId) throws Exception {
-        sendCommand(Command.SEND_MESSAGE, userName, message, String.valueOf(conId));
+        sendCommand(Command.SEND_MESSAGE,
+                ProgramController.getAccount().getUserName(), message, String.valueOf(conId));
 	}
 
     /**
@@ -354,10 +354,10 @@ public final class ServerHandler {
      * @param conId An integer identifying the conversation.
      * @throws java.lang.Exception
      */
-    public static void sendQuitConversationNotification(String userName,
-                                                        int conId)
+    public static void sendQuitConversationNotification(int conId)
                                                         throws Exception {
-        sendCommand(Command.QUIT_CONVERSATION, userName, String.valueOf(conId));
+        sendCommand(Command.QUIT_CONVERSATION,
+                ProgramController.getAccount().getUserName(), String.valueOf(conId));
     }
 
     /**
@@ -368,11 +368,11 @@ public final class ServerHandler {
      * @param contactNames The names of contacts receiving the file.
      * @throws java.lang.Exception
      */
-	public static void sendFileTransferRequest(String userName,
-                                                String fileName,
+	public static void sendFileTransferRequest(String fileName,
                                                 String... contactNames)
                                                 throws Exception {
-        String[] args = mergeStrings(contactNames, userName, fileName);
+        String[] args = mergeStrings(contactNames,
+                ProgramController.getAccount().getUserName(), fileName);
         sendCommand(Command.FILE_TRANSFER_REQUEST, args);
 	}
 
