@@ -35,6 +35,7 @@ public class ChatPanel extends javax.swing.JPanel {
     ClientConversation convo;
     HTMLEditorKit htmlKit;
     HTMLDocument htmlDoc;
+    Element convoElement;
 
     /** Creates new form ChatPanel */
     public ChatPanel() {
@@ -53,6 +54,7 @@ public class ChatPanel extends javax.swing.JPanel {
 			htmlKit.insertHTML(htmlDoc, 0, "<p id=\"WernickeChat\"></p>", 0, 0, HTML.Tag.P);
 		}
 		catch (Exception e) {}
+        convoElement = htmlDoc.getElement("WernickeChat");
     }
 
     public String getTitle() {
@@ -72,8 +74,8 @@ public class ChatPanel extends javax.swing.JPanel {
         }
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
         try {
-			htmlKit.insertHTML(htmlDoc, 0, messageText, 0, 0, HTML.Tag.P);
-            htmlKit.insertHTML(htmlDoc, 0, "<br>", 0, 0, HTML.Tag.BR);
+			htmlDoc.insertBeforeEnd(convoElement, messageText);
+            htmlDoc.insertBeforeEnd(convoElement, "<br>");
 		}
 		catch (Exception e) {}
         convo.storeRecievedMessage(messageText);
