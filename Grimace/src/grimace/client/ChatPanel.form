@@ -35,6 +35,9 @@
   </Layout>
   <SubComponents>
     <Component class="grimace.client.ChatBox" name="chatBox1">
+      <AuxValues>
+        <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="chatBox1.initChatBox();"/>
+      </AuxValues>
     </Component>
   </SubComponents>
 </Form>

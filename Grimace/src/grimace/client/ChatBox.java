@@ -38,11 +38,13 @@ public class ChatBox extends javax.swing.JPanel {
 
     /** Creates new form ChatBox */
     public ChatBox() {
+        initComponents();
+    }
+
+    public void initChatBox() {
         currentFont = ProgramController.getAccount().getFont();
         currentFontColour = ProgramController.getAccount().getFontColour();
-
-        initComponents();
-
+        
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] availableFonts = e.getAvailableFontFamilyNames();
         Integer[] fontSizes = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
