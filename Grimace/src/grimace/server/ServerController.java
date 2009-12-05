@@ -366,7 +366,14 @@ public class ServerController {
      * @param contactName The name of the contact to delete.
      */
     public static void deleteContact(String userName, String contactName) {
-
+        try {
+            DataHandler.deleteContact(userName, contactName);
+            sendCommand(new Command(Command.UPDATE_CONTACT_LIST), userName);
+        }
+        catch (Exception e) {
+            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                "An error occurred while deleting contact: " + contactName), userName);
+        }
     }
 
     /**
