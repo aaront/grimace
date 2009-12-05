@@ -64,7 +64,7 @@ public class ClientConversation {
      * @return String containing the names of the participants
      */
     public String getTitle(){
-        int numPeople = convoPeople.getList().size();
+        int numPeople = convoPeople.getSize();
         int i;
         String people = "";
 
@@ -72,7 +72,7 @@ public class ClientConversation {
             if (i > 0) {
                 people = people.concat(", ");
             }
-            people = people.concat(convoPeople.getList().get(i).getDisplayName());
+            people = people.concat(convoPeople.getContact(i).getDisplayName());
         }
 
         return people;
@@ -130,10 +130,6 @@ public class ClientConversation {
         }
     }
 
-    public void prepareFileForSending(File filename){
-        //and server sending stuff
-    }
-
     public QuickOptions getOptions(){
 
         return convoQOptions;
@@ -143,10 +139,9 @@ public class ClientConversation {
         return this.conId;
     }
 
-    public void addToList(Contact userName) {
-        convoPeople.getList().add(userName);
+    public void addToList(Contact contact) {
+        convoPeople.addContact(contact);
     }
-
 
 }
 
