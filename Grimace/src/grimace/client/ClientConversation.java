@@ -119,6 +119,7 @@ public class ClientConversation {
         log.close();
 
     }
+
     /**
      * New message recieved and added to conversationText
      * @param newMessage    The new recieved message
@@ -126,27 +127,6 @@ public class ClientConversation {
     public void storeRecievedMessage(String newMessage){
         if (newMessage != null){
             conversationText.add(newMessage);
-        }
-    }
-
-    /**
-     * Adds the new message to conversationText
-     * and sends it to the server in some way
-     * @param newSentMessage    the new message to be sent
-     */
-    public void prepareMessageForSending(String newSentMessage){
-
-        if (newSentMessage != null){
-            conversationText.add(newSentMessage);
-            //and server sending stuff
-        }
-    }
-
-    public void prepareEquationForSending(String equation){
-
-        if (equation != null){
-            conversationText.add(equation);
-            //and server sending stuff
         }
     }
 
