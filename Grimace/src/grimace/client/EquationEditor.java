@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 
 import be.ugent.caagt.jmathtex.TeXFormula;
 import be.ugent.caagt.jmathtex.TeXConstants;
+
 /**
  *
  * @author aaront
