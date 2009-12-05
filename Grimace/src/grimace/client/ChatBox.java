@@ -340,7 +340,7 @@ public class ChatBox extends javax.swing.JPanel {
                 ServerHandler.sendMessagePostRequest(message, conId);
             }
             catch (Exception e) {
-
+                e.printStackTrace();
             }
             System.out.println(message);
 

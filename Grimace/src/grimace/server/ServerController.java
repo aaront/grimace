@@ -425,6 +425,7 @@ public class ServerController {
     public static void sendMessage(int conId, String message, String userName) {
         String[] users = getServerConversation(conId).getUsers();
         for (String s : users) {
+            System.out.println("Sending message from " + userName + " to " + s);
             sendCommand(new Command(Command.SEND_MESSAGE, userName, message, String.valueOf(conId)), s);
         }
     }
