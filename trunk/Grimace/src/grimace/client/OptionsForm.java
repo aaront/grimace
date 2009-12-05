@@ -28,9 +28,9 @@ public class OptionsForm extends javax.swing.JPanel {
     ProgramSettings settings;
 
     /** Creates new form OptionsForm */
-    public OptionsForm(ProgramSettings currentSettings) {
+    public OptionsForm() {
         initComponents();
-        settings = currentSettings;
+        settings = ProgramController.getProgramSettings();
         serverAddress.setText(settings.getServerAddress());
         serverPort.setText(Integer.toString(settings.getServerPort()));
         showInTray.setSelected(settings.getShowInTray());
@@ -172,11 +172,13 @@ public class OptionsForm extends javax.swing.JPanel {
         settings.saveSettings();
         this.setVisible(false);
         this.getParent().validate();
+        ProgramWindow.closeTab(this);
     }//GEN-LAST:event_acceptButtonActionPerformed
 
     private void cancelButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelButtonActionPerformed
         this.setVisible(false);
         this.getParent().validate();
+        ProgramWindow.closeTab(this);
     }//GEN-LAST:event_cancelButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
