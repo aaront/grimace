@@ -46,6 +46,17 @@ public class ServerConversation {
     }
 
     /**
+     * Creates an empty ServerConversation.
+     *
+     * @param conId An integer identifying this ServerConversation instance.
+     * @param users The users in this conversation.
+     */
+    public ServerConversation(int conId, ArrayList<String> users) {
+        this.conId = conId;
+        this.users = users;
+    }
+
+    /**
      * Adds a user to this ServerConversation.
      *
      * @param userName  The name of a user to add to the ServerConversation.
