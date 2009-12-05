@@ -110,6 +110,12 @@ public class ClientHandler {
                 if (fromClient.getCommandName().equals(Command.START_CONVERSATION)) {
                     ServerController.createConversation(fromClient.getCommandArgList());
                 }
+                if (fromClient.getCommandName().equals(Command.SEND_MESSAGE)) {
+                    int conId = Integer.valueOf(fromClient.getCommandArg(2)).intValue();
+                    ServerController.sendMessage(conId,
+                                                fromClient.getCommandArg(1),
+                                                fromClient.getCommandArg(0));
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}
