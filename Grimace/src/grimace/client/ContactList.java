@@ -77,6 +77,14 @@ public class ContactList implements Serializable {
         return null;
     }
 
+    public Contact getContact(int ind) {
+        return list.get(ind);
+    }
+
+    public int getSize() {
+        return list.size();
+    }
+
     /**
      * Public method for accessing the contact list
      * @return the list of contacts

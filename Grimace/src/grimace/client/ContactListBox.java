@@ -39,8 +39,9 @@ public class ContactListBox extends JList {
 
     public void updateModel() {
         DefaultListModel m = new DefaultListModel();
-        for (int i = 0; i < cList.getList().size(); i++) {
-            m.addElement(cList.getList().get(i));
+        int n = cList.getSize();
+        for (int i = 0; i < n; i++) {
+            m.addElement(cList.getContact(i));
         }
         setModel(m);
     }
