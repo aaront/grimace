@@ -252,6 +252,10 @@ public final class ServerHandler {
                 if (fromServer.getCommandName().equals(Command.START_CONVERSATION)) {
                     int conId = Integer.valueOf(fromServer.getCommandArg(0)).intValue();
                     ContactList cList = (ContactList)in.readObject();
+                    Contact user = cList.getContact(ProgramController.getAccount().getUserName());
+                    if (user != null) {
+                        cList.removeContact(user);
+                    }
                     ProgramController.openNewConvo(conId, cList);
                 }
                 if (fromServer.getCommandName().equals(Command.SEND_MESSAGE)) {

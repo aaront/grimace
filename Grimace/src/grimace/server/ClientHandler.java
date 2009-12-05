@@ -141,11 +141,8 @@ public class ClientHandler {
                         int conId = Integer.valueOf(toClient.getCommandArg(0)).intValue();
                         ContactList conList = new ContactList();
                         String[] users = ServerController.getServerConversation(conId).getUsers();
-                        String userName = toClient.getCommandArg(1);
                         for (String s : users) {
-                            if (!s.equals(userName)) {
-                                conList.addContact(new Contact(s, DataHandler.getDisplayName(s)));
-                            }
+                            conList.addContact(new Contact(s, DataHandler.getDisplayName(s)));
                         }
                         out.writeObject(conList);
                     }
