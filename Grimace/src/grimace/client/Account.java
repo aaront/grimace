@@ -153,6 +153,14 @@ public class Account implements Serializable {
         return font;
     }
 
+    /**
+     * Changes the font to font
+     * @param font font to replace the old font
+     */
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
 
       /**
      * Changes the font to that of the string type.  It is assumed type will
