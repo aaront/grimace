@@ -27,6 +27,8 @@ package grimace.server;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import grimace.client.ContactList;
+import grimace.client.Contact;
 
 /**
  * ClientHandler runs threads that manages a connection to a client.
@@ -128,6 +130,15 @@ public class ClientHandler {
                     out.writeObject(toClient);
                     if (toClient.getCommandName().equals(Command.UPDATE_CONTACT_LIST)) {
                         out.writeObject(DataHandler.loadContactList(name));
+                    }
+                    if (toClient.getCommandName().equals(Command.START_CONVERSATION)) {
+                        int conId = Integer.valueOf(toClient.getCommandArg(0)).intValue();
+                        ContactList conList = new ContactList();
+                        String[] users = ServerController.getServerConversation(conId).getUsers();
+                        for (String s : users) {
+                            conList.addContact(new Contact(s, DataHandler.getDisplayName(s)));
+                        }
+                        out.writeObject(conList);
                     }
                     commandQueue.remove(0);
                 }

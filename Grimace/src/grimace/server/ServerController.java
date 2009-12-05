@@ -39,7 +39,7 @@ import grimace.client.Account;
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
     private static Hashtable<String,ClientHandler> connections;
-    private static ArrayList<ServerConversation> conversations;
+    private static Hashtable<Integer,ServerConversation> conversations;
     private static int conversationCount;
     private static ServerSocket serverSocket;
     private static Socket socket;
@@ -66,7 +66,7 @@ public class ServerController {
         System.out.println("Server initialization successful.");
         DataHandler.printAccounts();
         conversationCount = 0;
-        conversations = new ArrayList<ServerConversation>();
+        conversations = new Hashtable<Integer,ServerConversation>();
         connections = new Hashtable<String,ClientHandler>();
         run = true;
         listen();
@@ -265,13 +265,17 @@ public class ServerController {
             String realHash = DataHandler.getAccountPasswordHash(userName);
             return realHash.equals(passHash);
         }
-        catch (Exception ex) {
+        catch (Exception e) {
             return false;
         }
 	}
 
     private static ClientHandler getClientHandler(String userName) {
         return connections.get(userName);
+    }
+
+    public static ServerConversation getServerConversation(int conId) {
+        return conversations.get(new Integer(conId));
     }
 
     /**
@@ -410,10 +414,9 @@ public class ServerController {
             return;
         }
         ServerConversation convo = new ServerConversation(conversationCount++, online);
-        conversations.add(convo);
-        String[] users = convo.getUsers();
-        for (String s : users) {
-            sendCommand(new Command(Command.START_CONVERSATION,users), s);
+        conversations.put(new Integer(convo.getConId()), convo);
+        for (String s : online) {
+            sendCommand(new Command(Command.START_CONVERSATION,String.valueOf(convo.getConId())), s);
         }
     }
 
@@ -424,7 +427,7 @@ public class ServerController {
      * @param message The message to send.
      */
     public static void sendMessage(int conId, String message) {
-
+        
     }
 
     /**

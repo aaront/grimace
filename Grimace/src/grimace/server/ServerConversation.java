@@ -57,6 +57,14 @@ public class ServerConversation {
     }
 
     /**
+     * Returns the id for this conversation.
+     * @return The conversation id.
+     */
+    public int getConId() {
+        return conId;
+    }
+
+    /**
      * Adds a user to this ServerConversation.
      *
      * @param userName  The name of a user to add to the ServerConversation.
