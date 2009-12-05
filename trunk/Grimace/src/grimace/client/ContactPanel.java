@@ -32,11 +32,11 @@ public class ContactPanel extends javax.swing.JPanel {
     /** Creates new form ContactListBox */
     public ContactPanel() {
         initComponents();
-        ((ContactListView)listBox).updateModel(ProgramController.getAccount().getContactList());
+        ((ContactListBox)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
 
     public void updateContactListView() {
-        ((ContactListView)listBox).updateModel(ProgramController.getAccount().getContactList());
+        ((ContactListBox)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
 
     /** This method is called from within the constructor to
@@ -49,7 +49,7 @@ public class ContactPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listBox = new ContactListView();
+        listBox = new ContactListBox();
         addButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();

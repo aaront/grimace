@@ -13,10 +13,10 @@ import javax.swing.DefaultListSelectionModel;
  *
  * @author vs
  */
-public class ContactListView extends JList {
+public class ContactListBox extends JList {
     private ContactList cList;
 
-    public ContactListView() {
+    public ContactListBox() {
         DefaultListSelectionModel lsm = new DefaultListSelectionModel();
         lsm.setSelectionMode(DefaultListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         setSelectionModel(lsm);
