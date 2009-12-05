@@ -145,7 +145,8 @@ public class ContactPanel extends javax.swing.JPanel {
             for (i = 0; i < objects.length; i++) {
                 contacts[i] = (Contact) objects[i];
             }
-            ProgramController.openNewConvo(contacts);
+            ProgramController.sendConvoRequest(contacts);
+            ProgramController.showMessage("Your conversation request was sent to the server.");
         }
     }//GEN-LAST:event_listBoxMouseClicked
 
