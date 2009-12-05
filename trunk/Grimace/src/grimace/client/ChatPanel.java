@@ -73,6 +73,7 @@ public class ChatPanel extends javax.swing.JPanel {
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
         try {
 			htmlKit.insertHTML(htmlDoc, 0, messageText, 0, 0, HTML.Tag.P);
+            htmlKit.insertHTML(htmlDoc, 0, "<br>", 0, 0, HTML.Tag.BR);
 		}
 		catch (Exception e) {}
         convo.storeRecievedMessage(messageText);
