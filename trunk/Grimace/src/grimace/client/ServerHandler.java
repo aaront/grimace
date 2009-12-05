@@ -249,6 +249,11 @@ public final class ServerHandler {
                     ProgramController.getAccount().setContactList(cList);
                     ProgramController.getContactListBox().updateContactListView();
                 }
+                if (fromServer.getCommandName().equals(Command.START_CONVERSATION)) {
+                    int conId = Integer.valueOf(fromServer.getCommandArg(0)).intValue();
+                    ContactList cList = (ContactList)in.readObject();
+                    ProgramController.openNewConvo(conId, cList);
+                }
             }
             catch (EOFException e) {}
             catch (SocketException e) {}
