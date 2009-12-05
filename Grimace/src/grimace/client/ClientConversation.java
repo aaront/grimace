@@ -60,6 +60,7 @@ public class ClientConversation {
     public ArrayList<Contact> getList(){
         return convoPeople.getList();
     }
+
     /**
      * getConversationIdentification
      * Contacts the server and retrieves the requested
@@ -70,13 +71,20 @@ public class ClientConversation {
         return 0;
     }
 
+    /**
+     * Contacts the server and retrieves the requested
+     * @return String containing the names of the participants
+     */
     public String getTitle(){
         int numPeople = currentConvoList.size();
         int i = 1;
         String people = "";
 
         for (i = 0; i == (numPeople - 1); i++){
-            people.concat(currentConvoList.get(i).getDisplayName() + ", ");
+            if (i > 0) {
+                people.concat(", ");
+            }
+            people.concat(currentConvoList.get(i).getDisplayName());
         }
         
         return people;
