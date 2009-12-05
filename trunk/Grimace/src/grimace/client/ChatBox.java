@@ -43,16 +43,6 @@ public class ChatBox extends javax.swing.JPanel {
 
         initComponents();
 
-        chatDisplayBox.setContentType("text/html; charset=UTF-8");
-
-        //not working yet
-        try {
-            chatDisplayBox.read(new FileReader("src/grimace/client/chatDisplayBox.html"), null);
-        }
-        catch (Exception e) {
-            System.out.println(e);
-        }
-
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] availableFonts = e.getAvailableFontFamilyNames();
         Integer[] fontSizes = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
@@ -137,9 +127,7 @@ public class ChatBox extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
-        chatDisplayBox.setContentType("text/html");
         chatDisplayBox.setEditable(false);
-        chatDisplayBox.setText("<html>\n  <head>\n\n  </head>\n  <body>\n    <p style=\"margin-top: 0\">\n    </p>\n  </body>\n</html>\n");
         chatDisplayBox.setFocusable(false);
         jScrollPane2.setViewportView(chatDisplayBox);
 
