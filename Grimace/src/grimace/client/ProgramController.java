@@ -104,6 +104,14 @@ public class ProgramController {
         ProgramWindow.updateChatTabs(chatTabs);
     }
 
+    public static void sendConvoRequest(Contact[] contacts) {
+        try {
+            ServerHandler.sendConversationRequest(accnt.getUserName(), contacts);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void openNewConvo(Contact[] contacts) {
         ContactList list = new ContactList(contacts);
         ClientConversation convo = new ClientConversation(list);
