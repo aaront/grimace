@@ -29,7 +29,7 @@
                   <Component id="jScrollPane2" alignment="0" pref="506" max="32767" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="btnCancel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="108" max="32767" attributes="0"/>
+                      <EmptySpace pref="164" max="32767" attributes="0"/>
                       <Component id="btnPreviewEquation" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="btnSendEquation" min="-2" pref="156" max="-2" attributes="0"/>

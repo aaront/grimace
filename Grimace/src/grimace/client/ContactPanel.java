@@ -1,5 +1,5 @@
 /**
- * ContactListBox.java
+ * ContactPanel.java
  *
  * @author Aaron Jankun
  * @author Justin Cole

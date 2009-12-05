@@ -1,7 +1,11 @@
 /**
  * ProgramController.java
  *
- * @author Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma, Aaron Toth
+ * @author Justin Cole
+ * @author Aaron Jankun
+ * @author David Marczak
+ * @author Vineet Sharma
+ * @author Aaron Toth
  *
  * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
  *        and Aaron Toth
