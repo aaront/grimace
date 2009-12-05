@@ -101,6 +101,10 @@ public class ClientHandler {
                 if (fromClient.getCommandName().equals(Command.LOGOUT)) {
                     placeCommand(new Command(Command.TEST_CONNECTION));
                 }
+                if (fromClient.getCommandName().equals(Command.DELETE_CONTACT)) {
+                    ServerController.deleteContact(fromClient.getCommandArg(0),
+                                                    fromClient.getCommandArg(1));
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}
