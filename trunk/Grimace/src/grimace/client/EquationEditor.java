@@ -25,6 +25,8 @@
 package grimace.client;
 
 import javax.swing.Icon;
+import javax.swing.KeyStroke;
+import javax.swing.JOptionPane;
 
 import be.ugent.caagt.jmathtex.TeXFormula;
 import be.ugent.caagt.jmathtex.TeXConstants;
@@ -41,6 +43,12 @@ public class EquationEditor extends javax.swing.JDialog {
         this.parentFrame = parent;
 
         initComponents();
+
+        equationInputBox.requestFocusInWindow();
+
+        // Disable using the enter key to do a line break.
+        KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
+        equationInputBox.getInputMap().put(enter, "none");
     }
 
     /** This method is called from within the constructor to
@@ -59,10 +67,12 @@ public class EquationEditor extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
         btnPreviewEquation = new javax.swing.JButton();
         btnSendEquation = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         equationPreviewBox.setEditable(false);
+        equationPreviewBox.setFocusable(false);
         equationPreviewBox.setMargin(new java.awt.Insets(30, 30, 30, 30));
         jScrollPane1.setViewportView(equationPreviewBox);
 
@@ -91,19 +101,27 @@ public class EquationEditor extends javax.swing.JDialog {
             }
         });
 
+        jButton1.setText("Syntax Help");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 518, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 506, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 562, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 108, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jButton1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addComponent(btnPreviewEquation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnSendEquation, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -111,7 +129,6 @@ public class EquationEditor extends javax.swing.JDialog {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
@@ -121,7 +138,8 @@ public class EquationEditor extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSendEquation)
                     .addComponent(btnPreviewEquation)
-                    .addComponent(btnCancel))
+                    .addComponent(btnCancel)
+                    .addComponent(jButton1))
                 .addContainerGap())
         );
 
@@ -144,6 +162,16 @@ public class EquationEditor extends javax.swing.JDialog {
         parentFrame.getMessageBox().setText(equation);
         this.dispose();
 }//GEN-LAST:event_btnSendEquationActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        JOptionPane.showMessageDialog(this, "Wernicke uses TeX to format " +
+                "equations.\n\nTeX has been around a very long time and is " +
+                "a standard way of representing mathematics with a keyboard." +
+                "\n\n A good reference is below (but ignore Mathematics " +
+                "Environment, we do that for you already)\n\n" +
+                "http://en.wikibooks.org/wiki/LaTeX/Mathematics", "Syntax Help",
+                JOptionPane.QUESTION_MESSAGE);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
     * @param args the command line arguments
@@ -168,6 +196,7 @@ public class EquationEditor extends javax.swing.JDialog {
     private javax.swing.JButton btnSendEquation;
     private javax.swing.JTextArea equationInputBox;
     private javax.swing.JTextPane equationPreviewBox;
+    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
