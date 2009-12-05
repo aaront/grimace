@@ -47,14 +47,13 @@ public class ClientConversation {
     
     /**
      * ClientConversation, creates an instance of a client conversation
-     * @param convoId   The conversation identification integer
-     * @param options   The arrayList of options
+     * @param conId   The conversation identification integer
+     * @param cList   The list of Contacts in the conversation
      */
     public ClientConversation(int conId, ContactList cList){
         this.conId = conId;
         convoQOptions = new QuickOptions();
         convoPeople = cList;
-     
 }
     public ArrayList<Contact> getList(){
         return convoPeople.getList();
@@ -66,16 +65,16 @@ public class ClientConversation {
      */
     public String getTitle(){
         int numPeople = convoPeople.getList().size();
-        int i = 1;
+        int i;
         String people = "";
 
-        for (i = 0; i == (numPeople - 1); i++){
+        for (i = 0; i < numPeople; i++){
             if (i > 0) {
                 people = people.concat(", ");
             }
             people = people.concat(convoPeople.getList().get(i).getDisplayName());
         }
-        
+
         return people;
     }
     
@@ -161,7 +160,7 @@ public class ClientConversation {
         return convoQOptions;
     }
 
-    public int getCondId(){
+    public int getConId(){
         return this.conId;
     }
 

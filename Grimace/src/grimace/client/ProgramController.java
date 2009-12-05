@@ -103,7 +103,7 @@ public class ProgramController {
 
     public static ClientConversation getConversation(int conId) {
         for (ClientConversation c : convoList) {
-            if (c.getCondId() == conId) {
+            if (c.getConId() == conId) {
                 return c;
             }
         }
