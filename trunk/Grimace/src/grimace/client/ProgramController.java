@@ -28,12 +28,14 @@
 
 package grimace.client;
 import java.awt.Component;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.io.File;
+import java.io.*;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
+import javax.xml.parsers.*;
+
+import org.w3c.dom.*;
+import org.xml.sax.InputSource;
 
 /**
  * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
@@ -265,6 +267,50 @@ public class ProgramController {
      */
     public static java.awt.Frame getWindow() {
         return window;
+    }
+
+    /**
+     * Parses an equation from our message syntax
+     * @param messgage the message containing an equation
+     * @return an ArrayList of equations contained in a message
+     */
+    public static ArrayList<String> parseEquation(String message) {
+        ArrayList<String> equations = new ArrayList<String>();
+
+        try {
+            // Wow, this sure is a lot of boilerplate code
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource s = new InputSource(new StringReader(message));
+            Document equation = db.parse(s);
+
+            // Filters out equations by the <eqn> tag
+            NodeList listOfEquations = equation.getElementsByTagName("eqn");
+
+            // Iterates through the equations and adds them to an ArrayList
+            for (int i = 0; i < listOfEquations.getLength(); i++ ) {
+                Element eqn = (Element) listOfEquations.item(i);
+                equations.add(getStr(eqn));
+            }
+        }
+        catch (Exception e) {
+            System.out.println("Not a valid equation string.");
+        }
+
+        return equations;
+    }
+
+    /**
+     * Gets the string representation of an Element in the NodeList
+     * @param e an element in a NodeList
+     */
+    public static String getStr(Element e) {
+       Node child = e.getFirstChild();
+       if (child instanceof CharacterData) {
+           CharacterData cd = (CharacterData)child;
+           return cd.getData();
+       }
+       return "nil";
     }
 
     public static void main(String[] args) {

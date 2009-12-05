@@ -38,9 +38,7 @@ public class LoginForm extends javax.swing.JPanel {
         try {
             ImageIcon logo = new ImageIcon(
                     this.getClass().getClassLoader()
-                    .getResource("grimace" + File.separator + "client"
-                    + File.separator + "resources"+ File.separator
-                    + "logo_small.png"));
+                    .getResource("grimace/client/resources/logo_small.png"));
             logoLabel.setIcon(logo);
         }
         catch (Exception e) {
