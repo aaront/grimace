@@ -28,8 +28,13 @@ public class ChatPanel extends javax.swing.JPanel {
     ClientConversation convo;
 
     /** Creates new form ChatPanel */
-    public ChatPanel(ClientConversation conversation) {
+    public ChatPanel() {
         initComponents();
+    }
+
+    /** Creates new form ChatPanel */
+    public ChatPanel(ClientConversation conversation) {
+        this();
         convo = conversation;
     }
 
@@ -39,6 +44,10 @@ public class ChatPanel extends javax.swing.JPanel {
 
     public int getID() {
         return convo.getConId();
+    }
+
+    public ChatBox getChatBox() {
+        return chatBox1;
     }
 
     /** This method is called from within the constructor to
@@ -53,6 +62,8 @@ public class ChatPanel extends javax.swing.JPanel {
         chatBox1 = new grimace.client.ChatBox();
 
         setMinimumSize(new java.awt.Dimension(400, 420));
+
+        chatBox1.initChatBox();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
