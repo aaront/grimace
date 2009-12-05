@@ -26,7 +26,7 @@ package grimace.client;
 import java.util.ArrayList;
 
 /**
- *The class with all the quick options in it.
+ * QuickOptions facilitates quick setting of ProgramSettings.
  * @author David
  */
 public class QuickOptions {

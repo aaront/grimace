@@ -161,7 +161,7 @@ public class DataHandler {
      * Creates an Account with the given userName and password.
      *
      * @param userName  The userName for the new account.
-     * @param password  The password for the new account, which will be stored
+     * @param passHash  The password for the new account, which will be stored
      *                  as a hexadecimal representation of the SHA-1 hash of the
      *                  string provided.
      * @throws Exception

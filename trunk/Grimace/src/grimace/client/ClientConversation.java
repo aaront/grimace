@@ -31,8 +31,8 @@ import java.io.DataInputStream;
 
 
 /**
+ * ClientConversation is a local representation of a chat conversation.
  *
- * @author David
  * optionsToggled is an arraylist that will keep track
  * of the options on (true) or off (false). The index
  * numbers and options that correspond are yet to be

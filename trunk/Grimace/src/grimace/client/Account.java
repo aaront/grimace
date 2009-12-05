@@ -27,7 +27,9 @@ import java.awt.Font;
 import java.awt.Color;
 import java.io.Serializable;
 
-
+/**
+ * Account is the class that handles user identity on the server.
+ */
 public class Account implements Serializable {
 
     public static final String DEFAULT_FONT = "Times New Roman";
@@ -105,7 +107,7 @@ public class Account implements Serializable {
 
      /**
      * Changes the displayName to name.
-     * @param String to replace old displayName.
+     * @param name string to replace old displayName with.
      */
      public void setDisplayName(String name){
          displayName = name;
@@ -120,8 +122,8 @@ public class Account implements Serializable {
      }
 
      /**
-     * Sets the contact list for an account.
-     * @param list to replace old cList.
+     * Sets the status for an account
+     * @param stat the new status of the account
      */
      public void setStatus(String stat){
          status = stat;

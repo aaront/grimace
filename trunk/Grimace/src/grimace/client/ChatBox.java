@@ -31,6 +31,10 @@ import javax.swing.*;
 
 import grimace.client.EquationEditor;
 
+/**
+ * ChatBox is the panel with the message display box, the toolbar, and the
+ * text entry field.
+ */
 public class ChatBox extends javax.swing.JPanel {
 
     private Color currentFontColour;
@@ -99,8 +103,8 @@ public class ChatBox extends javax.swing.JPanel {
     }
 
     /**
-     * Gets the current font color being used in the messageBox
-     * @return
+     * Gets the current font colour being used in the messageBox
+     * @return the current font colour of the message box
      */
     public Color getCurrentFontColour() {
         return currentFontColour;

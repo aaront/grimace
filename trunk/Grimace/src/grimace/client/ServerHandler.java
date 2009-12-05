@@ -149,7 +149,7 @@ public final class ServerHandler {
      * Sends a request to register a new user.
      *
      * @param userName  The userName to register with.
-     * @param passWord  The password to register with.
+     * @param password  The password to register with.
      * @throws java.lang.Exception
      */
     public static Command sendRegisterRequest(String userName, String password,
@@ -175,7 +175,7 @@ public final class ServerHandler {
      * Sends a request to login a user.
      *
      * @param userName The name of the user to login as.
-     * @param passWord  The password for the user's account.
+     * @param password  The password for the user's account.
      * @return  True if the login was successful, false otherwise.
      * @throws java.lang.Exception
      */
@@ -282,7 +282,6 @@ public final class ServerHandler {
     /**
      * Sends a request to the server to add a contact to an account.
      *
-     * @param userName  The username of the account.
      * @param contactName The name of the contact being requested.
      * @throws java.lang.Exception
      */
@@ -329,7 +328,7 @@ public final class ServerHandler {
      * Sends a request to start a conversation with one or more contacts.
      *
      * @param userName      The user initiating the conversation.
-     * @param contactNames  The names of the contacts requested.
+     * @param contacts  The names of the contacts requested.
      * @throws java.lang.Exception
      */
 	public static void sendConversationRequest(String userName,
@@ -346,7 +345,6 @@ public final class ServerHandler {
     /**
      * Sends a request to the server to post a message to a conversation.
      *
-     * @param userName The name of the user sending the message.
      * @param message   The message being sent.
      * @param conId     An integer identifying a target conversation.
      * @throws java.lang.Exception
@@ -361,7 +359,6 @@ public final class ServerHandler {
      * Sends a notification to the server that a contact has left a
      * conversation.
      *
-     * @param userName  The name of the user leaving the conversation.
      * @param conId An integer identifying the conversation.
      * @throws java.lang.Exception
      */
@@ -374,8 +371,7 @@ public final class ServerHandler {
     /**
      * Sends a request to the server to transfer a file to one or more contacts.
      *
-     * @param username The name of the user initiating the transfer.
-     * @param filename The name of the file to be sent.
+     * @param fileName The name of the file to be sent.
      * @param contactNames The names of contacts receiving the file.
      * @throws java.lang.Exception
      */

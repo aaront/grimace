@@ -24,6 +24,10 @@
 
 package grimace.client;
 
+/**
+ * Contact is a reference to an Account that is formatted for diasplay in a
+ * ContactList.
+ */
 public class Contact implements java.io.Serializable {
 
     // @TODO: Interact with the database somehow. I think. Maybe not.

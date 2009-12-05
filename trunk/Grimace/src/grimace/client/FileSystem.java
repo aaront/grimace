@@ -26,6 +26,10 @@ package grimace.client;
 
 import java.io.*;
 
+/**
+ * FileSystem interacts with the filesystem of the host machine, and facilitates
+ * the loading and saving of files sent over the chat.
+ */
 public class FileSystem {
 
     public static void saveFile(Serializable data, String path) {

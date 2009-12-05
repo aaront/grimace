@@ -26,6 +26,10 @@ package grimace.client;
 
 import java.io.*;
 
+/**
+ * ProgramSettings takes settings for the client program and implements them.
+ * Settings can be set in OptionsForm.
+ */
 public class ProgramSettings implements Serializable {
     // @TODO: Store preferences in working directory
     //Preferences prefs;

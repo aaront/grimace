@@ -27,6 +27,10 @@ package grimace.client;
 import java.io.File;
 import javax.swing.ImageIcon;
 
+/**
+ * LoginForm displays the login form, which is the default panel when running
+ * the client program.
+ */
 public class LoginForm extends javax.swing.JPanel {
 
     /** Creates new form LoginForm */

@@ -38,7 +38,7 @@ import org.w3c.dom.*;
 import org.xml.sax.InputSource;
 
 /**
- * The big kahuna, cheese, mega overlord, grand ruler of Wernickeland
+ * ProgramController handles most of the client functionality of the program.
  */
 public class ProgramController {
     private static Account accnt;
@@ -159,7 +159,6 @@ public class ProgramController {
     /**
      * Retrieves a chat log
      * @param conversation the conversation that occurred
-     * @return the chat log of the conversation
      */
     public void getChatLog(ClientConversation conversation, String fileName, int conId)
                                     throws FileNotFoundException, IOException {
@@ -271,7 +270,7 @@ public class ProgramController {
 
     /**
      * Parses an equation from our message syntax
-     * @param messgage the message containing an equation
+     * @param message the message containing an equation
      * @return an ArrayList of equations contained in a message
      */
     public static ArrayList<String> parseEquation(String message) {

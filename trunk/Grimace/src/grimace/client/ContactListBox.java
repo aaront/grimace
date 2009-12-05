@@ -28,6 +28,9 @@ import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;
 
+/**
+ * ContactListBox displays a ContactList.
+ */
 public class ContactListBox extends JList {
     private ContactList cList;
 

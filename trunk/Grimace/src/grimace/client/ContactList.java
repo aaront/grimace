@@ -27,6 +27,10 @@ package grimace.client;
 import java.util.*;
 import java.io.Serializable;
 
+/**
+ * ContactList is a list of contacts that can be added to, remove contacts,
+ * and perform various operations on the contacts within it.
+ */
 public class ContactList implements Serializable {
 
     private ArrayList<Contact> list;
