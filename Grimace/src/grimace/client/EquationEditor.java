@@ -166,9 +166,9 @@ public class EquationEditor extends javax.swing.JDialog {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         JOptionPane.showMessageDialog(this, "Wernicke uses TeX to format " +
                 "equations.\n\nTeX has been around a very long time and is " +
-                "a standard way of representing mathematics with a keyboard." +
-                "\n\n A good reference is below (but ignore Mathematics " +
-                "Environment, we do that for you already)\n\n" +
+                "a standard way of\nrepresenting mathematics with a keyboard." +
+                "\n\nA good reference is below (but ignore Mathematics " +
+                "Environment,\nwe do that for you already)\n\n" +
                 "http://en.wikibooks.org/wiki/LaTeX/Mathematics", "Syntax Help",
                 JOptionPane.QUESTION_MESSAGE);
     }//GEN-LAST:event_jButton1ActionPerformed
