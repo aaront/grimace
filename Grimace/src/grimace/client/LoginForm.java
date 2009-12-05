@@ -34,6 +34,7 @@ public class LoginForm extends javax.swing.JPanel {
         initComponents();
 
         // Loads the logo into the login screen
+        // @TODO: Works for Mac, not so much for Windows
         try {
             ImageIcon logo = new ImageIcon(
                     this.getClass().getClassLoader()
