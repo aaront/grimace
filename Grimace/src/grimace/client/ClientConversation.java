@@ -55,8 +55,8 @@ public class ClientConversation {
         convoQOptions = new QuickOptions();
         convoPeople = cList;
 }
-    public ArrayList<Contact> getList(){
-        return convoPeople.getList();
+    public ContactList getList(){
+        return convoPeople;
     }
 
     /**
@@ -123,11 +123,10 @@ public class ClientConversation {
      * New message recieved and added to conversationText
      * @param newMessage    The new recieved message
      */
-    public void displayRecievedMessage(String newMessage){
-
+    public void storeRecievedMessage(String newMessage){
         if (newMessage != null){
             conversationText.add(newMessage);
-         }
+        }
     }
 
     /**

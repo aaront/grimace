@@ -36,6 +36,7 @@ public class ChatPanel extends javax.swing.JPanel {
     public ChatPanel(ClientConversation conversation) {
         this();
         convo = conversation;
+        chatBox1.setConId(convo.getConId());
     }
 
     public String getTitle() {
@@ -46,8 +47,17 @@ public class ChatPanel extends javax.swing.JPanel {
         return convo.getConId();
     }
 
-    public ChatBox getChatBox() {
-        return chatBox1;
+    public void postMessage(String message, String userName) {
+        StringBuffer newText = new StringBuffer(chatBox1.getChatDisplayBox().getText());
+        String dName = userName;
+        Contact user = convo.getList().getContact(userName);
+        if (user != null) {
+            dName = user.getDisplayName();
+        }
+        String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
+        newText.append(messageText);
+        chatBox1.getChatDisplayBox().setText(newText.toString());
+        convo.storeRecievedMessage(messageText);
     }
 
     /** This method is called from within the constructor to

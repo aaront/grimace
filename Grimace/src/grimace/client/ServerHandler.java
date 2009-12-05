@@ -258,7 +258,7 @@ public final class ServerHandler {
                     int conId = Integer.valueOf(fromServer.getCommandArg(2)).intValue();
                     String message = fromServer.getCommandArg(1);
                     String sender = fromServer.getCommandArg(1);
-                    
+                    ProgramController.getChatPanel(conId).postMessage(message, sender);
                 }
             }
             catch (EOFException e) {}
