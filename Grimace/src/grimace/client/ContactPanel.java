@@ -49,10 +49,11 @@ public class ContactPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        listBox = new ContactListBox();
+        listBox = new grimace.client.ContactListBox();
         addButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
+        optionsButton = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(300, 450));
 
@@ -66,7 +67,7 @@ public class ContactPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listBox);
 
-        addButton.setText("Add Contact");
+        addButton.setText("Add");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -87,6 +88,13 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
+        optionsButton.setText("Options");
+        optionsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                optionsButtonActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -96,7 +104,9 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addComponent(addButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 69, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(optionsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
@@ -109,7 +119,8 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton)
                     .addComponent(logoutButton)
-                    .addComponent(deleteButton))
+                    .addComponent(deleteButton)
+                    .addComponent(optionsButton))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -150,6 +161,10 @@ public class ContactPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listBoxMouseClicked
 
+    private void optionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsButtonActionPerformed
+        ProgramWindow.showOptionsTab();
+    }//GEN-LAST:event_optionsButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
@@ -157,6 +172,7 @@ public class ContactPanel extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JButton optionsButton;
     // End of variables declaration//GEN-END:variables
 
 }

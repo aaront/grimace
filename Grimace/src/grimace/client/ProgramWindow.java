@@ -30,6 +30,7 @@ import javax.swing.JTabbedPane;
 import java.util.ArrayList;
 
 public class ProgramWindow extends javax.swing.JFrame {
+    static JTabbedPane tabs;
 
     /** Creates new form Window */
     public ProgramWindow() {
@@ -70,17 +71,24 @@ public class ProgramWindow extends javax.swing.JFrame {
     }
 
     public static void updateChatTabs(ArrayList<ChatPanel> chats) {
-        JTabbedPane tabs = new JTabbedPane();
+        tabs = new JTabbedPane();
         java.awt.Dimension min = new java.awt.Dimension();
         min.setSize(600, 420);
         tabs.setMinimumSize(min);
-        tabs.removeAll();
         int i;
         for (i = 0; i < chats.size(); i++) {
             ChatPanel chat = chats.get(i);
             tabs.add(chat.getTitle(), chat);
         }
         ProgramController.setRightPane(tabs);
+    }
+
+    public static void showOptionsTab() {
+        tabs.add("Settings", new OptionsForm());
+    }
+
+    public static void closeTab(Component comp) {
+        tabs.remove(comp);
     }
 
     /** This method is called from within the constructor to

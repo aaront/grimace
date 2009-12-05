@@ -112,7 +112,6 @@ public class ProgramController {
     public static void setContactListBox(ContactPanel clb) {
         contactListBox = clb;
         setLeftPane(clb);
-        setRightPane(null);
         ProgramWindow.updateChatTabs(chatTabs);
     }
 
@@ -211,9 +210,8 @@ public class ProgramController {
      * Get's the current account's program settings
      * @return the program settings
      */
-    public ProgramSettings getProgramSettings() {
+    public static ProgramSettings getProgramSettings() {
         return progSettings;
-
     }
 
     /**
