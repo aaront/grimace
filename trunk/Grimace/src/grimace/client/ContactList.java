@@ -68,6 +68,15 @@ public class ContactList implements Serializable {
         list.remove(toRemove);
     }
 
+    public Contact getContact(String userName) {
+        for (Contact c : list) {
+            if (c.getUserName().equals(userName)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     /**
      * Public method for accessing the contact list
      * @return the list of contacts

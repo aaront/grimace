@@ -35,6 +35,7 @@ public class ChatBox extends javax.swing.JPanel {
 
     private Color currentFontColour;
     private Font currentFont;
+    private int conId;
 
     /** Creates new form ChatBox */
     public ChatBox() {
@@ -59,6 +60,10 @@ public class ChatBox extends javax.swing.JPanel {
         // send the message.
         KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
         messageBox.getInputMap().put(enter, "none");
+    }
+
+    public void setConId(int id) {
+        conId = id;
     }
 
     /**
@@ -331,7 +336,12 @@ public class ChatBox extends javax.swing.JPanel {
                     '"' + currentFont.getFamily() + '"',
                     messageBox.getText());
 
-            // @TODO actually send "message" away.
+            try {
+                ServerHandler.sendMessagePostRequest(message, conId);
+            }
+            catch (Exception e) {
+
+            }
             System.out.println(message);
 
             messageBox.setText("");

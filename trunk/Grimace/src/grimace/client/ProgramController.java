@@ -40,7 +40,6 @@ import javax.swing.JOptionPane;
  */
 public class ProgramController {
     private static Account accnt;
-    private ClientConversation convo;
     private static ArrayList<ClientConversation> convoList;
     private static ArrayList<ChatPanel> chatTabs;
     private static ProgramSettings progSettings;
@@ -161,9 +160,9 @@ public class ProgramController {
      * @param conversation the conversation that occurred
      * @return the chat log of the conversation
      */
-    public void getChatLog(ClientConversation conversation, String fileName)
+    public void getChatLog(ClientConversation conversation, String fileName, int conId)
                                     throws FileNotFoundException, IOException {
-        convo.openLog(fileName);
+        //convo.openLog(fileName);
     }
 
     /**
@@ -187,7 +186,7 @@ public class ProgramController {
      * account.
      */
     public ContactList getContactList() {
-    return accnt.getContactList();
+        return accnt.getContactList();
     }
 
     /**
@@ -204,52 +203,6 @@ public class ProgramController {
      */
     public void addContactToConversation(Contact userName, ClientConversation conversation) {
         conversation.addToList(userName);
-    }
-
-    /**
-     * Receive message from a conversation
-     * @param conversation the conversation from where the message originates
-     * @return the message from the conversation
-     */
-    public void receiveMessage(String messageIn) {
-        convo.displayRecievedMessage(messageIn);
-
-    }
-
-    /**
-     * Send message to a conversation
-     * @param conversation the conversation to send the message to
-     * @param message the sent message
-     * 
-     */
-    public void sendMessage(String message) {
-        convo.prepareMessageForSending(message);
-    }
-
-    /**
-     * Creates a new equation to send
-     * @return the string-formatted equation
-     */
-    public void createEquation(String eqn) {
-
-    }
-
-    /**
-     * Receive an equation from a conversation
-     * @return the string-formatted equation
-     * @TODO: determine the correct output
-     */
-    public String receiveEquation() {
-        return "";
-    }
-
-    /**
-     * Sends an equation to a conversation
-     * @param equation the equation to be sent
-     * @return the string-formatted equation that was sent
-     */
-    public void sendEquation(String eqn) {
-        convo.prepareEquationForSending(eqn);
     }
 
     // @TODO: Are we going to be leaving out "setFontProperties?????"
