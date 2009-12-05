@@ -410,7 +410,9 @@ public class ServerController {
         ServerConversation convo = new ServerConversation(conversationCount++, online);
         conversations.put(new Integer(convo.getConId()), convo);
         for (String s : online) {
-            sendCommand(new Command(Command.START_CONVERSATION,String.valueOf(convo.getConId())), s);
+            sendCommand(new Command(Command.START_CONVERSATION,
+                    String.valueOf(convo.getConId()),
+                    userNames[0]), s);
         }
     }
 
