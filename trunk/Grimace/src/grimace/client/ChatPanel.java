@@ -58,7 +58,6 @@ public class ChatPanel extends javax.swing.JPanel {
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
         newText.append(messageText);
         chatBox1.getChatDisplayBox().setText(newText.toString());
-        chatBox1.getChatDisplayBox().updateUI();
         convo.storeRecievedMessage(messageText);
     }
 
