@@ -33,7 +33,7 @@ public class SideBar extends javax.swing.JPanel {
     private void initComponents() {
 
         quickOptionsBox1 = new grimace.client.QuickOptionsBox();
-        contactListBox1 = new grimace.client.ContactListBox();
+        contactListBox1 = new grimace.client.ContactPanel();
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -59,7 +59,7 @@ public class SideBar extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private grimace.client.ContactListBox contactListBox1;
+    private grimace.client.ContactPanel contactListBox1;
     private grimace.client.QuickOptionsBox quickOptionsBox1;
     // End of variables declaration//GEN-END:variables
 

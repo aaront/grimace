@@ -41,7 +41,7 @@ public class ProgramController {
     private static ArrayList<ChatPanel> chatTabs;
     private static ProgramSettings progSettings;
     private static ProgramWindow window;
-    private static ContactListBox contactListBox;
+    private static ContactPanel contactListBox;
 
     public ProgramController() {
         // Uses Nimbus as default theme. Much better than Metal. Search "Java nimbus"
@@ -93,11 +93,11 @@ public class ProgramController {
         return n;
     }
 
-    public static ContactListBox getContactListBox() {
+    public static ContactPanel getContactListBox() {
         return contactListBox;
     }
 
-    public static void setContactListBox(ContactListBox clb) {
+    public static void setContactListBox(ContactPanel clb) {
         contactListBox = clb;
         setLeftPane(clb);
         setRightPane(null);
