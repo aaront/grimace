@@ -409,9 +409,11 @@ public class ServerController {
                         "Unable to start a conversation: not enough users online."), userNames[0]);
             return;
         }
-        conversations.add(new ServerConversation(conversationCount++, online));
-        for (String s : online) {
-            
+        ServerConversation convo = new ServerConversation(conversationCount++, online);
+        conversations.add(convo);
+        String[] users = convo.getUsers();
+        for (String s : users) {
+            sendCommand(new Command(Command.START_CONVERSATION,users), s);
         }
     }
 

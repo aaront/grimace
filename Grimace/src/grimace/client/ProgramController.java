@@ -101,6 +101,15 @@ public class ProgramController {
         return contactListBox;
     }
 
+    public static ClientConversation getConversation(int conId) {
+        for (ClientConversation c : convoList) {
+            if (c.getCondId() == conId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     public static void setContactListBox(ContactPanel clb) {
         contactListBox = clb;
         setLeftPane(clb);

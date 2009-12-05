@@ -80,6 +80,11 @@ public class ServerConversation {
      * @return The number of users in this ServerConversation.
      */
     public String[] getUsers() {
-        return (String[]) users.toArray();
+        String[] arr = new String[users.size()];
+        for (int i=0; i<users.size(); i++) {
+            arr[i] = users.get(i);
+        }
+        
+        return arr;
     }
 }
