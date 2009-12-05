@@ -392,13 +392,7 @@ public class ServerController {
      * @return The integer identifying the conversation.
      */
     public static void createConversation(String[] userNames) {
-        if (userNames.length < 1) { return; }
-        if (userNames.length == 1) {
-            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
-                        "You are trying to start a conversation with yourself.\n"
-                        + "Sorry, but thats weird."), userNames[0]);
-            return;
-        }
+        if (userNames.length < 2) { return; }
         ArrayList<String> online = new ArrayList<String>();
         for (String s : userNames) {
             if (checkAccountLoginStatus(s)) {
@@ -426,8 +420,11 @@ public class ServerController {
      * @param conId An integer identifying a target conversation.
      * @param message The message to send.
      */
-    public static void sendMessage(int conId, String message) {
-        
+    public static void sendMessage(int conId, String message, String userName) {
+        String[] users = getServerConversation(conId).getUsers();
+        for (String s : users) {
+            sendCommand(new Command(Command.SEND_MESSAGE, userName, message, String.valueOf(conId)), s);
+        }
     }
 
     /**
