@@ -143,7 +143,9 @@ public class ChatBox extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
+        chatDisplayBox.setContentType("text/html");
         chatDisplayBox.setEditable(false);
+        chatDisplayBox.setText("<p><strong>User1</strong>: <span style='color: #FAD273; font: 16px \"Times New Roman\", sans-serif;'>Hello world!</span></p>\n<p><strong>User2</strong>: <span style='color: blue;'>derp</span></p>\n");
         chatDisplayBox.setFocusable(false);
         jScrollPane2.setViewportView(chatDisplayBox);
 
@@ -313,8 +315,23 @@ public class ChatBox extends javax.swing.JPanel {
     private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed
         // Checks and sees if the key pressed is "enter", if it is, sends away
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            // @TODO actually send the contents of the messagebox away.
-            System.out.println(messageBox.getText());
+            // @TODO: Tell someone to use this form when outputting to
+            // chatDiplayBox: <p><strong>{user}</strong>: {message}</p>,
+            // where message is set below
+
+            String hexColour = String.format("%02X%02X%02X",
+                    currentFontColour.getRed(),
+                    currentFontColour.getGreen(),
+                    currentFontColour.getBlue());
+            
+            String message = String.format("<span style='color: #%s; font: %dpx %s, sans-serif;'>%s</span>",
+                    hexColour, currentFont.getSize(),
+                    '"' + currentFont.getFamily() + '"',
+                    messageBox.getText());
+
+            // @TODO actually send "message" away.
+            System.out.println(message);
+
             messageBox.setText("");
         }
     }//GEN-LAST:event_messageBoxKeyPressed
