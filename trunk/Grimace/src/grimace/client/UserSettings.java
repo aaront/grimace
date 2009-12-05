@@ -24,10 +24,7 @@
 
 package grimace.client;
 import java.awt.Font;
-/**
- *
- * @author Aaron
- */
+
 public class UserSettings {
     private Font font;
     private boolean isEqnEditor;
