@@ -27,15 +27,15 @@
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="93" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="loginButton" alignment="0" pref="116" max="32767" attributes="2"/>
-                  <Component id="passField" alignment="0" pref="116" max="32767" attributes="2"/>
-                  <Component id="userField" alignment="0" pref="116" max="32767" attributes="2"/>
-                  <Component id="statusBox" alignment="0" pref="116" max="32767" attributes="2"/>
-                  <Component id="registerButton" alignment="0" pref="116" max="32767" attributes="2"/>
-                  <Component id="jLabel1" alignment="0" pref="116" max="32767" attributes="0"/>
-                  <Component id="jLabel2" alignment="0" pref="116" max="32767" attributes="0"/>
-                  <Component id="jLabel3" alignment="0" pref="116" max="32767" attributes="0"/>
-                  <Component id="jLabel4" alignment="0" pref="116" max="32767" attributes="0"/>
+                  <Component id="loginButton" alignment="0" pref="124" max="32767" attributes="2"/>
+                  <Component id="passField" alignment="0" pref="124" max="32767" attributes="2"/>
+                  <Component id="userField" alignment="0" pref="124" max="32767" attributes="2"/>
+                  <Component id="statusBox" alignment="0" pref="124" max="32767" attributes="2"/>
+                  <Component id="registerButton" alignment="0" pref="124" max="32767" attributes="2"/>
+                  <Component id="jLabel1" alignment="0" pref="124" max="32767" attributes="0"/>
+                  <Component id="jLabel2" alignment="0" pref="124" max="32767" attributes="0"/>
+                  <Component id="jLabel3" alignment="0" pref="124" max="32767" attributes="0"/>
+                  <Component id="jLabel4" alignment="0" pref="124" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="91" max="-2" attributes="0"/>
           </Group>
