@@ -40,7 +40,7 @@ import java.io.DataInputStream;
  *
  */
 public class ClientConversation {
-    int conversationIdentification;
+    int conId;
     ArrayList<String> conversationText = new ArrayList<String>();
     QuickOptions convoQOptions;
     ContactList convoPeople;
@@ -51,24 +51,14 @@ public class ClientConversation {
      * @param convoId   The conversation identification integer
      * @param options   The arrayList of options
      */
-    public ClientConversation(ContactList cList){
-        conversationIdentification = getConversationIdentification();
+    public ClientConversation(int conId, ContactList cList){
+        this.conId = conId;
         convoQOptions = new QuickOptions();
         convoPeople = cList;
         currentConvoList = cList.getList();
 }
     public ArrayList<Contact> getList(){
         return convoPeople.getList();
-    }
-
-    /**
-     * getConversationIdentification
-     * Contacts the server and retrieves the requested
-     * conversationIdentification number
-     */
-    public int getConversationIdentification(){
-        //conversationIdentification = programController.IDmethod();
-        return 0;
     }
 
     /**

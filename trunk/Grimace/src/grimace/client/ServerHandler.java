@@ -278,6 +278,10 @@ public final class ServerHandler {
 	public static void sendAddContactRequest(String userName,
                                                 String contactName)
                                                 throws Exception {
+        if (contactName.equals(userName)) {
+            ProgramController.showMessage("You can't add yourself as a contact. That's cheating!");
+            return;
+        }
         sendCommand(Command.CONTACT_REQUEST, userName, contactName.toLowerCase());
 	}
 

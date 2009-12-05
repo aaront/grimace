@@ -190,16 +190,6 @@ public class ProgramController {
     }
 
     /**
-     * Creates a new conversation with usernames
-     * @param userName an array of usernames to initiate a conversation with
-     * @return an instance of the conversation
-     */
-    public ClientConversation makeConversation(ContactList list) {
-       ClientConversation conv = new ClientConversation(list);
-       return conv;
-    }
-
-    /**
      * Adds a contact to an existing conversation
      * @param userName the contact to add to the conversation
      * @param conversation the conversation that receives the contact

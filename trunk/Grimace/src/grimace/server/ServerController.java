@@ -27,6 +27,7 @@ package grimace.server;
 import java.net.*;
 import java.io.*;
 import java.util.Hashtable;
+import java.util.ArrayList;
 import java.sql.SQLException;
 import grimace.client.Account;
 
@@ -38,6 +39,8 @@ import grimace.client.Account;
 public class ServerController {
     private static final int LISTENING_PORT = 1234;
     private static Hashtable<String,ClientHandler> connections;
+    private static ArrayList<ServerConversation> conversations;
+    private static int conversationCount;
     private static ServerSocket serverSocket;
     private static Socket socket;
     private static boolean run = false;
@@ -62,6 +65,8 @@ public class ServerController {
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
         DataHandler.printAccounts();
+        conversationCount = 0;
+        conversations = new ArrayList<ServerConversation>();
         connections = new Hashtable<String,ClientHandler>();
         run = true;
         listen();
@@ -382,8 +387,32 @@ public class ServerController {
      * @param userNames The users requested for the conversation.
      * @return The integer identifying the conversation.
      */
-    public static int createConversation(String[] userNames) {
-        return -1;
+    public static void createConversation(String[] userNames) {
+        if (userNames.length < 1) { return; }
+        if (userNames.length == 1) {
+            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                        "You are trying to start a conversation with yourself.\n"
+                        + "Sorry, but thats weird."), userNames[0]);
+            return;
+        }
+        ArrayList<String> online = new ArrayList<String>();
+        for (String s : userNames) {
+            if (checkAccountLoginStatus(s)) {
+                online.add(s);
+            }
+        }
+        if (online.size() == 0) {
+            return;
+        }
+        if (online.size() < 2) {
+            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                        "Unable to start a conversation: not enough users online."), userNames[0]);
+            return;
+        }
+        conversations.add(new ServerConversation(conversationCount++, online));
+        for (String s : online) {
+            
+        }
     }
 
     /**
