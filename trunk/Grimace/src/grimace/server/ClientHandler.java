@@ -105,6 +105,9 @@ public class ClientHandler {
                     ServerController.deleteContact(fromClient.getCommandArg(0),
                                                     fromClient.getCommandArg(1));
                 }
+                if (fromClient.getCommandName().equals(Command.START_CONVERSATION)) {
+                    
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}

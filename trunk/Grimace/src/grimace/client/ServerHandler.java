@@ -309,9 +309,13 @@ public final class ServerHandler {
      * @throws java.lang.Exception
      */
 	public static void sendConversationRequest(String userName,
-                                                String... contactNames)
+                                                Contact[] contactNames)
                                                 throws Exception {
-        String[] args = mergeStrings(contactNames, userName);
+        ArrayList<String> names = new ArrayList<String>();
+        for (Contact c : contactNames) {
+            names.add(c.getUserName());
+        }
+        String[] args = mergeStrings((String[])names.toArray(), userName);
         sendCommand(Command.START_CONVERSATION, args);
 	}
 
