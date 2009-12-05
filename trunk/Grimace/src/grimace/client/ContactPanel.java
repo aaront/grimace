@@ -27,10 +27,10 @@ package grimace.client;
 
 import javax.swing.DefaultListModel;
 
-public class ContactListBox extends javax.swing.JPanel {
+public class ContactPanel extends javax.swing.JPanel {
 
     /** Creates new form ContactListBox */
-    public ContactListBox() {
+    public ContactPanel() {
         initComponents();
         ((ContactListView)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
