@@ -27,6 +27,10 @@ package grimace.client;
 
 import javax.swing.DefaultListModel;
 
+/**
+ * ContactPanel is a container for a ContactListBox, which displays an account's
+ * contact list.
+ */
 public class ContactPanel extends javax.swing.JPanel {
 
     /** Creates new form ContactListBox */

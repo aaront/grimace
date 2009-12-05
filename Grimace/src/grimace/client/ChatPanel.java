@@ -24,6 +24,10 @@
 
 package grimace.client;
 
+/**
+ * ChatPanel incorporates the ChatBox, as well as a contact list for the current
+ * conversation, and some quick options that the user can set.
+ */
 public class ChatPanel extends javax.swing.JPanel {
     ClientConversation convo;
 

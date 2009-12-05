@@ -281,7 +281,7 @@ public class ServerController {
     /**
      * Returns whether or not a user with the given userName is logged in.
      * 
-     * @param username The name of the user to check.
+     * @param userName The name of the user to check.
      * @return  True if the user is logged in, false otherwise.
      */
 	public static boolean checkAccountLoginStatus(String userName) {
@@ -291,8 +291,8 @@ public class ServerController {
     /**
      * Checks whether a given userName/password combination are correct.
      *
-     * @param username  The name of the user to verify.
-     * @param password  The password to verify.
+     * @param userName  The name of the user to verify.
+     * @param passHash  The password hash to verify.
      */
 	public static boolean verifyLoginRequest(String userName, String passHash) {
         try {
@@ -327,8 +327,8 @@ public class ServerController {
     /**
      * Places a request for a contact to be added.
      *
-     * @param username  The name of the user requesting the addition.
-     * @param contactname   The name of the contact being requested.
+     * @param userName  The name of the user requesting the addition.
+     * @param contactName   The name of the contact being requested.
      */
 	public static void placeContactRequest(String userName,
                                             String contactName) {
@@ -353,7 +353,7 @@ public class ServerController {
     /**
      * Completes the addition of a contact if confirmed by the contact.
      * 
-     * @param username  The name of the user who requested the addition.
+     * @param userName  The name of the user who requested the addition.
      * @param contactName The name of the contact being requested.
      * @param confirm   Whether or not to complete the addition.
      */
@@ -423,7 +423,6 @@ public class ServerController {
      * Creates a conversation and adds all requested users who are online.
      *
      * @param userNames The users requested for the conversation.
-     * @return The integer identifying the conversation.
      */
     public static void createConversation(String[] userNames) {
         if (userNames.length < 2) { return; }

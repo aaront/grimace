@@ -25,6 +25,9 @@
 package grimace.client;
 import java.awt.Font;
 
+/**
+ * UserSettings sets settings related to an Account.
+ */
 public class UserSettings {
     private Font font;
     private boolean isEqnEditor;

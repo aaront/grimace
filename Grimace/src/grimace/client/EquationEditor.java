@@ -32,8 +32,8 @@ import be.ugent.caagt.jmathtex.TeXFormula;
 import be.ugent.caagt.jmathtex.TeXConstants;
 
 /**
- *
- * @author aaront
+ * EquationEditor can preview TeX code, and send it back into the messageBox
+ * of the current ChatBox.
  */
 public class EquationEditor extends javax.swing.JDialog {
 

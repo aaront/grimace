@@ -24,6 +24,10 @@
 
 package grimace.client;
 
+/**
+ * AddContactDialog will ask for a username of an account on the server to add
+ * to the current user's contact list.
+ */
 public class AddContactDialog extends javax.swing.JDialog {
     /** A return status code - returned if Cancel button has been pressed */
     public static final int RET_CANCEL = 0;

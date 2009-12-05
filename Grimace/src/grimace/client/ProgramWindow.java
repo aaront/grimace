@@ -29,6 +29,10 @@ import java.awt.Component;
 import javax.swing.JTabbedPane;
 import java.util.ArrayList;
 
+/**
+ * ProgramWindow is the main program window. All GUI elements are displayed or
+ * parented by it.
+ */
 public class ProgramWindow extends javax.swing.JFrame {
     static JTabbedPane tabs;
 

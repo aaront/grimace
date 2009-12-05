@@ -24,6 +24,10 @@
 
 package grimace.client;
 
+/**
+ * OptionsForm displays available options to the user, such as the server's IP,
+ * etc.
+ */
 public class OptionsForm extends javax.swing.JPanel {
     ProgramSettings settings;
 

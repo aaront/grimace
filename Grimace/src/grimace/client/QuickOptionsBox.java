@@ -24,6 +24,9 @@
 
 package grimace.client;
 
+/**
+ * QuickOptionsBox is a GUI for QuickOptions.
+ */
 public class QuickOptionsBox extends javax.swing.JPanel {
 
  private QuickOptions options;

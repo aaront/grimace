@@ -26,6 +26,9 @@ package grimace.client;
 
 import grimace.server.Command;
 
+/**
+ * RegistrationForm allows for the creation of accounts for new users.
+ */
 public class RegistrationForm extends javax.swing.JPanel {
 
     /** Creates new form RegistrationForm */

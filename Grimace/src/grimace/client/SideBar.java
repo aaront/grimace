@@ -24,6 +24,10 @@
 
 package grimace.client;
 
+/**
+ * SideBar is an element that is displayed in ChatPanel, and itself displays
+ * QuickOptionsBox and the Conversation-specific ContactList.
+ */
 public class SideBar extends javax.swing.JPanel {
     ContactList cList;
 
