@@ -152,7 +152,7 @@ public class ChatBox extends javax.swing.JPanel {
 
         chatDisplayBox.setContentType("text/html");
         chatDisplayBox.setEditable(false);
-        chatDisplayBox.setText("<p><strong>User1</strong>: <span style='color: #FAD273; font: 16px \"Times New Roman\", sans-serif;'>Hello world!</span></p>\n<p><strong>User2</strong>: <span style='color: blue;'>derp</span></p>\n");
+        chatDisplayBox.setText("");
         chatDisplayBox.setFocusable(false);
         jScrollPane2.setViewportView(chatDisplayBox);
 

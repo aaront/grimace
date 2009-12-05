@@ -64,6 +64,40 @@ public class ServerController {
         initServerSocket();
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
+        try {
+            DataHandler.createAccount("vineet", grimace.client.ServerHandler.getPasswordHash("1234"), "ServerNerd");
+            DataHandler.createAccount("justin", grimace.client.ServerHandler.getPasswordHash("1234"), "Justin");
+            DataHandler.createAccount("aaront", grimace.client.ServerHandler.getPasswordHash("1234"), "Aaron T");
+            DataHandler.createAccount("aaronj", grimace.client.ServerHandler.getPasswordHash("1234"), "Aaron J");
+            DataHandler.createAccount("david", grimace.client.ServerHandler.getPasswordHash("1234"), "David");
+            DataHandler.createAccount("wernicke", grimace.client.ServerHandler.getPasswordHash("1234"), "The Great Wernicke");
+            DataHandler.addContact("vineet", "wernicke");
+            DataHandler.addContact("vineet", "justin");
+            DataHandler.addContact("vineet", "aaront");
+            DataHandler.addContact("vineet", "aaronj");
+            DataHandler.addContact("vineet", "david");
+            DataHandler.addContact("justin", "wernicke");
+            DataHandler.addContact("justin", "vineet");
+            DataHandler.addContact("justin", "aaront");
+            DataHandler.addContact("justin", "aaronj");
+            DataHandler.addContact("justin", "david");
+            DataHandler.addContact("aaront", "wernicke");
+            DataHandler.addContact("aaront", "justin");
+            DataHandler.addContact("aaront", "vineet");
+            DataHandler.addContact("aaront", "aaronj");
+            DataHandler.addContact("aaront", "david");
+            DataHandler.addContact("aaronj", "wernicke");
+            DataHandler.addContact("aaronj", "justin");
+            DataHandler.addContact("aaronj", "aaront");
+            DataHandler.addContact("aaronj", "vineet");
+            DataHandler.addContact("aaronj", "david");
+            DataHandler.addContact("david", "wernicke");
+            DataHandler.addContact("david", "justin");
+            DataHandler.addContact("david", "aaront");
+            DataHandler.addContact("david", "aaronj");
+            DataHandler.addContact("david", "vineet");
+        }
+        catch (Exception e) { e.printStackTrace(); }
         DataHandler.printAccounts();
         conversationCount = 0;
         conversations = new Hashtable<Integer,ServerConversation>();
