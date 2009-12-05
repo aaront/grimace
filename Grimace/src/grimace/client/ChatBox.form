@@ -35,9 +35,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextPane" name="chatDisplayBox">
           <Properties>
-            <Property name="contentType" type="java.lang.String" value="text/html"/>
             <Property name="editable" type="boolean" value="false"/>
-            <Property name="text" type="java.lang.String" value="&lt;html&gt;&#xa;  &lt;head&gt;&#xa;&#xa;  &lt;/head&gt;&#xa;  &lt;body&gt;&#xa;    &lt;p style=&quot;margin-top: 0&quot;&gt;&#xa;    &lt;/p&gt;&#xa;  &lt;/body&gt;&#xa;&lt;/html&gt;&#xa;"/>
             <Property name="focusable" type="boolean" value="false"/>
           </Properties>
         </Component>
