@@ -257,7 +257,7 @@ public final class ServerHandler {
                 if (fromServer.getCommandName().equals(Command.SEND_MESSAGE)) {
                     int conId = Integer.valueOf(fromServer.getCommandArg(2)).intValue();
                     String message = fromServer.getCommandArg(1);
-                    String sender = fromServer.getCommandArg(1);
+                    String sender = fromServer.getCommandArg(0);
                     ProgramController.getChatPanel(conId).postMessage(message, sender);
                 }
             }
