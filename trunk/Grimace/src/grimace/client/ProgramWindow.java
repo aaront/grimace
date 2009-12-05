@@ -1,5 +1,5 @@
 /**
- * Window.java
+ * ProgramWindow.java
  *
  * @author Justin Cole
  * @author David Marczak
@@ -71,15 +71,14 @@ public class ProgramWindow extends javax.swing.JFrame {
 
     public static void updateChatTabs(ArrayList<ChatPanel> chats) {
         JTabbedPane tabs = new JTabbedPane();
-        java.awt.Dimension min = tabs.getMinimumSize();
-        min.setSize(450, 450);
+        java.awt.Dimension min = new java.awt.Dimension();
+        min.setSize(600, 420);
         tabs.setMinimumSize(min);
-        int i;
         tabs.removeAll();
+        int i;
         for (i = 0; i < chats.size(); i++) {
-            String title = "ChatTab";
-            tabs.add(title, chats.get(i));;
-
+            ChatPanel chat = chats.get(i);
+            tabs.add(chat.getTitle(), chat);
         }
         ProgramController.setRightPane(tabs);
     }

@@ -1,12 +1,25 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/*
+/**
  * ChatBox.java
  *
- * Created on Dec 3, 2009, 8:40:04 PM
+ * @author Justin Cole
+ *
+ * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
+ *        and Aaron Toth
+ *
+ * This file is part of Wernicke.
+ *
+ * Wernicke is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 package grimace.client;
@@ -119,7 +132,7 @@ public class ChatBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(400, 450));
+        setMinimumSize(new java.awt.Dimension(400, 420));
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
