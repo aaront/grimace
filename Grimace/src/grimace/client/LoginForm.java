@@ -24,11 +24,27 @@
 
 package grimace.client;
 
+import java.io.File;
+import javax.swing.ImageIcon;
+
 public class LoginForm extends javax.swing.JPanel {
 
     /** Creates new form LoginForm */
     public LoginForm() {
         initComponents();
+
+        // Loads the logo into the login screen
+        try {
+            ImageIcon logo = new ImageIcon(
+                    this.getClass().getClassLoader()
+                    .getResource("grimace" + File.separator + "client"
+                    + File.separator + "resources"+ File.separator
+                    + "logo_small.png"));
+            logoLabel.setIcon(logo);
+        }
+        catch (Exception e) {
+            System.out.println("Logo is only show when running via the JAR file");
+        }
     }
 
     /** This method is called from within the constructor to
@@ -49,6 +65,7 @@ public class LoginForm extends javax.swing.JPanel {
         loginButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         registerButton = new javax.swing.JButton();
+        logoLabel = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(300, 450));
         setMinimumSize(new java.awt.Dimension(300, 450));
@@ -77,6 +94,8 @@ public class LoginForm extends javax.swing.JPanel {
             }
         });
 
+        logoLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -94,11 +113,17 @@ public class LoginForm extends javax.swing.JPanel {
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))
                 .addGap(91, 91, 91))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 288, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(194, Short.MAX_VALUE)
+                .addContainerGap()
+                .addComponent(logoLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(userField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -157,6 +182,7 @@ public class LoginForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JButton loginButton;
+    private javax.swing.JLabel logoLabel;
     private javax.swing.JPasswordField passField;
     private javax.swing.JButton registerButton;
     private javax.swing.JComboBox statusBox;
