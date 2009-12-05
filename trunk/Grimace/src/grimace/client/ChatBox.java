@@ -330,14 +330,26 @@ public class ChatBox extends javax.swing.JPanel {
             // chatDiplayBox: <p><strong>{user}</strong>: {message}</p>,
             // where message is set below
 
+            // Sets the default font weight and style for the message
+            String fontWeight = "normal";
+            String fontStyle = "normal";
+
+            if (currentFont.isBold() == true) {
+                fontWeight = "bold";
+            }
+
+            if (currentFont.isItalic() == true) {
+                fontStyle = "italic";
+            }
+
             String hexColour = String.format("%02X%02X%02X",
                     currentFontColour.getRed(),
                     currentFontColour.getGreen(),
                     currentFontColour.getBlue());
             
-            String message = String.format("<span style='color: #%s; font: %dpx %s, sans-serif;'>%s</span>",
+            String message = String.format("<span style='color: #%s; font: %dpx %s, sans-serif; font-weight: %s; font-style: %s;'>%s</span>",
                     hexColour, currentFont.getSize(),
-                    '"' + currentFont.getFamily() + '"',
+                    '"' + currentFont.getFamily() + '"', fontWeight, fontStyle,
                     messageBox.getText());
 
             try {
