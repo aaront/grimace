@@ -30,7 +30,7 @@ import java.awt.Font;
 import javax.swing.*;
 import java.io.FileReader;
 
-import javax.swing.text.ChangedCharSetException;
+import grimace.client.EquationEditor;
 
 public class ChatBox extends javax.swing.JPanel {
 
@@ -45,6 +45,7 @@ public class ChatBox extends javax.swing.JPanel {
 
         chatDisplayBox.setContentType("text/html; charset=UTF-8");
 
+        //not working yet
         try {
             chatDisplayBox.read(new FileReader("src/grimace/client/chatDisplayBox.html"), null);
         }
@@ -224,6 +225,11 @@ public class ChatBox extends javax.swing.JPanel {
         btnAddEquation.setMinimumSize(new java.awt.Dimension(0, 27));
         btnAddEquation.setPreferredSize(new java.awt.Dimension(70, 27));
         btnAddEquation.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddEquation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddEquationActionPerformed(evt);
+            }
+        });
         toolbar.add(btnAddEquation);
 
         btnAddFile.setText("File");
@@ -303,6 +309,11 @@ public class ChatBox extends javax.swing.JPanel {
             messageBox.setText("");
         }
     }//GEN-LAST:event_messageBoxKeyPressed
+
+    private void btnAddEquationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquationActionPerformed
+        EquationEditor ee = new EquationEditor(null, false);
+        ee.setVisible(true);
+    }//GEN-LAST:event_btnAddEquationActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
