@@ -24,12 +24,17 @@
 
 package grimace.client;
 
+import javax.swing.text.*;
+import javax.swing.text.html.*;
+
 /**
  * ChatPanel incorporates the ChatBox, as well as a contact list for the current
  * conversation, and some quick options that the user can set.
  */
 public class ChatPanel extends javax.swing.JPanel {
     ClientConversation convo;
+    HTMLEditorKit htmlKit;
+    HTMLDocument htmlDoc;
 
     /** Creates new form ChatPanel */
     public ChatPanel() {
@@ -41,6 +46,13 @@ public class ChatPanel extends javax.swing.JPanel {
         this();
         convo = conversation;
         chatBox1.setConId(convo.getConId());
+        htmlKit = new HTMLEditorKit();
+        htmlDoc = (HTMLDocument)htmlKit.createDefaultDocument();
+        chatBox1.getChatDisplayBox().setDocument(htmlDoc);
+        try {
+			htmlKit.insertHTML(htmlDoc, 0, "<p id=\"WernickeChat\"></p>", 0, 0, HTML.Tag.P);
+		}
+		catch (Exception e) {}
     }
 
     public String getTitle() {
@@ -53,15 +65,16 @@ public class ChatPanel extends javax.swing.JPanel {
 
     public void postMessage(String message, String userName) {
         System.out.println("Received: " + userName + ": " + message);
-        StringBuffer newText = new StringBuffer(chatBox1.getChatDisplayBox().getText());
         String dName = userName;
         Contact user = convo.getList().getContact(userName);
         if (user != null) {
             dName = user.getDisplayName();
         }
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
-        newText.append(messageText);
-        chatBox1.getChatDisplayBox().setText(newText.toString());
+        try {
+			htmlKit.insertHTML(htmlDoc, 0, messageText, 0, 0, HTML.Tag.P);
+		}
+		catch (Exception e) {}
         convo.storeRecievedMessage(messageText);
     }
 
