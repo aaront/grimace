@@ -38,7 +38,8 @@ public class ChatBox extends javax.swing.JPanel {
 
     /** Creates new form ChatBox */
     public ChatBox() {
-        currentFont = new Font(Account.DEFAULT_FONT, Font.BOLD+Font.ITALIC, Account.DEFAULT_FONT_SIZE);
+        currentFont = ProgramController.getAccount().getFont();
+        currentFontColour = ProgramController.getAccount().getFontColour();
 
         initComponents();
 
@@ -49,13 +50,8 @@ public class ChatBox extends javax.swing.JPanel {
         fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts));
         sizeSelector.setModel(new javax.swing.DefaultComboBoxModel(fontSizes));
 
-        // @TODO: Fill in with proper stuff when ProgramController is all hooked up and shit
-        fontSelector.setSelectedItem(Account.DEFAULT_FONT);
-        sizeSelector.setSelectedItem(Account.DEFAULT_FONT_SIZE);
-        btnColour.setForeground(Account.DEFAULT_FONT_COLOUR);
-
         // @TODO: Will be eventually replaced by getting the font from the account.
-        loadFontProperties(currentFont);
+        loadFontProperties(currentFont, currentFontColour);
 
         // Disable using the enter key to do a line break. Enter will be used to
         // send the message.
@@ -63,7 +59,13 @@ public class ChatBox extends javax.swing.JPanel {
         messageBox.getInputMap().put(enter, "none");
     }
 
-    private void loadFontProperties(Font font) {
+    private void loadFontProperties(Font font, Color colour) {
+        // Sets up the toolbar
+        fontSelector.setSelectedItem(font.getFamily());
+        sizeSelector.setSelectedItem(font.getSize());
+        btnColour.setForeground(colour);
+
+        // Sets the state of the toolbar toggle buttons
         if (font.isBold()) {
             bolden.setSelected(true);
         }
@@ -71,7 +73,9 @@ public class ChatBox extends javax.swing.JPanel {
             italicize.setSelected(true);
         }
 
+        // Sets the style of the messagebox
         messageBox.setFont(font);
+        messageBox.setForeground(colour);
     }
 
     /**
