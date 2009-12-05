@@ -56,7 +56,6 @@ public class ClientConversation {
         convoQOptions = new QuickOptions();
         convoPeople = cList;
         currentConvoList = cList.getList();
-        javax.swing.JOptionPane.showMessageDialog(ProgramController.getWindow(), "ClientConversation: " + getTitle());
 }
     public ArrayList<Contact> getList(){
         return convoPeople.getList();
@@ -81,9 +80,6 @@ public class ClientConversation {
         int i = 1;
         String people = "";
 
-        if (numPeople == 0) {
-        javax.swing.JOptionPane.showMessageDialog(ProgramController.getWindow(), "numPeople is 0!");
-        }
         for (i = 0; i == (numPeople - 1); i++){
             if (i > 0) {
                 people = people.concat(", ");

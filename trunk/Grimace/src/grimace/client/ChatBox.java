@@ -1,7 +1,7 @@
 /**
  * ChatBox.java
  *
- * @author Justin Cole
+ * @author Aaron Toth
  *
  * Copyright (C) 2009 Justin Cole, Aaron Jankun, David Marczak, Vineet Sharma,
  *        and Aaron Toth
