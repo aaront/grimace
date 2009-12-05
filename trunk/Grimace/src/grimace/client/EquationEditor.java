@@ -21,9 +21,12 @@ import be.ugent.caagt.jmathtex.TeXConstants;
  */
 public class EquationEditor extends javax.swing.JDialog {
 
+    private grimace.client.ChatBox parentFrame;
+
     /** Creates new form EquationEditor */
-    public EquationEditor(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public EquationEditor(grimace.client.ChatBox parent, boolean modal) {
+        this.parentFrame = parent;
+
         initComponents();
     }
 
@@ -124,7 +127,9 @@ public class EquationEditor extends javax.swing.JDialog {
 }//GEN-LAST:event_btnPreviewEquationActionPerformed
 
     private void btnSendEquationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEquationActionPerformed
-        // TODO add your handling code here:
+        String equation = "<eqn>" + equationInputBox.getText() + "</eqn>";
+        parentFrame.getMessageBox().setText(equation);
+        this.dispose();
 }//GEN-LAST:event_btnSendEquationActionPerformed
 
     /**
@@ -133,7 +138,7 @@ public class EquationEditor extends javax.swing.JDialog {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                EquationEditor dialog = new EquationEditor(new javax.swing.JFrame(), true);
+                EquationEditor dialog = new EquationEditor(new grimace.client.ChatBox(), true);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);

@@ -28,7 +28,6 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
-import java.io.FileReader;
 
 import grimace.client.EquationEditor;
 
@@ -97,6 +96,14 @@ public class ChatBox extends javax.swing.JPanel {
      */
     public JTextPane getChatDisplayBox() {
         return chatDisplayBox;
+    }
+
+    /**
+     * Gets the instance of the message box
+     * @return the message box
+     */
+    public JTextArea getMessageBox() {
+        return messageBox;
     }
 
     /** This method is called from within the constructor to
@@ -299,7 +306,7 @@ public class ChatBox extends javax.swing.JPanel {
     }//GEN-LAST:event_messageBoxKeyPressed
 
     private void btnAddEquationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddEquationActionPerformed
-        EquationEditor ee = new EquationEditor(null, false);
+        EquationEditor ee = new EquationEditor(this, false);
         ee.setVisible(true);
     }//GEN-LAST:event_btnAddEquationActionPerformed
 
