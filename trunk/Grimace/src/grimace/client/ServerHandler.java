@@ -96,14 +96,23 @@ public final class ServerHandler {
      * @return          A String array containing all arguments.
      */
     public static String[] mergeStrings(String[] append, String... args) {
-        ArrayList<String> merged = new ArrayList<String>();
-        for (String s : args) {
-            merged.add(s);
+        String[] merged = new String[append.length + args.length];
+        for (int i=0; i<args.length; i++) {
+            merged[i] = args[i];
         }
-        for (String s : append) {
-            merged.add(s);
+        for (int i=args.length; i<args.length+append.length; i++) {
+            merged[i] = append[i-args.length];
         }
-        return (String[])merged.toArray();
+        return merged;
+    }
+
+    public static String[] getStringArrayFromList(ArrayList<String> strings) {
+        Object[] oArr = strings.toArray();
+        String[] sArr = new String[oArr.length];
+        for (int i=0; i<oArr.length; i++) {
+            sArr[i] = (String)oArr[i];
+        }
+        return sArr;
     }
 
     /**
@@ -309,13 +318,13 @@ public final class ServerHandler {
      * @throws java.lang.Exception
      */
 	public static void sendConversationRequest(String userName,
-                                                Contact[] contactNames)
+                                                Contact[] contacts)
                                                 throws Exception {
-        ArrayList<String> names = new ArrayList<String>();
-        for (Contact c : contactNames) {
-            names.add(c.getUserName());
+        String[] names = new String[contacts.length];
+        for (int i=0; i<contacts.length; i++) {
+            names[i] = contacts[i].getUserName();
         }
-        String[] args = mergeStrings((String[])names.toArray(), userName);
+        String[] args = mergeStrings(names, userName);
         sendCommand(Command.START_CONVERSATION, args);
 	}
 

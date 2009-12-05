@@ -382,7 +382,7 @@ public class ServerController {
      * @param userNames The users requested for the conversation.
      * @return The integer identifying the conversation.
      */
-    public static int createConversation(String userNames) {
+    public static int createConversation(String[] userNames) {
         return -1;
     }
 

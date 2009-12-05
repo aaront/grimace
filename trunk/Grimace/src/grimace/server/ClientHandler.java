@@ -106,7 +106,7 @@ public class ClientHandler {
                                                     fromClient.getCommandArg(1));
                 }
                 if (fromClient.getCommandName().equals(Command.START_CONVERSATION)) {
-                    
+                    ServerController.createConversation(fromClient.getCommandArgList());
                 }
             }
             catch (EOFException e) {}
