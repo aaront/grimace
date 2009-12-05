@@ -27,7 +27,6 @@ package grimace.client;
 import java.io.*;
 
 public class FileSystem {
-    // @TODO: Which methods will need to use FileSystem?
 
     public static void saveFile(Serializable data, String path) {
         try {
@@ -42,12 +41,12 @@ public class FileSystem {
         }
     }
 
-    public static Object loadFile(String path) {
+    public static Serializable loadFile(String path) {
         try {
             FileInputStream inFile = new FileInputStream(path);
             ObjectInputStream in = new ObjectInputStream(inFile);
 
-            Object obj = in.readObject();
+            Serializable obj = (Serializable) in.readObject();
             in.close();
             inFile.close();
 
