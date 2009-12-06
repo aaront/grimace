@@ -53,9 +53,8 @@ public class Command implements Serializable {
     public static final String DELETE_CONTACT = "deleteContact";
     public static final String UPDATE_CONTACT_LIST = "updateContactList";
     public static final String START_CONVERSATION = "startConversation";
-    public static final String ADD_TO_CONVERSATION = "quitConversation";
-    public static final String REMOVE_FROM_CONVERSATION = "quitConversation";
-    public static final String CLOSE_CONVERSATION = "startConversation";
+    public static final String ADD_TO_CONVERSATION = "addToConversation";
+    public static final String REMOVE_FROM_CONVERSATION = "removeFromConversation";
     public static final String SEND_MESSAGE = "sendMessage";
     public static final String FILE_TRANSFER_REQUEST = "fileTransferRequest";
     public static final String FILE_TRANSFER_RESPONSE = "fileTransferResponse";
