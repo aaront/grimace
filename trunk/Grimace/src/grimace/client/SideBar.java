@@ -37,6 +37,10 @@ public class SideBar extends javax.swing.JPanel {
         listBox.updateModel(conv.getList());
     }
 
+    public ContactListBox getContactListBox() {
+        return contactListBox1;
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

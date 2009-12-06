@@ -271,6 +271,15 @@ public final class ServerHandler {
                     con.setStatus(newcon.getStatus());
                     ProgramController.updateContactList();
                 }
+                if (fromServer.getCommandName().equals(Command.UPDATE_CONVO_CONTACT)) {
+                    int conId = Integer.valueOf(fromServer.getCommandArg(1)).intValue();
+                    Contact newcon = (Contact)in.readObject();
+                    ChatPanel chat = ProgramController.getChatPanel(conId);
+                    Contact con = chat.getClientConversation().getList().getContact(newcon.getUserName());
+                    con.setDisplayName(newcon.getDisplayName());
+                    con.setStatus(newcon.getStatus());
+                    chat.getContactListBox().updateModel();
+                }
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
                     String sender = fromServer.getCommandArg(0);
                     String file = fromServer.getCommandArg(1);

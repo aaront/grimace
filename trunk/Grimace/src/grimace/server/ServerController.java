@@ -353,7 +353,8 @@ public class ServerController {
             String[] users = sc.getUsers();
             for (String s : users) {
                 if (!s.equals(userName)) {
-                    sendCommand(new Command(Command.UPDATE_CONTACT, userName), s);
+                    sendCommand(new Command(Command.UPDATE_CONVO_CONTACT,
+                                            userName, String.valueOf(i)), s);
                 }
             }
         }
