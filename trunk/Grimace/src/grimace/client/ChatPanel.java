@@ -68,9 +68,14 @@ public class ChatPanel extends javax.swing.JPanel {
     public void postMessage(String message, String userName) {
         System.out.println("Received: " + userName + ": " + message);
         String dName = userName;
-        Contact user = convo.getList().getContact(userName);
-        if (user != null) {
-            dName = user.getDisplayName();
+        if (userName.equals(ProgramController.getAccount().getUserName())) {
+            dName = ProgramController.getAccount().getUserName();
+        }
+        else {
+            Contact user = convo.getList().getContact(userName);
+            if (user != null) {
+                dName = user.getDisplayName();
+            }
         }
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
         try {
