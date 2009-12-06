@@ -27,11 +27,11 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="quickOptionsBox1" alignment="0" pref="200" max="32767" attributes="0"/>
-          <Component id="jScrollPane1" alignment="0" pref="200" max="32767" attributes="0"/>
+          <Component id="quickOptionsBox1" alignment="0" pref="157" max="32767" attributes="0"/>
+          <Component id="jScrollPane1" alignment="0" pref="157" max="32767" attributes="0"/>
           <Group type="102" alignment="0" attributes="0">
               <Component id="btnAddContactToChat" min="-2" pref="40" max="-2" attributes="0"/>
-              <EmptySpace pref="77" max="32767" attributes="0"/>
+              <EmptySpace pref="34" max="32767" attributes="0"/>
               <Component id="btnNewChatWithContacts" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -40,7 +40,7 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="1" attributes="0">
-              <Component id="jScrollPane1" pref="111" max="32767" attributes="0"/>
+              <Component id="jScrollPane1" pref="113" max="32767" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAddContactToChat" alignment="3" min="-2" max="-2" attributes="0"/>

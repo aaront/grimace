@@ -109,7 +109,8 @@ public class SideBar extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAddContactToChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddContactToChatActionPerformed
-        // TODO add your handling code here:
+        ContactSelectDialog dialog = new ContactSelectDialog(conId, cList);
+        dialog.setVisible(true);
     }//GEN-LAST:event_btnAddContactToChatActionPerformed
 
     private void btnNewChatWithContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewChatWithContactsActionPerformed
