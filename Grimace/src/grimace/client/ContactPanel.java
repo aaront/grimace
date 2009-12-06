@@ -74,7 +74,9 @@ public class ContactPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listBox);
 
+        addButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         addButton.setText("+");
+        addButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         addButton.setMaximumSize(new java.awt.Dimension(40, 27));
         addButton.setMinimumSize(new java.awt.Dimension(40, 27));
         addButton.setPreferredSize(new java.awt.Dimension(40, 27));
@@ -85,13 +87,16 @@ public class ContactPanel extends javax.swing.JPanel {
         });
 
         logoutButton.setText("Logout");
+        logoutButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         logoutButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 logoutButtonActionPerformed(evt);
             }
         });
 
+        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         deleteButton.setText("-");
+        deleteButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         deleteButton.setMaximumSize(new java.awt.Dimension(40, 27));
         deleteButton.setMinimumSize(new java.awt.Dimension(40, 27));
         deleteButton.setPreferredSize(new java.awt.Dimension(40, 27));
@@ -102,6 +107,7 @@ public class ContactPanel extends javax.swing.JPanel {
         });
 
         optionsButton.setText("Options");
+        optionsButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         optionsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 optionsButtonActionPerformed(evt);
@@ -117,9 +123,9 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
                 .addComponent(optionsButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutButton)
                 .addContainerGap())
             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
@@ -131,9 +137,9 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoutButton)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(optionsButton)
-                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents

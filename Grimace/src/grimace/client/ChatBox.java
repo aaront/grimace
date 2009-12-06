@@ -281,6 +281,7 @@ public class ChatBox extends javax.swing.JPanel {
 
         add(toolbar);
 
+        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setMaximumSize(new java.awt.Dimension(32767, 50));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(23, 50));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(244, 50));
