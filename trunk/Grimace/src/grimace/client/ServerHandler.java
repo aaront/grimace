@@ -288,14 +288,16 @@ public final class ServerHandler {
                             + "What do you want to do?\n");
                     switch (resp) {
                         case 0:
-                            sendFileTransferResponse(fromServer.getCommandArg(0),
-                                    ProgramController.getUserName(),
-                                    Command.ACCEPT);
+                            sendFileTransferResponse(sender,
+                                                    ProgramController.getUserName(),
+                                                    file,
+                                                    Command.ACCEPT);
                             break;
                         case 1:
-                            sendFileTransferResponse(fromServer.getCommandArg(0),
-                                    ProgramController.getUserName(),
-                                    Command.REJECT);
+                            sendFileTransferResponse(sender,
+                                                    ProgramController.getUserName(),
+                                                    file,
+                                                    Command.REJECT);
                             break;
                         case 2:
                             break;
@@ -434,12 +436,12 @@ public final class ServerHandler {
      * @throws java.lang.Exception
      */
 	public static void sendFileTransferRequest(String fileName,
-                                                String... contactNames)
+                                                String contactName)
                                                 throws Exception {
-        String[] args = mergeStrings(contactNames,
-                                    ProgramController.getUserName(),
-                                    fileName);
-        sendCommand(Command.FILE_TRANSFER_REQUEST, args);
+        sendCommand(Command.FILE_TRANSFER_REQUEST,
+                    ProgramController.getUserName(),
+                    fileName,
+                    contactName);
 	}
 
     /**
@@ -452,11 +454,13 @@ public final class ServerHandler {
      */
     public static void sendFileTransferResponse(String userName,
                                                 String contactName,
+                                                String fileName,
                                                 String response)
                                                 throws Exception {
         sendCommand(Command.FILE_TRANSFER_RESPONSE,
                     userName,
                     contactName,
+                    fileName,
                     String.valueOf(response));
     }
 
