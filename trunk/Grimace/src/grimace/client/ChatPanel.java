@@ -215,7 +215,7 @@ public class ChatPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCloseChatTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseChatTabActionPerformed
-        ProgramWindow.closeTab(this);
+        ProgramController.closeConvo(this.getID());
     }//GEN-LAST:event_btnCloseChatTabActionPerformed
 
 
