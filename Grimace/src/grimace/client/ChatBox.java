@@ -338,10 +338,6 @@ public class ChatBox extends javax.swing.JPanel {
     private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed
         // Checks and sees if the key pressed is "enter", if it is, sends away
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            // @TODO: Tell someone to use this form when outputting to
-            // chatDiplayBox: <p><strong>{user}</strong>: {message}</p>,
-            // where message is set below
-
             // Sets the default font weight and style for the message
             String fontWeight = "normal";
             String fontStyle = "normal";

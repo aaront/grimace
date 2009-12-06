@@ -30,6 +30,7 @@ import javax.swing.JOptionPane;
 
 import be.ugent.caagt.jmathtex.TeXFormula;
 import be.ugent.caagt.jmathtex.TeXConstants;
+import be.ugent.caagt.jmathtex.JMathTeXException;
 
 /**
  * EquationEditor can preview TeX code, and send it back into the messageBox
@@ -68,7 +69,7 @@ public class EquationEditor extends javax.swing.JDialog {
         btnCancel = new javax.swing.JButton();
         btnPreviewEquation = new javax.swing.JButton();
         btnSendEquation = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnHelp = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -102,10 +103,10 @@ public class EquationEditor extends javax.swing.JDialog {
             }
         });
 
-        jButton1.setText("Syntax Help");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnHelp.setText("Syntax Help");
+        btnHelp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnHelpActionPerformed(evt);
             }
         });
 
@@ -121,7 +122,7 @@ public class EquationEditor extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnCancel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton1)
+                        .addComponent(btnHelp)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                         .addComponent(btnPreviewEquation)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -140,7 +141,7 @@ public class EquationEditor extends javax.swing.JDialog {
                     .addComponent(btnSendEquation)
                     .addComponent(btnPreviewEquation)
                     .addComponent(btnCancel)
-                    .addComponent(jButton1))
+                    .addComponent(btnHelp))
                 .addContainerGap())
         );
 
@@ -160,7 +161,7 @@ public class EquationEditor extends javax.swing.JDialog {
         }
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "That is not a valid " +
-                    "equation!\n\nPlease refer to the Syntax Help button for" +
+                    "equation!\n\nPlease refer to the Syntax Help button for\n"+
                     "help on how to create well-formed math euqations.",
                     "Equation Error",
                     JOptionPane.ERROR_MESSAGE);
@@ -172,26 +173,22 @@ public class EquationEditor extends javax.swing.JDialog {
         
         try {
             TeXFormula viewer = new TeXFormula(equationInputBox.getText());
+            ServerHandler.sendMessagePostRequest(equation, parentFrame.getConId());
+            this.dispose();
         }
-        catch (Exception e){
+        catch (JMathTeXException e){
             JOptionPane.showMessageDialog(this, "That is not a valid " +
-                    "equation!\n\nPlease refer to the Syntax Help button for" +
+                    "equation!\n\nPlease refer to the Syntax Help button for\n"+
                     "help on how to create well-formed math euqations.",
                     "Equation Error",
                     JOptionPane.ERROR_MESSAGE);
         }
-
-        try {
-            ServerHandler.sendMessagePostRequest(equation, parentFrame.getConId());
-        }
         catch (Exception e) {
             e.printStackTrace();
         }
-
-        this.dispose();
 }//GEN-LAST:event_btnSendEquationActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnHelpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHelpActionPerformed
         JOptionPane.showMessageDialog(this, "Wernicke uses TeX to format " +
                 "equations.\n\nTeX has been around a very long time and is " +
                 "a standard way of\nrepresenting mathematics with a keyboard." +
@@ -199,7 +196,7 @@ public class EquationEditor extends javax.swing.JDialog {
                 "Environment,\nwe do that for you already)\n\n" +
                 "http://en.wikibooks.org/wiki/LaTeX/Mathematics", "Syntax Help",
                 JOptionPane.QUESTION_MESSAGE);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnHelpActionPerformed
 
     /**
     * @param args the command line arguments
@@ -220,11 +217,11 @@ public class EquationEditor extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JButton btnHelp;
     private javax.swing.JButton btnPreviewEquation;
     private javax.swing.JButton btnSendEquation;
     private javax.swing.JTextArea equationInputBox;
     private javax.swing.JTextPane equationPreviewBox;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
