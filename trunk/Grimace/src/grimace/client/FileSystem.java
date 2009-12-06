@@ -32,6 +32,11 @@ import java.io.*;
  */
 public class FileSystem {
 
+    /**
+     * Saves a file to the specified path on the user's hard drive
+     * @param data the file to save
+     * @param path the path to save the file to on the user's hard drive
+     */
     public static void saveFile(Serializable data, String path) {
         try {
             FileOutputStream outFile = new FileOutputStream(path);
@@ -45,6 +50,11 @@ public class FileSystem {
         }
     }
 
+    /**
+     * Loads a file from the specified path
+     * @param path the path of the file on the user's hard drive
+     * @return the file loaded from the user's hard drive
+     */
     public static Serializable loadFile(String path) {
         try {
             FileInputStream inFile = new FileInputStream(path);

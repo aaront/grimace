@@ -169,7 +169,25 @@ public class EquationEditor extends javax.swing.JDialog {
 
     private void btnSendEquationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendEquationActionPerformed
         String equation = "<eqn>" + equationInputBox.getText() + "</eqn>";
-        parentFrame.getMessageBox().setText(equation);
+        
+        try {
+            TeXFormula viewer = new TeXFormula(equationInputBox.getText());
+        }
+        catch (Exception e){
+            JOptionPane.showMessageDialog(this, "That is not a valid " +
+                    "equation!\n\nPlease refer to the Syntax Help button for" +
+                    "help on how to create well-formed math euqations.",
+                    "Equation Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+
+        try {
+            ServerHandler.sendMessagePostRequest(equation, parentFrame.getConId());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
         this.dispose();
 }//GEN-LAST:event_btnSendEquationActionPerformed
 

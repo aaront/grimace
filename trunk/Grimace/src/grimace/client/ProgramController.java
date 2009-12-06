@@ -48,6 +48,10 @@ public class ProgramController {
     private static ProgramWindow window;
     private static ContactPanel contactListBox;
 
+    /**
+     * Constructor for ProgramController. One is created every time the program
+     * starts.
+     */
     public ProgramController() {
         // Uses Nimbus as default theme. Much better than Metal. Search "Java nimbus"
         // on Google to find out more

@@ -79,7 +79,7 @@ public class ClientConversation {
     }
     
     /**
-     * Logs the conversationText (where is it from?)
+     * Logs the conversationText
      * @param filename  The name of the log file (to be specified?)
      * @param date  The date gets thrown in at the end so as to be read
      * @throws FileNotFoundException
@@ -102,8 +102,8 @@ public class ClientConversation {
                  
     }
 /**
- * I believe this should take a filename and print it out with file.io
- * @param filename
+ * Opens a chat log.
+ * @param filename the name of the log file
  * @throws FileNotFoundException
  * @throws IOException
  */
@@ -130,15 +130,27 @@ public class ClientConversation {
         }
     }
 
+    /**
+     * Gets the settings from QuickOptions
+     * @return the quick options for the conversation
+     */
     public QuickOptions getOptions(){
 
         return convoQOptions;
     }
 
+    /**
+     * Gets the conversation ID number
+     * @return the conversation ID number
+     */
     public int getConId(){
         return this.conId;
     }
 
+    /**
+     * Adds a contact to the current conversation's contact list
+     * @param contact the contact to add
+     */
     public void addToList(Contact contact) {
         convoPeople.addContact(contact);
     }

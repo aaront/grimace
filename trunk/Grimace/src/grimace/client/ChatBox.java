@@ -66,8 +66,20 @@ public class ChatBox extends javax.swing.JPanel {
         messageBox.getInputMap().put(enter, "none");
     }
 
+    /**
+     * Sets the conversation ID
+     * @param id conversation ID
+     */
     public void setConId(int id) {
         conId = id;
+    }
+
+    /**
+     * Gets the conversation ID
+     * @return the conversation ID
+     */
+    public int getConId() {
+        return conId;
     }
 
     /**

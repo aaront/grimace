@@ -34,12 +34,18 @@ import javax.swing.DefaultListSelectionModel;
 public class ContactListBox extends JList {
     private ContactList cList;
 
+    /**
+     * Constructor for a new ContactListBox
+     */
     public ContactListBox() {
         DefaultListSelectionModel lsm = new DefaultListSelectionModel();
         lsm.setSelectionMode(DefaultListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         setSelectionModel(lsm);
     }
 
+    /**
+     * Updates the contents of ContactListBox
+     */
     public void updateModel() {
         DefaultListModel m = new DefaultListModel();
         int n = cList.getSize();
@@ -49,6 +55,10 @@ public class ContactListBox extends JList {
         setModel(m);
     }
 
+    /**
+     * Updates the contents of ContactListBox with a new list
+     * @param list a new list of contents
+     */
     public void updateModel(ContactList list) {
         cList = list;
         updateModel();
