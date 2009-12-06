@@ -28,6 +28,7 @@
 
 package grimace.client;
 import java.awt.Component;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.io.*;
 import javax.swing.UIManager;
@@ -42,7 +43,7 @@ import org.xml.sax.InputSource;
  */
 public class ProgramController {
     private static Account accnt;
-    private static ArrayList<ClientConversation> convoList;
+    //private static ArrayList<ClientConversation> convoList;
     private static ArrayList<ChatPanel> chatTabs;
     private static ProgramSettings progSettings;
     private static ProgramWindow window;
@@ -58,15 +59,13 @@ public class ProgramController {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         }
-        catch (Exception e) {
-        }
+        catch (Exception e) { }
 
-        // @TODO: Set up window and show login form
         progSettings = new ProgramSettings();
-        convoList = new ArrayList<ClientConversation>();
+        //convoList = new ArrayList<ClientConversation>();
         chatTabs = new ArrayList<ChatPanel>();
 
-        java.awt.EventQueue.invokeLater(new Runnable() {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 window = new ProgramWindow();
                 window.setVisible(true);
@@ -136,6 +135,15 @@ public class ProgramController {
         return null;
     }
 
+    public static int[] getConIdList() {
+        int len = chatTabs.size();
+        int[] conIdList = new int[len];
+        for (int i=0; i<len; i++) {
+            conIdList[i] = chatTabs.get(i).getID();
+        }
+        return conIdList;
+    }
+
     public static void setContactListBox(ContactPanel clb) {
         contactListBox = clb;
         setLeftPane(clb);
@@ -179,16 +187,34 @@ public class ProgramController {
         }
     }
 
-    public static void sendLogoutRequest() {
+    public static void logout() {
+        if (chatTabs.size() > 0) {
+            int[] conIdList = getConIdList();
+            for (int id : conIdList) {
+                closeConvo(id);
+            }
+        }
         ServerHandler.sendLogoutRequest();
     }
 
     public static void openNewConvo(int conId, ContactList contacts) {
         ClientConversation convo = new ClientConversation(conId, contacts);
         ChatPanel panel = new ChatPanel(convo);
-        convoList.add(convo);
+        //convoList.add(convo);
         chatTabs.add(panel);
-        ProgramWindow.updateChatTabs(chatTabs);
+        ProgramWindow.addTab(panel);
+    }
+
+    public static void closeConvo(int conId) {
+        ChatPanel panel = getChatPanel(conId);
+        ProgramWindow.closeTab(panel);
+        chatTabs.remove(panel);
+        try {
+            ServerHandler.sendQuitConversationNotification(conId);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -243,22 +269,6 @@ public class ProgramController {
     }
 
     /**
-     * Adds a contact by username to the current account's contact list
-     * @param userName the contact to be added
-     */
-    public void addContact(Contact userName) {
-        accnt.getContactList().addContact(userName);
-    }
-
-    /**
-     * Removes a contact by username from the current account's contact list
-     * @param userName the contact to be removed
-     */
-    public void removeContact(Contact userName) {
-        accnt.getContactList().removeContact(userName);
-    }
-
-    /**
      * Retrieves a contact list from the server associated with the current
      * account.
      */
@@ -295,14 +305,6 @@ public class ProgramController {
     }
 
     /**
-     * Close a chat panel
-     * @param cp the chat panel to be closed
-     */
-    public void closeTab(/*ChatPanel cp*/) {
-        
-    }
-
-    /**
      * Sends a file in a conversation
      * @param fileName the name/location of the file to be sent
      * @param conversation the conversation to send the file to
@@ -322,22 +324,21 @@ public class ProgramController {
     }
 
     /**
-     * Displays a prompt asking if the current account would like to download the file
-     * @param fileName the filename of the file
-     * @param conversation the conversation that was the origin of the file
-     * @return a string asking if the account would like to download the file
-     */
-    public String displayFileInvitiation(String fileName, ClientConversation conversation) {
-        return "";
-    }
-
-    /**
      * Returns a reference to the ProgramWindow frame
      * @return The currently active ProgramWindow frame
      */
     public static java.awt.Frame getWindow() {
         return window;
     }
+
+     public void windowClosed(WindowEvent e) {}
+     public void windowClosing(WindowEvent e) {
+         logout();
+     }
+     public void windowDeactivated(WindowEvent e) {}
+     public void windowDeiconified(WindowEvent e) {}
+     public void windowIconified(WindowEvent e) {}
+     public void windowOpened(WindowEvent e) {}
 
     /**
      * Parses an equation from our message syntax
