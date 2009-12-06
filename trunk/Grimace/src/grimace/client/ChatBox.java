@@ -52,7 +52,7 @@ public class ChatBox extends javax.swing.JPanel {
         
         GraphicsEnvironment e = GraphicsEnvironment.getLocalGraphicsEnvironment();
         String[] availableFonts = e.getAvailableFontFamilyNames();
-        Integer[] fontSizes = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48, 72, 96};
+        Integer[] fontSizes = {8, 9, 10, 11, 12, 13, 14, 16, 18, 24, 36, 48};
 
         fontSelector.setModel(new javax.swing.DefaultComboBoxModel(availableFonts));
         sizeSelector.setModel(new javax.swing.DefaultComboBoxModel(fontSizes));
@@ -170,7 +170,7 @@ public class ChatBox extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
 
-        setMinimumSize(new java.awt.Dimension(400, 420));
+        setMinimumSize(new java.awt.Dimension(465, 420));
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
@@ -191,7 +191,7 @@ public class ChatBox extends javax.swing.JPanel {
         toolbar.setMinimumSize(new java.awt.Dimension(500, 36));
         toolbar.setPreferredSize(new java.awt.Dimension(500, 36));
 
-        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         bolden.setText("<html><strong>B</strong>");
         bolden.setFocusable(false);
         bolden.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -206,7 +206,7 @@ public class ChatBox extends javax.swing.JPanel {
         });
         toolbar.add(bolden);
 
-        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14));
         italicize.setText("<html><i>i</i>");
         italicize.setFocusable(false);
         italicize.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -281,7 +281,6 @@ public class ChatBox extends javax.swing.JPanel {
 
         add(toolbar);
 
-        jScrollPane1.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane1.setMaximumSize(new java.awt.Dimension(32767, 50));
         jScrollPane1.setMinimumSize(new java.awt.Dimension(23, 50));
         jScrollPane1.setPreferredSize(new java.awt.Dimension(244, 50));
