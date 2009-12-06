@@ -62,6 +62,7 @@ public class Command implements Serializable {
     public static final String UPDATE_STATUS = "updateStatus";
     public static final String UPDATE_FONT = "updateFont";
     public static final String UPDATE_CONTACT = "updateContact";
+    public static final String UPDATE_CONVO_CONTACT = "updateConvoContact";
 
     /** The name indicating the task to be completed. */
     private String cmdName;

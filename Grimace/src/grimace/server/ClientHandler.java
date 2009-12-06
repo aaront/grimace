@@ -193,7 +193,8 @@ public class ClientHandler {
                         }
                         out.writeObject(conList);
                     }
-                    if (toClient.getCommandName().equals(Command.UPDATE_CONTACT)) {
+                    if (toClient.getCommandName().equals(Command.UPDATE_CONTACT)
+                        || toClient.getCommandName().equals(Command.UPDATE_CONVO_CONTACT)) {
                         String user = toClient.getCommandArg(0);
                         Contact con = new Contact(user,
                                                 DataHandler.getDisplayName(user),

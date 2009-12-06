@@ -91,6 +91,10 @@ public class ChatPanel extends javax.swing.JPanel {
         return convo;
     }
 
+    public ContactListBox getContactListBox() {
+        return ((SideBar)jSplitPane1.getRightComponent()).getContactListBox();
+    }
+
     /**
      * Posts a message to the chatDisplayBox from the server
      * @param message the message from the server
