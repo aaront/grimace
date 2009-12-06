@@ -104,13 +104,23 @@ public class ChatPanel extends javax.swing.JPanel {
         if (equations.size() > 0) {
             File equFile;
             equFile = EquationEditor.saveEquationImage(equations.get(0));
-            String eqntag = "<p><strong>" + dName + "</strong>: "
-                            + "<img src=\""+ equFile.getAbsolutePath() +"\">";
-            try {
-                htmlDoc.insertBeforeEnd(convoElement, eqntag);
-                htmlDoc.insertBeforeEnd(convoElement, "<br>");
+            if (equFile != null) {
+                String eqntag = "<p><strong>" + dName + "</strong>: "
+                                + "<img src=\""+ equFile.getAbsolutePath() +"\"></p>";
+                try {
+                    htmlDoc.insertBeforeEnd(convoElement, eqntag);
+                    htmlDoc.insertBeforeEnd(convoElement, "<br>");
+                }
+                catch (Exception e) {}
             }
-            catch (Exception e) {}
+            else {
+                String msg = "<p><strong>" + dName + "</strong> has somehow entered an invalid formula.</p>";
+                try {
+                    htmlDoc.insertBeforeEnd(convoElement, msg);
+                    htmlDoc.insertBeforeEnd(convoElement, "<br>");
+                }
+                catch (Exception e) {}
+            }
         }
         else {
             try {
