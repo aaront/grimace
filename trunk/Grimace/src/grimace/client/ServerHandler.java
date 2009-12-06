@@ -458,9 +458,15 @@ public final class ServerHandler {
      * @throws java.lang.Exception
      */
     public static void sendDisplayNameUpdateRequest() throws Exception {
-        sendCommand(Command.UPDATE_DISPLAY_NAME,
-                ProgramController.getUserName(),
-                ProgramController.getDisplayName());
+        int[] idList = ProgramController.getConIdList();
+        String[] ids = new String[idList.length];
+        for (int i=0; i<idList.length; i++) {
+            ids[i] = String.valueOf(idList[i]);
+        }
+        String[] args = mergeStrings(ids,
+                                    ProgramController.getUserName(),
+                                    ProgramController.getDisplayName());
+        sendCommand(Command.UPDATE_DISPLAY_NAME, args);
     }
 
     /**

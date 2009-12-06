@@ -118,12 +118,24 @@ public class ClientHandler {
                                                 fromClient.getCommandArg(0));
                 }
                 if (fromClient.getCommandName().equals(Command.UPDATE_DISPLAY_NAME)) {
-                    ServerController.updateDisplayName(fromClient.getCommandArg(0),
-                                                        fromClient.getCommandArg(1));
+                    String userName = fromClient.getCommandArg(0);
+                    String displayName = fromClient.getCommandArg(1);
+                    String[] args = fromClient.getCommandArgList();
+                    int[] ids = new int[args.length - 2];
+                    for (int i=2; i<args.length; i++) {
+                        ids[i] = Integer.valueOf(args[i]).intValue();
+                    }
+                    ServerController.updateDisplayName(userName, displayName, ids);
                 }
                 if (fromClient.getCommandName().equals(Command.UPDATE_STATUS)) {
-                    ServerController.updateStatus(fromClient.getCommandArg(0),
-                                                        fromClient.getCommandArg(1));
+                    String userName = fromClient.getCommandArg(0);
+                    String status = fromClient.getCommandArg(1);
+                    String[] args = fromClient.getCommandArgList();
+                    int[] ids = new int[args.length - 2];
+                    for (int i=2; i<args.length; i++) {
+                        ids[i] = Integer.valueOf(args[i]).intValue();
+                    }
+                    ServerController.updateStatus(userName, status, ids);
                 }
                 if (fromClient.getCommandName().equals(Command.UPDATE_FONT)) {
                     ServerController.updateFont(fromClient.getCommandArg(0),
@@ -175,7 +187,9 @@ public class ClientHandler {
                         ContactList conList = new ContactList();
                         String[] users = ServerController.getServerConversation(conId).getUsers();
                         for (String s : users) {
-                            conList.addContact(new Contact(s, DataHandler.getDisplayName(s)));
+                            conList.addContact(new Contact(s,
+                                                    DataHandler.getDisplayName(s),
+                                                    DataHandler.getDisplayStatus(s)));
                         }
                         out.writeObject(conList);
                     }
