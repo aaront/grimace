@@ -173,6 +173,14 @@ public class ProgramController {
         return accnt;
     }
 
+    public static String getUserName() {
+        return accnt.getUserName();
+    }
+
+    public static String getDisplayName() {
+        return accnt.getDisplayName();
+    }
+
     /**
      * Sends a new registration form to the ServerHandler
      * @param newaccount the account to be registered with the server

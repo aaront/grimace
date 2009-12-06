@@ -146,7 +146,7 @@ public class ContactPanel extends javax.swing.JPanel {
         for (Object con : conList) {
             try {
                 ServerHandler.sendDeleteContactRequest(
-                                            ProgramController.getAccount().getUserName(),
+                                            ProgramController.getUserName(),
                                             ((Contact)con).getUserName());
             }
             catch (Exception e) {

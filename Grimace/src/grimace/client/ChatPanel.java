@@ -90,8 +90,8 @@ public class ChatPanel extends javax.swing.JPanel {
         System.out.println("Received: " + userName + ": " + message);
         JTextPane textPane = chatBox1.getChatDisplayBox();
         String dName = userName;
-        if (userName.equals(ProgramController.getAccount().getUserName())) {
-            dName = ProgramController.getAccount().getDisplayName();
+        if (userName.equals(ProgramController.getUserName())) {
+            dName = ProgramController.getDisplayName();
         }
         else {
             Contact user = convo.getList().getContact(userName);
