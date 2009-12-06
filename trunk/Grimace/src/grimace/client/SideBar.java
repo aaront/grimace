@@ -60,6 +60,8 @@ public class SideBar extends javax.swing.JPanel {
         jScrollPane2.setViewportView(contactListBox1);
 
         setLayout(new java.awt.BorderLayout());
+
+        quickOptionsBox1.setMaximumSize(new java.awt.Dimension(32767, 200));
         add(quickOptionsBox1, java.awt.BorderLayout.CENTER);
 
         listBox.setModel(new javax.swing.AbstractListModel() {
