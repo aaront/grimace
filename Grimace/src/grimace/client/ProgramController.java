@@ -271,7 +271,7 @@ public class ProgramController {
         ChatPanel panel = new ChatPanel(convo);
         //convoList.add(convo);
         chatTabs.add(panel);
-        ProgramWindow.addTab(panel);
+        ProgramWindow.addChatTab(panel);
     }
 
     public static void closeConvo(int conId) {

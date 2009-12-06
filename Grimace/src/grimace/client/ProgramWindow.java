@@ -86,8 +86,8 @@ public class ProgramWindow extends javax.swing.JFrame {
         ProgramController.setRightPane(tabs);
     }
 
-    public static void addTab(ChatPanel chat) {
-        tabs.add(chat);
+    public static void addChatTab(ChatPanel chat) {
+        tabs.add(chat.getTitle(), chat);
     }
 
     public static void closeTab(Component comp) {
