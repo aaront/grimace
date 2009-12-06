@@ -155,5 +155,11 @@ public class ClientConversation {
         convoPeople.addContact(contact);
     }
 
+    public void removeFromList(String userName) {
+        Contact contact = convoPeople.getContact(userName);
+        if (contact == null) { return; }
+        convoPeople.removeContact(contact);
+    }
+
 }
 

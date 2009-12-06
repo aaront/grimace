@@ -58,10 +58,20 @@ public class ServerConversation {
 
     /**
      * Returns the id for this conversation.
+     *
      * @return The conversation id.
      */
     public int getConId() {
         return conId;
+    }
+
+    /**
+     * Returns the number of users in this conversation.
+     *
+     * @return The number of users in this conversation.
+     */
+    public int getSize() {
+        return users.size();
     }
 
     /**

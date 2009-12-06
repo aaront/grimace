@@ -81,6 +81,10 @@ public class ChatPanel extends javax.swing.JPanel {
         return convo.getConId();
     }
 
+    public ClientConversation getClientConversation() {
+        return convo;
+    }
+
     /**
      * Posts a message to the chatDisplayBox from the server
      * @param message the message from the server
@@ -135,6 +139,30 @@ public class ChatPanel extends javax.swing.JPanel {
             }
             catch (Exception e) {}
         }
+        convo.storeRecievedMessage(messageText);
+        System.out.println(textPane.getText());
+    }
+
+    /**
+     * Posts a message to the chatDisplayBox from the server
+     * @param message the message from the server
+     * @param userName the username of the current account
+     */
+    public void postNotification(String message) {
+        System.out.println("Received: " + message);
+        JTextPane textPane = chatBox1.getChatDisplayBox();
+        String messageText = "<p><span style=\"color:#ff0000\">[" + message + "]</span></p>";
+        try {
+            htmlDoc.insertBeforeEnd(convoElement, messageText);
+            htmlDoc.insertBeforeEnd(convoElement, "<br>");
+//              textPane.scrollRectToVisible(new Rectangle(0,textPane
+//                .getHeight()*11,1,1));
+            chatBox1.getChatDisplayBoxScrollPane().getViewport()
+                    .setViewPosition(new Point(0, 20*textPane.getDocument()
+                    .getLength()));
+
+        }
+        catch (Exception e) {}
         convo.storeRecievedMessage(messageText);
         System.out.println(textPane.getText());
     }

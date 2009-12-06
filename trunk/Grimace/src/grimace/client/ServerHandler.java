@@ -36,8 +36,8 @@ import java.security.MessageDigest;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    private static final String SERVER_HOSTNAME = "localhost";
-	private static final int SERVER_PORT = 1234;
+    public static final String DEF_SERVER_HOSTNAME = "localhost";
+	public static final int DEF_SERVER_PORT = 1234;
 	private static Thread listen;
     private static Socket socket;
     private static ObjectOutputStream out;
@@ -52,7 +52,8 @@ public final class ServerHandler {
      * @throws java.io.IOException
      */
 	private static void connect() throws UnknownHostException, IOException {
-		socket = new Socket(SERVER_HOSTNAME, SERVER_PORT);
+		socket = new Socket(ProgramController.getProgramSettings().getServerAddress(),
+                            ProgramController.getProgramSettings().getServerPort());
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
 	}
@@ -261,6 +262,44 @@ public final class ServerHandler {
                     String sender = fromServer.getCommandArg(0);
                     ProgramController.postMessage(conId, message, sender);
                 }
+                if (fromServer.getCommandName().equals(Command.UPDATE_CONTACT)) {
+                    Contact newcon = (Contact)in.readObject();
+                    Contact con = ProgramController.getContactList().getContact(newcon.getUserName());
+                    con.setDisplayName(newcon.getDisplayName());
+                    con.setStatus(newcon.getStatus());
+                    ProgramController.updateContactList();
+                }
+                if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
+                    String sender = fromServer.getCommandArg(0);
+                    String file = fromServer.getCommandArg(1);
+                    int resp = ProgramController.showRequestDialog("You have a file transfer request from "
+                            + sender + ".\n" + sender + " wants to send you the file " + file + ".\n"
+                            + "What do you want to do?\n");
+                    switch (resp) {
+                        case 0:
+                            sendFileTransferResponse(fromServer.getCommandArg(0),
+                                    ProgramController.getUserName(),
+                                    Command.ACCEPT);
+                            break;
+                        case 1:
+                            sendFileTransferResponse(fromServer.getCommandArg(0),
+                                    ProgramController.getUserName(),
+                                    Command.REJECT);
+                            break;
+                        case 2:
+                            break;
+                    }
+                }
+                if (fromServer.getCommandName().equals(Command.REMOVE_FROM_CONVERSATION)) {
+                    int conId = Integer.valueOf(fromServer.getCommandArg(1)).intValue();
+                    String contact = fromServer.getCommandArg(0);
+                    ProgramController.removeFromConversation(contact, conId);
+                }
+                if (fromServer.getCommandName().equals(Command.ADD_TO_CONVERSATION)) {
+                    int conId = Integer.valueOf(fromServer.getCommandArg(1)).intValue();
+                    Contact contact = (Contact)in.readObject();
+                    ProgramController.addToConversation(contact, conId);
+                }
             }
             catch (EOFException e) {}
             catch (SocketException e) {}
@@ -356,8 +395,24 @@ public final class ServerHandler {
      */
     public static void sendQuitConversationNotification(int conId)
                                                         throws Exception {
-        sendCommand(Command.QUIT_CONVERSATION,
+        sendCommand(Command.REMOVE_FROM_CONVERSATION,
                 ProgramController.getUserName(), String.valueOf(conId));
+    }
+
+    /**
+     * Sends a request to the server to add a contact to a converation.
+     *
+     * @param contactName The contact to add.
+     * @param conId An integer identifying the conversation.
+     * @throws java.lang.Exception
+     */
+    public static void sendAddToConversationRequest(String contactName,
+                                                    int conId)
+                                                    throws Exception {
+        sendCommand(Command.ADD_TO_CONVERSATION,
+                    contactName,
+                    String.valueOf(conId),
+                    ProgramController.getUserName());
     }
 
     /**
@@ -371,7 +426,8 @@ public final class ServerHandler {
                                                 String... contactNames)
                                                 throws Exception {
         String[] args = mergeStrings(contactNames,
-                ProgramController.getUserName(), fileName);
+                                    ProgramController.getUserName(),
+                                    fileName);
         sendCommand(Command.FILE_TRANSFER_REQUEST, args);
 	}
 
@@ -385,7 +441,7 @@ public final class ServerHandler {
      */
     public static void sendFileTransferResponse(String userName,
                                                 String contactName,
-                                                boolean response)
+                                                String response)
                                                 throws Exception {
         sendCommand(Command.FILE_TRANSFER_RESPONSE,
                     userName,
