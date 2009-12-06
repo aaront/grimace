@@ -106,7 +106,7 @@ public class ChatPanel extends javax.swing.JPanel {
             equFile = EquationEditor.saveEquationImage(equations.get(0));
             if (equFile != null) {
                 String eqntag = "<p><strong>" + dName + "</strong>: "
-                                + "<img src=\""+ equFile.getAbsolutePath() +"\"></p>";
+                                + "<img src=\"file://"+ equFile.getAbsolutePath() +"\"></p>";
                 try {
                     htmlDoc.insertBeforeEnd(convoElement, eqntag);
                     htmlDoc.insertBeforeEnd(convoElement, "<br>");
