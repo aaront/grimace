@@ -30,11 +30,13 @@ package grimace.client;
  */
 public class SideBar extends javax.swing.JPanel {
     ContactList cList;
+    int conId;
 
     /** Creates new form SideBar */
     public SideBar(ClientConversation conv) {
         initComponents();
         listBox.updateModel(conv.getList());
+        conId = conv.getConId();
     }
 
     public ContactListBox getContactListBox() {
