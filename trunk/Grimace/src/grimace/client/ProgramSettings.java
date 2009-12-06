@@ -32,8 +32,13 @@ import java.io.*;
  */
 public class ProgramSettings implements Serializable {
     // @TODO: Store preferences in working directory
+    
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/WernickeData";
+    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
+    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
+
     //Preferences prefs;
-    String SETTINGS_FILE = System.getProperty("user.dir") + "ProgramSettings.ser";
+    String SETTINGS_FILE = System.getProperty("user.dir") + "/ProgramSettings.ser";
     String serverAddress;
     int serverPort;
     Boolean showInTray;

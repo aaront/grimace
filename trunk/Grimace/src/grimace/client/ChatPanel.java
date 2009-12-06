@@ -24,18 +24,13 @@
 
 package grimace.client;
 
-import java.awt.Rectangle;
 import java.util.ArrayList;
-import javax.swing.Icon;
 import javax.swing.JTextPane;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
 
-import be.ugent.caagt.jmathtex.TeXFormula;
-import be.ugent.caagt.jmathtex.TeXConstants;
 import java.awt.Point;
-import javax.swing.JScrollPane;
-import javax.swing.event.DocumentListener;
+import java.io.File;
 
 /**
  * ChatPanel incorporates the ChatBox, as well as a contact list for the current
@@ -107,18 +102,12 @@ public class ChatPanel extends javax.swing.JPanel {
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
         ArrayList<String> equations = ProgramController.parseEquation(message);
         if (equations.size() > 0) {
-            TeXFormula viewer = new TeXFormula(equations.get(0));
-            Icon viewicon = viewer.createTeXIcon(TeXConstants.STYLE_DISPLAY, 18);
-            String eqntag = "<span class='eqntag'></span>";
+            File equFile;
+            equFile = EquationEditor.saveEquationImage(equations.get(0));
+            String eqntag = "<p><strong>" + dName + "</strong>: "
+                            + "<img src=\""+ equFile.getAbsolutePath() +"\">";
             try {
                 htmlDoc.insertBeforeEnd(convoElement, eqntag);
-            }
-            catch (Exception e) {}
-            String text = textPane.getText();
-            int pos = text.indexOf(eqntag);
-            textPane.select(pos, pos + eqntag.length());
-            textPane.insertIcon(viewicon);
-            try {
                 htmlDoc.insertBeforeEnd(convoElement, "<br>");
             }
             catch (Exception e) {}
