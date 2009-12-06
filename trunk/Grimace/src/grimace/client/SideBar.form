@@ -43,7 +43,10 @@
     <Component class="grimace.client.QuickOptionsBox" name="quickOptionsBox1">
       <Properties>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
-          <Dimension value="[32767, 200]"/>
+          <Dimension value="[32767, 75]"/>
+        </Property>
+        <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+          <Dimension value="[176, 75]"/>
         </Property>
       </Properties>
       <Constraints>
@@ -74,6 +77,9 @@
                 <StringItem index="3" value="Item 4"/>
                 <StringItem index="4" value="Item 5"/>
               </StringArray>
+            </Property>
+            <Property name="minimumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[39, 30000]"/>
             </Property>
           </Properties>
         </Component>

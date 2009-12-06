@@ -305,6 +305,14 @@ public class ChatBox extends javax.swing.JPanel {
         btnColour.setForeground(currentFontColour);
         messageBox.setForeground(currentFontColour);
         ProgramController.getAccount().setFontColour(currentFontColour);
+
+        // Update fonts
+        try {
+            ServerHandler.sendFontUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 }//GEN-LAST:event_btnColourActionPerformed
 
     private void boldenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boldenActionPerformed
@@ -315,6 +323,14 @@ public class ChatBox extends javax.swing.JPanel {
         }
         messageBox.setFont(currentFont);
         ProgramController.getAccount().setFont(currentFont);
+
+        // Update fonts
+        try {
+            ServerHandler.sendFontUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
 }//GEN-LAST:event_boldenActionPerformed
 
     private void italicizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_italicizeActionPerformed
@@ -325,6 +341,14 @@ public class ChatBox extends javax.swing.JPanel {
         }
         messageBox.setFont(currentFont);
         ProgramController.getAccount().setFont(currentFont);
+
+        // Update fonts
+        try {
+            ServerHandler.sendFontUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_italicizeActionPerformed
 
     private void sizeSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sizeSelectorActionPerformed
@@ -334,6 +358,14 @@ public class ChatBox extends javax.swing.JPanel {
         currentFont = currentFont.deriveFont(fsfl);
         messageBox.setFont(currentFont);
         ProgramController.getAccount().setFont(currentFont);
+
+        // Update fonts
+        try {
+            ServerHandler.sendFontUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_sizeSelectorActionPerformed
 
     private void fontSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fontSelectorActionPerformed
@@ -342,6 +374,14 @@ public class ChatBox extends javax.swing.JPanel {
         currentFont = new Font(fs, currentFont.getStyle(), currentFont.getSize());
         messageBox.setFont(currentFont);
         ProgramController.getAccount().setFont(currentFont);
+
+        // Update fonts
+        try {
+            ServerHandler.sendFontUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_fontSelectorActionPerformed
 
     private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed

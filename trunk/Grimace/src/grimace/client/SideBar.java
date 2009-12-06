@@ -65,7 +65,8 @@ public class SideBar extends javax.swing.JPanel {
 
         setLayout(new java.awt.BorderLayout());
 
-        quickOptionsBox1.setMaximumSize(new java.awt.Dimension(32767, 200));
+        quickOptionsBox1.setMaximumSize(new java.awt.Dimension(32767, 75));
+        quickOptionsBox1.setPreferredSize(new java.awt.Dimension(176, 75));
         add(quickOptionsBox1, java.awt.BorderLayout.CENTER);
 
         listBox.setModel(new javax.swing.AbstractListModel() {
@@ -73,6 +74,7 @@ public class SideBar extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        listBox.setMinimumSize(new java.awt.Dimension(39, 30000));
         jScrollPane1.setViewportView(listBox);
 
         add(jScrollPane1, java.awt.BorderLayout.PAGE_START);

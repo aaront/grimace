@@ -62,7 +62,7 @@ public class ContactPanel extends javax.swing.JPanel {
         deleteButton = new javax.swing.JButton();
         optionsButton = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(300, 450));
+        setMinimumSize(new java.awt.Dimension(250, 450));
 
         jScrollPane1.setHorizontalScrollBar(null);
 
@@ -74,7 +74,7 @@ public class ContactPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listBox);
 
-        addButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        addButton.setFont(new java.awt.Font("Lucida Grande", 1, 13));
         addButton.setText("+");
         addButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         addButton.setMaximumSize(new java.awt.Dimension(40, 27));
@@ -94,7 +94,7 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
+        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 13));
         deleteButton.setText("-");
         deleteButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         deleteButton.setMaximumSize(new java.awt.Dimension(40, 27));
