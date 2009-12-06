@@ -24,6 +24,9 @@
 
 package grimace.client;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.KeyStroke;
 import javax.swing.JOptionPane;
@@ -31,6 +34,12 @@ import javax.swing.JOptionPane;
 import be.ugent.caagt.jmathtex.TeXFormula;
 import be.ugent.caagt.jmathtex.TeXConstants;
 import be.ugent.caagt.jmathtex.JMathTeXException;
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 
 /**
  * EquationEditor can preview TeX code, and send it back into the messageBox
@@ -51,6 +60,42 @@ public class EquationEditor extends javax.swing.JDialog {
         // Disable using the enter key to do a line break.
         KeyStroke enter = KeyStroke.getKeyStroke("ENTER");
         equationInputBox.getInputMap().put(enter, "none");
+    }
+
+    public static File saveEquationImage(String equ) {
+        ImageIcon icon;
+        try {
+            icon = (ImageIcon)getEquationIcon(equ);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
+        Image img = icon.getImage();
+        BufferedImage bi = new BufferedImage(img.getWidth(null),img.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
+        Graphics2D g2 = bi.createGraphics();
+        g2.drawImage(img, 0, 0, null);
+        g2.dispose();
+
+        int i = 0;
+        File imgFile;
+        do {
+            imgFile = new File(ProgramSettings.TEMP_FOLDER + "/equ_img" + String.valueOf(i) + ".jpg");
+        } while (imgFile.exists());
+        try {
+            ImageIO.write(bi, "jpg", imgFile);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+        return imgFile;
+    }
+
+    public static Icon getEquationIcon(String equ) throws Exception {
+        TeXFormula viewer = new TeXFormula(equ);
+        Icon viewicon = viewer.createTeXIcon(TeXConstants.STYLE_DISPLAY, 18);
+        return viewicon;
     }
 
     /** This method is called from within the constructor to
