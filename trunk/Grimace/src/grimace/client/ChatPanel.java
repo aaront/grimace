@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import javax.swing.JTextPane;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
+import javax.swing.Box;
 
 import java.awt.Point;
 import java.io.File;
@@ -41,6 +42,7 @@ public class ChatPanel extends javax.swing.JPanel {
     HTMLEditorKit htmlKit;
     HTMLDocument htmlDoc;
     Element convoElement;
+    SideBar chatSideBar;
 
     /** Creates new form ChatPanel */
     public ChatPanel() {
@@ -63,6 +65,10 @@ public class ChatPanel extends javax.swing.JPanel {
 		}
 		catch (Exception e) {}
         convoElement = htmlDoc.getElement("WernickeChat");
+
+        //Load the sidebar
+        chatSideBar = new SideBar(conversation);
+        jSplitPane1.setRightComponent(chatSideBar);
     }
 
     /**
@@ -175,29 +181,49 @@ public class ChatPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jSplitPane1 = new javax.swing.JSplitPane();
         chatBox1 = new grimace.client.ChatBox();
+        chatPanelToolbar = new javax.swing.JToolBar();
+        chatPanelToolbar.add(Box.createHorizontalGlue());
+        btnCloseChatTab = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(400, 420));
+        setLayout(new java.awt.BorderLayout());
 
         chatBox1.initChatBox();
+        jSplitPane1.setLeftComponent(chatBox1);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(chatBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 514, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(106, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(chatBox1, javax.swing.GroupLayout.DEFAULT_SIZE, 450, Short.MAX_VALUE)
-        );
+        add(jSplitPane1, java.awt.BorderLayout.CENTER);
+
+        chatPanelToolbar.setFloatable(false);
+        chatPanelToolbar.setRollover(true);
+
+        btnCloseChatTab.setText("x");
+        btnCloseChatTab.setFocusable(false);
+        btnCloseChatTab.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnCloseChatTab.setMaximumSize(new java.awt.Dimension(25, 22));
+        btnCloseChatTab.setMinimumSize(new java.awt.Dimension(25, 22));
+        btnCloseChatTab.setPreferredSize(new java.awt.Dimension(25, 22));
+        btnCloseChatTab.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCloseChatTabActionPerformed(evt);
+            }
+        });
+        chatPanelToolbar.add(btnCloseChatTab);
+
+        add(chatPanelToolbar, java.awt.BorderLayout.PAGE_START);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnCloseChatTabActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseChatTabActionPerformed
+        ProgramWindow.closeTab(this);
+    }//GEN-LAST:event_btnCloseChatTabActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCloseChatTab;
     private grimace.client.ChatBox chatBox1;
+    private javax.swing.JToolBar chatPanelToolbar;
+    private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 
 }

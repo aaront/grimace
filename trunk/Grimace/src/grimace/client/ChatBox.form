@@ -208,6 +208,7 @@
     </Container>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
       <Properties>
+        <Property name="verticalScrollBarPolicy" type="int" value="22"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[32767, 50]"/>
         </Property>
