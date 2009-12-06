@@ -56,6 +56,10 @@ public class SideBar extends javax.swing.JPanel {
         btnAddContactToChat = new javax.swing.JButton();
         btnNewChatWithContacts = new javax.swing.JButton();
 
+        setMaximumSize(new java.awt.Dimension(150, 32767));
+        setMinimumSize(new java.awt.Dimension(100, 0));
+        setPreferredSize(new java.awt.Dimension(150, 227));
+
         listBox.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
