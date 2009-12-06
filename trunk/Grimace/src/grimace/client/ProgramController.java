@@ -28,7 +28,7 @@
 
 package grimace.client;
 import java.awt.Component;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
 import javax.swing.UIManager;
@@ -73,8 +73,25 @@ public class ProgramController {
             public void run() {
                 window = new ProgramWindow();
                 window.setVisible(true);
+
+                window.addWindowListener(new WindowListener() {
+                    public void windowClosed(WindowEvent e) {
+                        System.out.println("Wernicke is closing....");
+                        if (accnt != null) {
+                            logout();
+                        }
+                        System.exit(0);
+                    }
+                    public void windowClosing(WindowEvent e) {}
+                    public void windowDeactivated(WindowEvent e) {}
+                    public void windowDeiconified(WindowEvent e) {}
+                    public void windowIconified(WindowEvent e) {}
+                    public void windowOpened(WindowEvent e) {}
+                    public void windowActivated(WindowEvent e) {}
+                });
             }
         });
+
     }
 
     /**
@@ -357,16 +374,6 @@ public class ProgramController {
     public static java.awt.Frame getWindow() {
         return window;
     }
-
-     public void windowClosed(WindowEvent e) {
-         logout();
-         System.exit(0);
-     }
-     public void windowClosing(WindowEvent e) {}
-     public void windowDeactivated(WindowEvent e) {}
-     public void windowDeiconified(WindowEvent e) {}
-     public void windowIconified(WindowEvent e) {}
-     public void windowOpened(WindowEvent e) {}
 
     /**
      * Parses an equation from our message syntax

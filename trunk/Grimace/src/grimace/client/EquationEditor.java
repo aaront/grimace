@@ -206,7 +206,7 @@ public class EquationEditor extends javax.swing.JDialog {
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "That is not a valid " +
                     "equation!\n\nPlease refer to the Syntax Help button for\n"+
-                    "help on how to create well-formed math euqations.",
+                    "help on how to create well-formed math equations.",
                     "Equation Error",
                     JOptionPane.ERROR_MESSAGE);
         }
@@ -223,7 +223,7 @@ public class EquationEditor extends javax.swing.JDialog {
         catch (JMathTeXException e){
             JOptionPane.showMessageDialog(this, "That is not a valid " +
                     "equation!\n\nPlease refer to the Syntax Help button for\n"+
-                    "help on how to create well-formed math euqations.",
+                    "help on how to create well-formed math equations.",
                     "Equation Error",
                     JOptionPane.ERROR_MESSAGE);
         }
