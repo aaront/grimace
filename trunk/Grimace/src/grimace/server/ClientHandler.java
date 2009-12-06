@@ -90,6 +90,7 @@ public class ClientHandler {
             try {
                 Thread.sleep(100);
                 fromClient = (Command)in.readObject();
+                System.out.println("Command from user " + name + ": " + fromClient.toString());
                 if (fromClient.getCommandName().equals(Command.CONTACT_REQUEST)) {
                     ServerController.placeContactRequest(fromClient.getCommandArg(0),
                                                             fromClient.getCommandArg(1));
@@ -133,11 +134,11 @@ public class ClientHandler {
                             Boolean.valueOf(fromClient.getCommandArg(5)).booleanValue());
                 }
                 if (fromClient.getCommandName().equals(Command.REMOVE_FROM_CONVERSATION)) {
-                    int conId = Integer.valueOf(toClient.getCommandArg(1)).intValue();
+                    int conId = Integer.valueOf(fromClient.getCommandArg(1)).intValue();
                     ServerController.removeFromConversation(fromClient.getCommandArg(0), conId);
                 }
                 if (fromClient.getCommandName().equals(Command.ADD_TO_CONVERSATION)) {
-                    int conId = Integer.valueOf(toClient.getCommandArg(1)).intValue();
+                    int conId = Integer.valueOf(fromClient.getCommandArg(1)).intValue();
                     ServerController.addToConversation(fromClient.getCommandArg(0),
                                                         conId,
                                                         fromClient.getCommandArg(2));
