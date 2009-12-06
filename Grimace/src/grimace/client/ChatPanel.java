@@ -24,8 +24,18 @@
 
 package grimace.client;
 
+import java.awt.Rectangle;
+import java.util.ArrayList;
+import javax.swing.Icon;
+import javax.swing.JTextPane;
 import javax.swing.text.*;
 import javax.swing.text.html.*;
+
+import be.ugent.caagt.jmathtex.TeXFormula;
+import be.ugent.caagt.jmathtex.TeXConstants;
+import java.awt.Point;
+import javax.swing.JScrollPane;
+import javax.swing.event.DocumentListener;
 
 /**
  * ChatPanel incorporates the ChatBox, as well as a contact list for the current
@@ -83,6 +93,7 @@ public class ChatPanel extends javax.swing.JPanel {
      */
     public void postMessage(String message, String userName) {
         System.out.println("Received: " + userName + ": " + message);
+        JTextPane textPane = chatBox1.getChatDisplayBox();
         String dName = userName;
         if (userName.equals(ProgramController.getAccount().getUserName())) {
             dName = ProgramController.getAccount().getDisplayName();
@@ -94,11 +105,33 @@ public class ChatPanel extends javax.swing.JPanel {
             }
         }
         String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
-        try {
-			htmlDoc.insertBeforeEnd(convoElement, messageText);
-            htmlDoc.insertBeforeEnd(convoElement, "<br>");
-		}
-		catch (Exception e) {}
+        ArrayList<String> equations = ProgramController.parseEquation(message);
+        if (equations.size() > 0) {
+            TeXFormula viewer = new TeXFormula(equations.get(0));
+            Icon viewicon = viewer.createTeXIcon(TeXConstants.STYLE_DISPLAY, 18);
+            String eqntag = "<span class='eqntag'></span>";
+            try {
+                htmlDoc.insertBeforeEnd(convoElement, eqntag);
+            }
+            catch (Exception e) {}
+            String text = textPane.getText();
+            int pos = text.indexOf(eqntag);
+            textPane.select(pos, pos + eqntag.length());
+            textPane.insertIcon(viewicon);
+            try {
+                htmlDoc.insertBeforeEnd(convoElement, "<br>");
+            }
+            catch (Exception e) {}
+        }
+        else {
+            try {
+                htmlDoc.insertBeforeEnd(convoElement, messageText);
+                htmlDoc.insertBeforeEnd(convoElement, "<br>");
+                textPane.scrollRectToVisible(new Rectangle(0,textPane.getHeight()-2,1,1));
+
+            }
+            catch (Exception e) {}
+        }
         convo.storeRecievedMessage(messageText);
     }
 
