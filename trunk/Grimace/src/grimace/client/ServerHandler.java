@@ -227,17 +227,17 @@ public final class ServerHandler {
                     switch (resp) {
                         case 0:
                             sendContactRequestResponse(fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(),
+                                    ProgramController.getUserName(),
                                     Command.ACCEPT);
                             /*sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(), Command.ACCEPT);*/
+                                    ProgramController.getUserName(), Command.ACCEPT);*/
                             break;
                         case 1:
                             sendContactRequestResponse(fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(),
+                                    ProgramController.getUserName(),
                                     Command.REJECT);
                             /*sendCommand(Command.CONTACT_REQUEST_RESPONSE, fromServer.getCommandArg(0),
-                                    ProgramController.getAccount().getUserName(), Command.REJECT);*/
+                                    ProgramController.getUserName(), Command.REJECT);*/
                             break;
                         case 2:
                             ProgramController.showMessage("Your contact requests will be displayed on your next login.");
@@ -252,7 +252,7 @@ public final class ServerHandler {
                 if (fromServer.getCommandName().equals(Command.START_CONVERSATION)) {
                     int conId = Integer.valueOf(fromServer.getCommandArg(0)).intValue();
                     ContactList cList = (ContactList)in.readObject();
-                    Contact user = cList.getContact(ProgramController.getAccount().getUserName());
+                    Contact user = cList.getContact(ProgramController.getUserName());
                     if (user != null) {
                         cList.removeContact(user);
                     }
@@ -289,13 +289,13 @@ public final class ServerHandler {
      * @param contactName The name of the contact being requested.
      * @throws java.lang.Exception
      */
-	public static void sendAddContactRequest(String contactName) throws Exception {
-        if (contactName.equals(ProgramController.getAccount().getUserName())) {
+	public static void sendContactRequest(String contactName) throws Exception {
+        if (contactName.equals(ProgramController.getUserName())) {
             ProgramController.showMessage("You can't add yourself as a contact. That's cheating!");
             return;
         }
         sendCommand(Command.CONTACT_REQUEST,
-                ProgramController.getAccount().getUserName(),
+                ProgramController.getUserName(),
                 contactName.toLowerCase());
 	}
 
@@ -356,7 +356,7 @@ public final class ServerHandler {
 	public static void sendMessagePostRequest(String message,
                                                 int conId) throws Exception {
         sendCommand(Command.SEND_MESSAGE,
-                ProgramController.getAccount().getUserName(), message, String.valueOf(conId));
+                ProgramController.getUserName(), message, String.valueOf(conId));
 	}
 
     /**
@@ -369,7 +369,7 @@ public final class ServerHandler {
     public static void sendQuitConversationNotification(int conId)
                                                         throws Exception {
         sendCommand(Command.QUIT_CONVERSATION,
-                ProgramController.getAccount().getUserName(), String.valueOf(conId));
+                ProgramController.getUserName(), String.valueOf(conId));
     }
 
     /**
@@ -383,7 +383,7 @@ public final class ServerHandler {
                                                 String... contactNames)
                                                 throws Exception {
         String[] args = mergeStrings(contactNames,
-                ProgramController.getAccount().getUserName(), fileName);
+                ProgramController.getUserName(), fileName);
         sendCommand(Command.FILE_TRANSFER_REQUEST, args);
 	}
 
@@ -411,10 +411,11 @@ public final class ServerHandler {
      * @param account The account to update.
      * @throws java.lang.Exception
      */
-    public static void sendAccountUpdateRequest(Account account)
+    public static void sendDisplayNameUpdateRequest()
                                                 throws Exception {
-        sendCommand(Command.UPDATE_ACCOUNT, account.getUserName());
-        out.writeObject(account);
+        sendCommand(Command.UPDATE_DISPLAY_NAME,
+                ProgramController.getUserName(),
+                ProgramController.getDisplayName());
     }
 
     public static void sendLogoutRequest() {

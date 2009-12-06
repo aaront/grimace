@@ -40,7 +40,7 @@ public class Account implements Serializable {
     /**
      * Default font size used in the messageBox
      */
-    public static final int DEFAULT_FONT_SIZE = 12;
+    public static final int DEFAULT_FONT_SIZE = 10;
 
     /**
      * Default font colour used in the messageBox
