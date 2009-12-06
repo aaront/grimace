@@ -136,6 +136,7 @@ public class ChatPanel extends javax.swing.JPanel {
             catch (Exception e) {}
         }
         convo.storeRecievedMessage(messageText);
+        System.out.println(textPane.getText());
     }
 
     /** This method is called from within the constructor to
