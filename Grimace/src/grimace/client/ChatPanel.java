@@ -127,7 +127,11 @@ public class ChatPanel extends javax.swing.JPanel {
             try {
                 htmlDoc.insertBeforeEnd(convoElement, messageText);
                 htmlDoc.insertBeforeEnd(convoElement, "<br>");
-                textPane.scrollRectToVisible(new Rectangle(0,textPane.getHeight()-2,1,1));
+//              textPane.scrollRectToVisible(new Rectangle(0,textPane
+//                .getHeight()*11,1,1));
+                chatBox1.getChatDisplayBoxScrollPane().getViewport()
+                        .setViewPosition(new Point(0, 20*textPane.getDocument()
+                        .getLength()));
 
             }
             catch (Exception e) {}
