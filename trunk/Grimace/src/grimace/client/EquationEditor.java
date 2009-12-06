@@ -217,7 +217,7 @@ public class EquationEditor extends javax.swing.JDialog {
         
         try {
             TeXFormula viewer = new TeXFormula(equationInputBox.getText());
-            ServerHandler.sendMessagePostRequest(equation, parentFrame.getConId());
+            ProgramController.sendMessage(equation, parentFrame.getConId());
             this.dispose();
         }
         catch (JMathTeXException e){
