@@ -32,7 +32,7 @@ import java.sql.SQLException;
 import grimace.client.Account;
 
 /**
- *
+ * ServerController handles most of the server functionality of the program.
  *
  * @author Vineet Sharma
  */

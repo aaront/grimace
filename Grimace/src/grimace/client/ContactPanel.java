@@ -39,6 +39,9 @@ public class ContactPanel extends javax.swing.JPanel {
         ((ContactListBox)listBox).updateModel(ProgramController.getAccount().getContactList());
     }
 
+    /**
+     * Updates the ContactList in the contactListBox
+     */
     public void updateContactListView() {
         ((ContactListBox)listBox).updateModel(ProgramController.getAccount().getContactList());
     }

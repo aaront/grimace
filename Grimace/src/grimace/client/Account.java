@@ -32,12 +32,39 @@ import java.io.Serializable;
  */
 public class Account implements Serializable {
 
+    /**
+     * Default font used in the messageBox
+     */
     public static final String DEFAULT_FONT = "Times New Roman";
+
+    /**
+     * Default font size used in the messageBox
+     */
     public static final int DEFAULT_FONT_SIZE = 12;
+
+    /**
+     * Default font colour used in the messageBox
+     */
     public static final Color DEFAULT_FONT_COLOUR = Color.BLACK;
+
+    /**
+     * Available status
+     */
     public static final String STATUS_AVAILABLE = "Available";
+
+    /**
+     * Away status
+     */
     public static final String STATUS_AWAY = "Away";
+
+    /**
+     * Busy status
+     */
     public static final String STATUS_BUSY = "Busy";
+
+    /**
+     * Invisible status
+     */
     public static final String STATUS_INVISIBLE = "Invisible";
 
 

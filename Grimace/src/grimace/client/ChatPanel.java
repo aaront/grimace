@@ -42,7 +42,10 @@ public class ChatPanel extends javax.swing.JPanel {
         initComponents();
     }
 
-    /** Creates new form ChatPanel */
+    /**
+     * Creates new form ChatPanel with a conversation ID
+     * @param conversation the conversation associated with the panel
+     */
     public ChatPanel(ClientConversation conversation) {
         this();
         convo = conversation;
@@ -57,14 +60,27 @@ public class ChatPanel extends javax.swing.JPanel {
         convoElement = htmlDoc.getElement("WernickeChat");
     }
 
+    /**
+     * Gets the conversation title of the current conversation
+     * @return the title of the conversation
+     */
     public String getTitle() {
         return convo.getTitle();
     }
 
+    /**
+     * Gets the conversation ID of the current conversation
+     * @return the ID of the conversation
+     */
     public int getID() {
         return convo.getConId();
     }
 
+    /**
+     * Posts a message to the chatDisplayBox from the server
+     * @param message the message from the server
+     * @param userName the username of the current account
+     */
     public void postMessage(String message, String userName) {
         System.out.println("Received: " + userName + ": " + message);
         String dName = userName;

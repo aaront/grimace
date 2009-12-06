@@ -41,11 +41,18 @@ public class AddContactDialog extends javax.swing.JDialog {
         initComponents();
     }
 
-    /** @return the return status of this dialog - one of RET_OK or RET_CANCEL */
+    /**
+     * Gets the return status of this dialog - one of RET_OK or RET_CANCEL
+     * @return the return status
+     */
     public int getReturnStatus() {
         return returnStatus;
     }
 
+    /**
+     * Gets the contact's name
+     * @return the contact name
+     */
     public String getContactName() {
         return CONTACT_NAME;
     }

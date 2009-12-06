@@ -72,6 +72,11 @@ public class ContactList implements Serializable {
         list.remove(toRemove);
     }
 
+    /**
+     * Gets a contact from the contact list
+     * @param userName the username of the contact
+     * @return the contact from the contact list
+     */
     public Contact getContact(String userName) {
         for (Contact c : list) {
             if (c.getUserName().equals(userName)) {
@@ -81,10 +86,19 @@ public class ContactList implements Serializable {
         return null;
     }
 
+    /**
+     * Gets the contact at a specified index
+     * @param ind the index of the contact
+     * @return the contact at the spedified index
+     */
     public Contact getContact(int ind) {
         return list.get(ind);
     }
 
+    /**
+     * Gets the size of the contact list
+     * @return the number of elements in the contact list
+     */
     public int getSize() {
         return list.size();
     }

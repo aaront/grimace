@@ -71,6 +71,10 @@ public class Contact implements java.io.Serializable {
         return this.displayName;
     }
 
+    /**
+     * Returns the display name of the contact as a string
+     * @return the display name
+     */
     @Override
     public String toString() {
         return displayName;
