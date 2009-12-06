@@ -66,7 +66,7 @@ public class EquationEditor extends javax.swing.JDialog {
     public static File saveEquationImage(String equ) {
         Icon icon;
         try {
-            icon = (ImageIcon)getEquationIcon(equ);
+            icon = getEquationIcon(equ);
         }
         catch (Exception e) {
             e.printStackTrace();
