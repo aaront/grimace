@@ -80,10 +80,10 @@ public class EquationEditor extends javax.swing.JDialog {
         int i = 0;
         File imgFile;
         do {
-            imgFile = new File(ProgramSettings.TEMP_FOLDER + "/equ_img" + String.valueOf(i++) + ".jpg");
+            imgFile = new File(ProgramSettings.TEMP_FOLDER + "/equ_img" + String.valueOf(i++) + ".png");
         } while (imgFile.exists());
         try {
-            ImageIO.write(img, "jpg", imgFile);
+            ImageIO.write(img, "png", imgFile);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
