@@ -213,12 +213,11 @@ public class ProgramController {
     }
 
     public static void removeFromConversation(String userName, int conId) {
-        System.out.println(userName + " is leaving");
         ChatPanel panel = getChatPanel(conId);
         if (panel == null) { return; }
         panel.getClientConversation().removeFromList(userName);
         panel.postNotification(userName + " has left the conversation.");
-        System.out.println(userName + " is gone");
+        panel.getContactListBox().updateModel();
     }
 
     public static void addToConversation(Contact contact, int conId) {
@@ -226,6 +225,7 @@ public class ProgramController {
         if (panel == null) { return; }
         panel.getClientConversation().addToList(contact);
         panel.postNotification(contact.getUserName() + " has been added to the conversation.");
+        panel.getContactListBox().updateModel();
     }
 
     public static void sendDeleteContactRequest(String contactName) {
