@@ -40,6 +40,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 /**
  * EquationEditor can preview TeX code, and send it back into the messageBox
@@ -63,7 +64,7 @@ public class EquationEditor extends javax.swing.JDialog {
     }
 
     public static File saveEquationImage(String equ) {
-        ImageIcon icon;
+        Icon icon;
         try {
             icon = (ImageIcon)getEquationIcon(equ);
         }
@@ -72,11 +73,9 @@ public class EquationEditor extends javax.swing.JDialog {
             return null;
         }
 
-        Image img = icon.getImage();
-        BufferedImage bi = new BufferedImage(img.getWidth(null),img.getHeight(null), BufferedImage.TYPE_4BYTE_ABGR);
-        Graphics2D g2 = bi.createGraphics();
-        g2.drawImage(img, 0, 0, null);
-        g2.dispose();
+        JLabel jl = new JLabel();
+        BufferedImage img = new BufferedImage(icon.getIconWidth(), icon.getIconHeight(), BufferedImage.TYPE_INT_ARGB);
+        icon.paintIcon(jl, img.getGraphics(), 0, 0);
 
         int i = 0;
         File imgFile;
@@ -84,7 +83,7 @@ public class EquationEditor extends javax.swing.JDialog {
             imgFile = new File(ProgramSettings.TEMP_FOLDER + "/equ_img" + String.valueOf(i) + ".jpg");
         } while (imgFile.exists());
         try {
-            ImageIO.write(bi, "jpg", imgFile);
+            ImageIO.write(img, "jpg", imgFile);
         } catch (IOException e) {
             e.printStackTrace();
             return null;
