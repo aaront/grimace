@@ -338,11 +338,23 @@ public class ServerController {
         return true;
     }
 
-    public static void contactUpdateNotification(String userName) {
+    public static void contactUpdateNotification(String userName, int[] ids) {
         ContactList cList = DataHandler.loadContactList(userName);
         if (cList.getSize() > 0) {
             for (Contact c : cList.getList()) {
                 sendCommand(new Command(Command.UPDATE_CONTACT, userName), c.getUserName());
+            }
+        }
+        for (int i : ids) {
+            ServerConversation sc = null;
+            try { sc = getServerConversation(i); }
+            catch (Exception e) { e.printStackTrace(); }
+            if (sc == null) { return; }
+            String[] users = sc.getUsers();
+            for (String s : users) {
+                if (!s.equals(userName)) {
+                    sendCommand(new Command(Command.UPDATE_CONTACT, userName), s);
+                }
             }
         }
     }
@@ -483,8 +495,7 @@ public class ServerController {
             serverConvo = getServerConversation(conId);
         }
         catch (Exception e) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            e.printStackTrace();
             return;
         }
         if (serverConvo == null) {
@@ -523,8 +534,7 @@ public class ServerController {
             serverConvo = getServerConversation(conId);
         }
         catch (Exception e) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            e.printStackTrace();
             return;
         }
         if (serverConvo == null) {
@@ -557,8 +567,7 @@ public class ServerController {
             serverConvo = getServerConversation(conId);
         }
         catch (Exception e) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            e.printStackTrace();
             return;
         }
         if (serverConvo == null) {
@@ -589,12 +598,12 @@ public class ServerController {
      * @param userName      The user whose display name to update
      * @param displayName   The new display name
      */
-    public static void updateDisplayName(String userName, String displayName) {
+    public static void updateDisplayName(String userName, String displayName, int[] ids) {
         if (!DataHandler.updateDisplayName(userName, displayName)) {
             sendDisplayNotification("An error occurred while updating your display name.", userName);
             return;
         }
-        contactUpdateNotification(userName);
+        contactUpdateNotification(userName, ids);
     }
 
     /**
@@ -603,12 +612,12 @@ public class ServerController {
      * @param userName      The user whose display name to update
      * @param displayName   The new display name
      */
-    public static void updateStatus(String userName, String status) {
+    public static void updateStatus(String userName, String status, int[] ids) {
         if (!DataHandler.updateDisplayStatus(userName, status)) {
             sendDisplayNotification("An error occurred while updating your status.", userName);
             return;
         }
-        contactUpdateNotification(userName);
+        contactUpdateNotification(userName, ids);
     }
 
     /**
