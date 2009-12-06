@@ -246,6 +246,7 @@ public class ProgramController {
         }
         setAccountStatus(Account.STATUS_OFFLINE);
         ServerHandler.sendLogoutRequest();
+        accnt = null;
     }
 
     public static void openNewConvo(int conId, ContactList contacts) {
@@ -357,7 +358,10 @@ public class ProgramController {
         return window;
     }
 
-     public void windowClosed(WindowEvent e) { logout(); }
+     public void windowClosed(WindowEvent e) {
+         logout();
+         System.exit(0);
+     }
      public void windowClosing(WindowEvent e) {}
      public void windowDeactivated(WindowEvent e) {}
      public void windowDeiconified(WindowEvent e) {}

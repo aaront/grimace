@@ -174,7 +174,7 @@ public class DataHandler {
                        + userName + "\',\'"
                        + passHash + "\',\'"
                        + displayName + "\',\'"
-                       + Account.STATUS_INVISIBLE + "\',\'"
+                       + Account.STATUS_OFFLINE + "\',\'"
                        + Account.DEFAULT_FONT + "\',"
                        + String.valueOf(Account.DEFAULT_FONT_SIZE) + ","
                        + String.valueOf(Account.DEFAULT_FONT_COLOUR.getRGB())
@@ -196,12 +196,15 @@ public class DataHandler {
         try {
             Statement statement = connection.createStatement();
             StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
-            sql.append("displayName=\'" + displayName + "\',");
+            sql.append("displayName=\'" + displayName + "\'");
             sql.append(" WHERE username=\'" + userName + "\'");
             statement.executeUpdate(sql.toString());
             statement.close();
         }
-        catch (Exception e) { return false; }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
 	}
 
@@ -217,12 +220,15 @@ public class DataHandler {
         try {
             Statement statement = connection.createStatement();
             StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
-            sql.append("displayStatus=\'" + displayStatus + "\',");
+            sql.append("displayStatus=\'" + displayStatus + "\'");
             sql.append(" WHERE username=\'" + userName + "\'");
             statement.executeUpdate(sql.toString());
             statement.close();
         }
-        catch (Exception e) { return false; }
+        catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
         return true;
 	}
 
@@ -279,6 +285,7 @@ public class DataHandler {
             }
             Account acc = new Account(userName);
             acc.setDisplayName(result.getString("displayName"));
+            acc.setStatus(result.getString("displayStatus"));
             acc.changeFont(result.getString("fontName"));
             acc.changeSize(result.getInt("fontSize"));
             acc.setFontColour(new Color(result.getInt("fontColour")));
@@ -561,7 +568,9 @@ public class DataHandler {
             ResultSet result = statement.executeQuery(sql);
             while (result.next()) {
                 String cName = result.getString("contactName");
-                Contact c = new Contact(cName, getDisplayName(cName));
+                Contact c = new Contact(cName,
+                                        getDisplayName(cName),
+                                        getDisplayStatus(cName));
                 cList.addContact(c);
             }
             result.close();
