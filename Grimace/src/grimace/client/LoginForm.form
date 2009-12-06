@@ -125,6 +125,7 @@
     <Component class="javax.swing.JLabel" name="logoLabel">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
+        <Property name="verticalAlignment" type="int" value="3"/>
       </Properties>
     </Component>
   </SubComponents>
