@@ -74,18 +74,35 @@ public class ProgramController {
         });
     }
 
+    /**
+     * Sets the content in the left pane of the Program Window
+     * @param comp the component to display
+     */
     public static void setLeftPane(Component comp) {
         window.setLeftPane(comp);
     }
 
+    /**
+     * Sets the content in the right pane of the Program Window
+     * @param comp the component to display
+     */
     public static void setRightPane(Component comp) {
         window.setRightPane(comp);
     }
 
+    /**
+     * Displays an message prompt
+     * @param message The message to display.
+     */
     public static void showMessage(String message) {
         JOptionPane.showMessageDialog(window, message);
     }
 
+    /**
+     * A request dialog
+     * @param message the message to display in the dialog
+     * @return the result of the request
+     */
     public static int showRequestDialog(String message) {
         //Custom button text
         Object[] options = {"Accept",
@@ -102,6 +119,10 @@ public class ProgramController {
         return n;
     }
 
+    /**
+     * Gets the ContactListBox
+     * @return the contact list box
+     */
     public static ContactPanel getContactListBox() {
         return contactListBox;
     }
