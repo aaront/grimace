@@ -131,6 +131,14 @@ public class ChatBox extends javax.swing.JPanel {
     }
 
     /**
+     * Gets the instance of the chat display box scollpane
+     * @return the chat display box pane
+     */
+    public javax.swing.JScrollPane getChatDisplayBoxScrollPane() {
+        return chatDisplayBoxScroll;
+    }
+
+    /**
      * Gets the instance of the message box
      * @return the message box
      */
@@ -147,7 +155,7 @@ public class ChatBox extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
+        chatDisplayBoxScroll = new javax.swing.JScrollPane();
         chatDisplayBox = new javax.swing.JTextPane();
         toolbar = new javax.swing.JToolBar();
         bolden = new javax.swing.JToggleButton();
@@ -166,13 +174,14 @@ public class ChatBox extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(600, 170));
         setLayout(new javax.swing.BoxLayout(this, javax.swing.BoxLayout.PAGE_AXIS));
 
+        chatDisplayBoxScroll.setAutoscrolls(true);
+
         chatDisplayBox.setContentType("text/html");
         chatDisplayBox.setEditable(false);
         chatDisplayBox.setText("");
-        chatDisplayBox.setFocusable(false);
-        jScrollPane2.setViewportView(chatDisplayBox);
+        chatDisplayBoxScroll.setViewportView(chatDisplayBox);
 
-        add(jScrollPane2);
+        add(chatDisplayBoxScroll);
 
         toolbar.setBorder(null);
         toolbar.setFloatable(false);
@@ -182,7 +191,7 @@ public class ChatBox extends javax.swing.JPanel {
         toolbar.setMinimumSize(new java.awt.Dimension(500, 36));
         toolbar.setPreferredSize(new java.awt.Dimension(500, 36));
 
-        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14));
+        bolden.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         bolden.setText("<html><strong>B</strong>");
         bolden.setFocusable(false);
         bolden.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -197,7 +206,7 @@ public class ChatBox extends javax.swing.JPanel {
         });
         toolbar.add(bolden);
 
-        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14));
+        italicize.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         italicize.setText("<html><i>i</i>");
         italicize.setFocusable(false);
         italicize.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -385,10 +394,10 @@ public class ChatBox extends javax.swing.JPanel {
     private javax.swing.JButton btnAddFile;
     private javax.swing.JButton btnColour;
     private javax.swing.JTextPane chatDisplayBox;
+    private javax.swing.JScrollPane chatDisplayBoxScroll;
     private javax.swing.JComboBox fontSelector;
     private javax.swing.JToggleButton italicize;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JToolBar.Separator jSeparator1;
     private javax.swing.JToolBar.Separator jSeparator2;
     private javax.swing.JTextArea messageBox;
