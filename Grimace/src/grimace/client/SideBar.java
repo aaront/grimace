@@ -38,7 +38,7 @@ public class SideBar extends javax.swing.JPanel {
     }
 
     public ContactListBox getContactListBox() {
-        return contactListBox1;
+        return listBox;
     }
 
     /** This method is called from within the constructor to
@@ -50,41 +50,36 @@ public class SideBar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane2 = new javax.swing.JScrollPane();
-        contactListBox1 = new grimace.client.ContactListBox();
-        quickOptionsBox1 = new grimace.client.QuickOptionsBox();
         jScrollPane1 = new javax.swing.JScrollPane();
         listBox = new grimace.client.ContactListBox();
-
-        contactListBox1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane2.setViewportView(contactListBox1);
-
-        setLayout(new java.awt.BorderLayout());
-
-        quickOptionsBox1.setMaximumSize(new java.awt.Dimension(32767, 75));
-        quickOptionsBox1.setPreferredSize(new java.awt.Dimension(176, 75));
-        add(quickOptionsBox1, java.awt.BorderLayout.CENTER);
+        quickOptionsBox1 = new grimace.client.QuickOptionsBox();
 
         listBox.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        listBox.setMinimumSize(new java.awt.Dimension(39, 30000));
         jScrollPane1.setViewportView(listBox);
 
-        add(jScrollPane1, java.awt.BorderLayout.PAGE_START);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(quickOptionsBox1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 146, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(quickOptionsBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private grimace.client.ContactListBox contactListBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private grimace.client.ContactListBox listBox;
     private grimace.client.QuickOptionsBox quickOptionsBox1;
     // End of variables declaration//GEN-END:variables
