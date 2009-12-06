@@ -180,7 +180,7 @@ public final class ServerHandler {
      * @return  True if the login was successful, false otherwise.
      * @throws java.lang.Exception
      */
-	public static boolean sendLoginRequest(String userName, String password) {
+	public static boolean sendLoginRequest(String userName, String password, String status) {
         try {
             connect();
             sendCommand(Command.LOGIN,
@@ -196,6 +196,7 @@ public final class ServerHandler {
             else {
                 Account acc = (Account)in.readObject();
                 ProgramController.setAccount(acc);
+                ProgramController.setAccountStatus(status);
                 listen = new Thread(new Runnable() {
                                         public void run() {
                                             listen();

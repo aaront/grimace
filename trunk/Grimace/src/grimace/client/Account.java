@@ -67,6 +67,11 @@ public class Account implements Serializable {
      */
     public static final String STATUS_INVISIBLE = "Invisible";
 
+    /**
+     * Offline status
+     */
+    public static final String STATUS_OFFLINE = "Offline";
+
 
     private Font font;
     private Color fontColour;
