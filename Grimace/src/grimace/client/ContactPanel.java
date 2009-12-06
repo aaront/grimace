@@ -60,9 +60,9 @@ public class ContactPanel extends javax.swing.JPanel {
         addButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
-        optionsButton = new javax.swing.JButton();
+        btnNewChat = new javax.swing.JButton();
 
-        setMinimumSize(new java.awt.Dimension(250, 450));
+        setMinimumSize(new java.awt.Dimension(275, 450));
 
         jScrollPane1.setHorizontalScrollBar(null);
 
@@ -106,11 +106,11 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
-        optionsButton.setText("Options");
-        optionsButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        optionsButton.addActionListener(new java.awt.event.ActionListener() {
+        btnNewChat.setText("New Chat");
+        btnNewChat.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        btnNewChat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                optionsButtonActionPerformed(evt);
+                btnNewChatActionPerformed(evt);
             }
         });
 
@@ -123,8 +123,8 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 188, Short.MAX_VALUE)
-                .addComponent(optionsButton)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
+                .addComponent(btnNewChat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutButton)
                 .addContainerGap())
@@ -138,8 +138,8 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(logoutButton)
                     .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(optionsButton)
-                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnNewChat))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -171,18 +171,18 @@ public class ContactPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_listBoxMouseClicked
 
-    private void optionsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_optionsButtonActionPerformed
-        ProgramWindow.showOptionsTab();
-    }//GEN-LAST:event_optionsButtonActionPerformed
+    private void btnNewChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewChatActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnNewChatActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton btnNewChat;
     private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
     private javax.swing.JButton logoutButton;
-    private javax.swing.JButton optionsButton;
     // End of variables declaration//GEN-END:variables
 
 }
