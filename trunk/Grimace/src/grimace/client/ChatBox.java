@@ -277,6 +277,11 @@ public class ChatBox extends javax.swing.JPanel {
         btnAddFile.setMinimumSize(new java.awt.Dimension(0, 27));
         btnAddFile.setPreferredSize(new java.awt.Dimension(40, 27));
         btnAddFile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btnAddFile.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddFileActionPerformed(evt);
+            }
+        });
         toolbar.add(btnAddFile);
 
         add(toolbar);
@@ -422,6 +427,11 @@ public class ChatBox extends javax.swing.JPanel {
         EquationEditor ee = new EquationEditor(this, false);
         ee.setVisible(true);
     }//GEN-LAST:event_btnAddEquationActionPerformed
+
+    private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
+       // JFileChooser chooseFileToAdd = new JFileChooser();
+       // chooseFileToAdd.getSelectedFile();
+    }//GEN-LAST:event_btnAddFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton bolden;
