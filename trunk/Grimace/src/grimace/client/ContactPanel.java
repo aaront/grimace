@@ -75,6 +75,8 @@ public class ContactPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listBox);
 
         addButton.setText("+");
+        addButton.setMaximumSize(new java.awt.Dimension(25, 27));
+        addButton.setMinimumSize(new java.awt.Dimension(25, 27));
         addButton.setPreferredSize(new java.awt.Dimension(25, 27));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -90,6 +92,8 @@ public class ContactPanel extends javax.swing.JPanel {
         });
 
         deleteButton.setText("-");
+        deleteButton.setMaximumSize(new java.awt.Dimension(25, 27));
+        deleteButton.setMinimumSize(new java.awt.Dimension(25, 27));
         deleteButton.setPreferredSize(new java.awt.Dimension(25, 27));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
