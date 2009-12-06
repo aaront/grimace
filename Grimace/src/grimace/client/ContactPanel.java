@@ -75,9 +75,9 @@ public class ContactPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(listBox);
 
         addButton.setText("+");
-        addButton.setMaximumSize(new java.awt.Dimension(25, 27));
-        addButton.setMinimumSize(new java.awt.Dimension(25, 27));
-        addButton.setPreferredSize(new java.awt.Dimension(25, 27));
+        addButton.setMaximumSize(new java.awt.Dimension(40, 27));
+        addButton.setMinimumSize(new java.awt.Dimension(40, 27));
+        addButton.setPreferredSize(new java.awt.Dimension(40, 27));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -92,9 +92,9 @@ public class ContactPanel extends javax.swing.JPanel {
         });
 
         deleteButton.setText("-");
-        deleteButton.setMaximumSize(new java.awt.Dimension(25, 27));
-        deleteButton.setMinimumSize(new java.awt.Dimension(25, 27));
-        deleteButton.setPreferredSize(new java.awt.Dimension(25, 27));
+        deleteButton.setMaximumSize(new java.awt.Dimension(40, 27));
+        deleteButton.setMinimumSize(new java.awt.Dimension(40, 27));
+        deleteButton.setPreferredSize(new java.awt.Dimension(40, 27));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -117,12 +117,12 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 174, Short.MAX_VALUE)
                 .addComponent(optionsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
