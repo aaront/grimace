@@ -355,10 +355,12 @@ public class ChatBox extends javax.swing.JPanel {
                     currentFontColour.getGreen(),
                     currentFontColour.getBlue());
             
+            String sendString = messageBox.getText().replaceAll("\\<.*?\\>", "");
+
             String message = String.format("<span style='color: #%s; font: %dpx %s, sans-serif; font-weight: %s; font-style: %s;'>%s</span>",
                     hexColour, currentFont.getSize(),
                     '"' + currentFont.getFamily() + '"', fontWeight, fontStyle,
-                    messageBox.getText());
+                    sendString);
 
             try {
                 ServerHandler.sendMessagePostRequest(message, conId);
