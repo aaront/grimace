@@ -479,8 +479,7 @@ public class ServerController {
         conversations.put(new Integer(convo.getConId()), convo);
         for (String s : online) {
             sendCommand(new Command(Command.START_CONVERSATION,
-                    String.valueOf(convo.getConId()),
-                    userNames[0]), s);
+                                    String.valueOf(convo.getConId())), s);
         }
     }
 
@@ -583,6 +582,8 @@ public class ServerController {
         serverConvo.addUser(userName);
         if (serverConvo.getSize() > 0) {
             String[] users = serverConvo.getUsers();
+            sendCommand(new Command(Command.START_CONVERSATION,
+                                    String.valueOf(serverConvo.getConId())), userName);
             for (String s : users) {
                 sendCommand(new Command(Command.ADD_TO_CONVERSATION,
                             userName, String.valueOf(conId)), s);
