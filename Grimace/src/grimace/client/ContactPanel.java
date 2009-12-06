@@ -140,7 +140,7 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        ProgramController.sendLogoutRequest();
+        ProgramController.logout();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed

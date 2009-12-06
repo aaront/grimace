@@ -79,21 +79,25 @@ public class ProgramWindow extends javax.swing.JFrame {
         java.awt.Dimension min = new java.awt.Dimension();
         min.setSize(600, 420);
         tabs.setMinimumSize(min);
-        int i;
-        for (i = 0; i < chats.size(); i++) {
+        for (int i = 0; i < chats.size(); i++) {
             ChatPanel chat = chats.get(i);
             tabs.add(chat.getTitle(), chat);
         }
         ProgramController.setRightPane(tabs);
     }
 
-    public static void showOptionsTab() {
-        tabs.add("Settings", new OptionsForm());
+    public static void addTab(ChatPanel chat) {
+        tabs.add(chat);
     }
 
     public static void closeTab(Component comp) {
         tabs.remove(comp);
     }
+    
+    public static void showOptionsTab() {
+        tabs.add("Settings", new OptionsForm());
+    }
+
 
     /** This method is called from within the constructor to
      * initialize the form.
@@ -107,7 +111,7 @@ public class ProgramWindow extends javax.swing.JFrame {
         splitPane = new javax.swing.JSplitPane();
         loginForm1 = new grimace.client.LoginForm();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Wernicke");
 
         splitPane.setContinuousLayout(true);
