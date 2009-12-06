@@ -38,10 +38,8 @@ import grimace.client.Contact;
  */
 public class DataHandler {
     private static final String DB_DRIVER = "org.sqlite.JDBC";
-                                //"org.apache.derby.jdbc.EmbeddedDriver";
 	private static final String DB_NAME = "WernickeData/WernickeData.db";
-	private static final String CONNECTION_URL =
-                                "jdbc:sqlite:" + DB_NAME;
+	private static final String CONNECTION_URL = "jdbc:sqlite:" + DB_NAME;
 	private static Connection connection;
 
 
@@ -64,9 +62,9 @@ public class DataHandler {
             DataHandler.createTable("Accounts", false,
                                 "userName varchar(30) PRIMARY KEY",
                                 "password varchar(40)",
-                                "displayName varchar(100)",
+                                "displayName text",
                                 "displayStatus varchar(20)",
-                                "fontName varchar(100)",
+                                "fontName text",
                                 "fontSize int",
                                 "fontColour int",
                                 "fontItalic int",

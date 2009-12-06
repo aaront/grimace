@@ -371,12 +371,7 @@ public class ChatBox extends javax.swing.JPanel {
                     '"' + currentFont.getFamily() + '"', fontWeight, fontStyle,
                     sendString);
 
-            try {
-                ServerHandler.sendMessagePostRequest(message, conId);
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            ProgramController.sendMessage(message, conId);
             System.out.println(message);
 
             messageBox.setText("");

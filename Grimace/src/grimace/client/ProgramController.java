@@ -150,12 +150,52 @@ public class ProgramController {
         }
     }
 
+    public static void sendAddContactRequest(String contactName) {
+        try {
+            ServerHandler.sendAddContactRequest(contactName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendMessage(String message, int conId) {
+        try {
+            ServerHandler.sendMessagePostRequest(message, conId);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void postMessage(int conId, String message, String sender) {
+        getChatPanel(conId).postMessage(message, sender);
+    }
+
+    public static void sendDeleteContactRequest(String contactName) {
+        try {
+            ServerHandler.sendDeleteContactRequest(contactName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void sendLogoutRequest() {
+        ServerHandler.sendLogoutRequest();
+    }
+
     public static void openNewConvo(int conId, ContactList contacts) {
         ClientConversation convo = new ClientConversation(conId, contacts);
         ChatPanel panel = new ChatPanel(convo);
         convoList.add(convo);
         chatTabs.add(panel);
         ProgramWindow.updateChatTabs(chatTabs);
+    }
+
+    /**
+     * Updates the contact list for the current account.
+     */
+    public static void updateContactList() {
+        contactListBox.updateContactListView();
     }
 
     /**
@@ -179,6 +219,10 @@ public class ProgramController {
 
     public static String getDisplayName() {
         return accnt.getDisplayName();
+    }
+
+    public static String getAccountStatus() {
+        return accnt.getStatus();
     }
 
     /**
@@ -222,12 +266,6 @@ public class ProgramController {
         return accnt.getContactList();
     }
 
-    /**
-     * Updates the contact list for the current account.
-     */
-    public void updateContactList() {
-
-    }
 
     /**
      * Adds a contact to an existing conversation

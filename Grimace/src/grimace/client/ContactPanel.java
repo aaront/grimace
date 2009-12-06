@@ -74,7 +74,8 @@ public class ContactPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(listBox);
 
-        addButton.setText("Add");
+        addButton.setText("+");
+        addButton.setPreferredSize(new java.awt.Dimension(25, 27));
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -88,7 +89,8 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteButton.setText("Delete");
+        deleteButton.setText("-");
+        deleteButton.setPreferredSize(new java.awt.Dimension(25, 27));
         deleteButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 deleteButtonActionPerformed(evt);
@@ -108,15 +110,15 @@ public class ContactPanel extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(addButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
+                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addComponent(optionsButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton)
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 409, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,10 +126,10 @@ public class ContactPanel extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addButton)
                     .addComponent(logoutButton)
-                    .addComponent(deleteButton)
-                    .addComponent(optionsButton))
+                    .addComponent(optionsButton)
+                    .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -138,20 +140,13 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
-        ServerHandler.sendLogoutRequest();
+        ProgramController.sendLogoutRequest();
     }//GEN-LAST:event_logoutButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
         Object[] conList = listBox.getSelectedValues();
         for (Object con : conList) {
-            try {
-                ServerHandler.sendDeleteContactRequest(
-                                            ProgramController.getUserName(),
-                                            ((Contact)con).getUserName());
-            }
-            catch (Exception e) {
-                e.printStackTrace();
-            }
+            ProgramController.sendDeleteContactRequest(((Contact)con).getUserName());
         }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
@@ -159,12 +154,10 @@ public class ContactPanel extends javax.swing.JPanel {
         if (evt.getClickCount() == 2) {
             Object[] objects = listBox.getSelectedValues();
             Contact[] contacts = new Contact[objects.length];
-            int i;
-            for (i = 0; i < objects.length; i++) {
+            for (int i = 0; i < objects.length; i++) {
                 contacts[i] = (Contact) objects[i];
             }
             ProgramController.sendConvoRequest(contacts);
-            ProgramController.showMessage("Your conversation request was sent to the server.");
         }
     }//GEN-LAST:event_listBoxMouseClicked
 

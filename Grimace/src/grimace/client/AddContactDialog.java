@@ -152,12 +152,8 @@ public class AddContactDialog extends javax.swing.JDialog {
         CONTACT_NAME = contactField.getText();
         setVisible(false);
         if (retStatus == RET_OK) {
-            try {
-                ServerHandler.sendContactRequest(CONTACT_NAME);
-                System.out.println("Request sent to add contact: " + CONTACT_NAME);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            ProgramController.sendAddContactRequest(CONTACT_NAME);
+            System.out.println("Request sent to add contact: " + CONTACT_NAME);
         }
         dispose();
     }
