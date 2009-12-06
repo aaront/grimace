@@ -157,7 +157,7 @@ public class LoginForm extends javax.swing.JPanel {
             ProgramController.showMessage("Please enter a password.");
         } else {
             try {
-                if(ServerHandler.sendLoginRequest(user,pass)) {
+                if(ServerHandler.sendLoginRequest(user,pass,status)) {
                     System.out.println("LoginSuccess");
                     ProgramController.setContactListBox(new ContactPanel());
                 } else {
