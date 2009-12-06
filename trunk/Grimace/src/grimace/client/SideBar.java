@@ -114,7 +114,12 @@ public class SideBar extends javax.swing.JPanel {
     }//GEN-LAST:event_btnAddContactToChatActionPerformed
 
     private void btnNewChatWithContactsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewChatWithContactsActionPerformed
-        // TODO add your handling code here:
+        Object[] objects = listBox.getSelectedValues();
+        Contact[] contacts = new Contact[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            contacts[i] = (Contact) objects[i];
+        }
+        ProgramController.sendConvoRequest(contacts);
     }//GEN-LAST:event_btnNewChatWithContactsActionPerformed
 
 
