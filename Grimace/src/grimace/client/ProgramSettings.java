@@ -32,19 +32,15 @@ import java.io.*;
  */
 public class ProgramSettings implements Serializable {
     // @TODO: Store preferences in working directory
-    
-    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/WernickeData";
-    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
-    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
 
     //Preferences prefs;
-    String SETTINGS_FILE = System.getProperty("user.dir") + "/ProgramSettings.ser";
-    String serverAddress;
-    int serverPort;
-    Boolean showInTray;
-    Boolean showEmoticons;
-    Boolean recordChatLogs;
-    Boolean showEquationEditor;
+    private String SETTINGS_FILE = ProgramController.SETTINGS_FOLDER + "/ProgramSettings.ser";
+    private String serverAddress;
+    private int serverPort;
+    private Boolean showInTray;
+    private Boolean showEmoticons;
+    private Boolean recordChatLogs;
+    private Boolean showEquationEditor;
 
     public ProgramSettings() {
         loadSettings();
@@ -54,8 +50,8 @@ public class ProgramSettings implements Serializable {
         //prefs = Preferences.systemRoot().node(this.getClass().getName());
         File file = new File(SETTINGS_FILE);
         if (!file.exists()) {
-            setServerAddress("127.0.0.1");
-            setServerPort(4422);
+            setServerAddress(ServerHandler.DEF_SERVER_HOSTNAME);
+            setServerPort(ServerHandler.DEF_SERVER_PORT);
             setShowInTray(true);
             setShowEmoticons(true);
             setRecordChatLogs(false);

@@ -34,15 +34,7 @@ public class Contact implements java.io.Serializable {
 
     private String userName;
     private String displayName;
-
-    /**
-     * Creates an instance of Contact with an existing account
-     * @param account  The account associated with this Contact instance
-     */
-    public Contact(Account account) {
-        this.userName = account.getUserName();
-        this.displayName = account.getDisplayName();
-    }
+    private String status;
 
     /**
      * Creates an instance of Contact with the user name and display name of
@@ -56,11 +48,22 @@ public class Contact implements java.io.Serializable {
     }
 
     /**
+     * Creates an instance of Contact with the user name and display name of
+     * an existing account.
+     * @param userName  The user name associated with this Contact instance.
+     * @param dispName  The display name associated with this Contact instance.
+     */
+    public Contact(String userName, String dispName, String status) {
+        this(userName, dispName);
+        this.status = status;
+    }
+
+    /**
      * Accessor of the username of the contact
      * @return the username of the contact
      */
     public String getUserName() {
-        return this.userName;
+        return userName;
     }
 
     /**
@@ -68,7 +71,31 @@ public class Contact implements java.io.Serializable {
      * @return the display name of the contact
      */
     public String getDisplayName() {
-        return this.displayName;
+        return displayName;
+    }
+
+    /**
+     * Sets the displayName for this contact
+     * @param str The new display name for this contact
+     */
+    public void setDisplayName(String str) {
+        displayName = str;
+    }
+
+    /**
+     * Accessor of the display name of the contact
+     * @return the display name of the contact
+     */
+    public String getStatus() {
+        return status;
+    }
+
+    /**
+     * Sets the status for this contact
+     * @param str The new status for this contact
+     */
+    public void setStatus(String str) {
+        status = str;
     }
 
     /**
@@ -77,6 +104,6 @@ public class Contact implements java.io.Serializable {
      */
     @Override
     public String toString() {
-        return displayName;
+        return displayName + ": " + status;
     }
 }

@@ -30,6 +30,8 @@ import java.util.Hashtable;
 import java.util.ArrayList;
 import java.sql.SQLException;
 import grimace.client.Account;
+import grimace.client.Contact;
+import grimace.client.ContactList;
 
 /**
  * ServerController handles most of the server functionality of the program.
@@ -325,6 +327,27 @@ public class ServerController {
     }
 
     /**
+     * Places a Command on a Command queue to send to a client
+     * @param cmd   The command to send.
+     */
+    public static boolean sendDisplayNotification(String message, String userName) {
+        if (!checkAccountLoginStatus(userName)) {
+            return false;
+        }
+        getClientHandler(userName).placeCommand(new Command(Command.DISPLAY_NOTIFICATION, message));
+        return true;
+    }
+
+    public static void contactUpdateNotification(String userName) {
+        ContactList cList = DataHandler.loadContactList(userName);
+        if (cList.getSize() > 0) {
+            for (Contact c : cList.getList()) {
+                sendCommand(new Command(Command.UPDATE_CONTACT, userName), c.getUserName());
+            }
+        }
+    }
+
+    /**
      * Places a request for a contact to be added.
      *
      * @param userName  The name of the user requesting the addition.
@@ -333,8 +356,7 @@ public class ServerController {
 	public static void placeContactRequest(String userName,
                                             String contactName) {
         if (!DataHandler.accountExists(contactName)) {
-            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
-                "The requested account does not exist."), userName);
+            sendDisplayNotification("The requested account does not exist.", userName);
             return;
         }
         try {
@@ -342,9 +364,9 @@ public class ServerController {
             DataHandler.printContactRequests();
         }
         catch (Exception e) {
-            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
-                "An error occurred while placing your contact request for contact: "
-                + contactName), userName);
+            sendDisplayNotification(
+                    "An error occurred while placing your contact request for contact: " + contactName,
+                    userName);
             return;
         }
         sendCommand(new Command(Command.CONTACT_REQUEST, userName), contactName);
@@ -374,10 +396,10 @@ public class ServerController {
                 DataHandler.printContactRequests();
             }
             catch (Exception e) {
-                sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
+                sendDisplayNotification(
                         "Your request to add " + contactName
                         + " to your contact list was accepted,\n"
-                        + "but an error occured while updating your contact list."),
+                        + "but an error occured while updating your contact list.",
                         userName);
             }
         }
@@ -414,8 +436,8 @@ public class ServerController {
             sendCommand(new Command(Command.UPDATE_CONTACT_LIST), userName);
         }
         catch (Exception e) {
-            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
-                "An error occurred while deleting contact: " + contactName), userName);
+            sendDisplayNotification(
+                "An error occurred while deleting contact: " + contactName, userName);
         }
     }
 
@@ -436,8 +458,8 @@ public class ServerController {
             return;
         }
         if (online.size() < 2) {
-            sendCommand(new Command(Command.DISPLAY_NOTIFICATION,
-                        "Unable to start a conversation: not enough users online."), userNames[0]);
+            sendDisplayNotification(
+                        "Unable to start a conversation: not enough users online.", userNames[0]);
             return;
         }
         ServerConversation convo = new ServerConversation(conversationCount++, online);
@@ -456,7 +478,21 @@ public class ServerController {
      * @param message The message to send.
      */
     public static void sendMessage(int conId, String message, String userName) {
-        String[] users = getServerConversation(conId).getUsers();
+        ServerConversation serverConvo;
+        try {
+            serverConvo = getServerConversation(conId);
+        }
+        catch (Exception e) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        if (serverConvo == null) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        String[] users = serverConvo.getUsers();
         for (String s : users) {
             System.out.println("Sending message from " + userName + " to " + s);
             sendCommand(new Command(Command.SEND_MESSAGE, userName, message, String.valueOf(conId)), s);
@@ -482,25 +518,116 @@ public class ServerController {
      * @param conId An integer identifying the target conversation.
      */
     public static void removeFromConversation(String userName, int conId) {
-
+        ServerConversation serverConvo;
+        try {
+            serverConvo = getServerConversation(conId);
+        }
+        catch (Exception e) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        if (serverConvo == null) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        serverConvo.removeUser(userName);
+        if (serverConvo.getSize() > 0) {
+            String[] users = serverConvo.getUsers();
+            for (String s : users) {
+                sendCommand(new Command(Command.REMOVE_FROM_CONVERSATION,
+                            userName, String.valueOf(conId)), s);
+            }
+        }
+        else {
+            closeConversation(conId);
+        }
     }
 
     /**
-     * 
-     * @param userNames
-     * @param conId
-     */
-    public static void addToConversation(String[] userNames, int conId) {
-
-    }
-
-    /**
-     * Updates the information in an account.
+     * Adds a user to an existing converation.
      *
-     * @param acc  The Account to update.
+     * @param userName  The name of the user to add.
+     * @param conId     The id of the conversation to add the user to.
      */
-    public static void updateAccount(Account acc) {
+    public static void addToConversation(String userName, int conId, String sender) {
+        ServerConversation serverConvo;
+        try {
+            serverConvo = getServerConversation(conId);
+        }
+        catch (Exception e) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        if (serverConvo == null) {
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
+                                    + "Why isn\'t yours?", userName);
+            return;
+        }
+        if (!checkAccountLoginStatus(userName)) {
+            sendDisplayNotification("The user " + userName + " is not online.", sender);
+            return;
+        }
+        serverConvo.addUser(userName);
+        if (serverConvo.getSize() > 0) {
+            String[] users = serverConvo.getUsers();
+            for (String s : users) {
+                sendCommand(new Command(Command.ADD_TO_CONVERSATION,
+                            userName, String.valueOf(conId)), s);
+            }
+        }
+        else {
+            closeConversation(conId);
+        }
+    }
 
+    /**
+     * Updates the display name for a user.
+     *
+     * @param userName      The user whose display name to update
+     * @param displayName   The new display name
+     */
+    public static void updateDisplayName(String userName, String displayName) {
+        if (!DataHandler.updateDisplayName(userName, displayName)) {
+            sendDisplayNotification("An error occurred while updating your display name.", userName);
+            return;
+        }
+        contactUpdateNotification(userName);
+    }
+
+    /**
+     * Updates the display name for a user.
+     *
+     * @param userName      The user whose display name to update
+     * @param displayName   The new display name
+     */
+    public static void updateStatus(String userName, String status) {
+        if (!DataHandler.updateDisplayStatus(userName, status)) {
+            sendDisplayNotification("An error occurred while updating your status.", userName);
+            return;
+        }
+        contactUpdateNotification(userName);
+    }
+
+    /**
+     * Updates the display name for a user.
+     *
+     * @param userName      The user whose display name to update
+     * @param displayName   The new display name
+     */
+    public static void updateFont(String userName,
+                                String fontName,
+                                String fontSize,
+                                String fontColour,
+                                boolean fontBold,
+                                boolean fontItalic) {
+        if (!DataHandler.updateFont(userName, fontName, fontSize,
+                                    fontColour, fontBold, fontItalic)) {
+            sendDisplayNotification("An error occurred while"
+                                    + "updating your font.", userName);
+        }
     }
 
     /**
@@ -509,6 +636,6 @@ public class ServerController {
      * @param conId An integer identifying the conversation to close.
      */
     public static void closeConversation(int conId) {
-
+        conversations.remove(new Integer(conId));
     }
 }

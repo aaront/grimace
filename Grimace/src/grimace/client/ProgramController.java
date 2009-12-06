@@ -42,6 +42,10 @@ import org.xml.sax.InputSource;
  * ProgramController handles most of the client functionality of the program.
  */
 public class ProgramController {
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/WernickeData";
+    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
+    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
+
     private static Account accnt;
     //private static ArrayList<ClientConversation> convoList;
     private static ArrayList<ChatPanel> chatTabs;
@@ -126,6 +130,14 @@ public class ProgramController {
         return contactListBox;
     }
 
+    /**
+     * Retrieves a contact list from the server associated with the current
+     * account.
+     */
+    public static ContactList getContactList() {
+        return accnt.getContactList();
+    }
+
     public static ChatPanel getChatPanel(int conId) {
         for (ChatPanel c : chatTabs) {
             if (c.getID() == conId) {
@@ -179,10 +191,48 @@ public class ProgramController {
         getChatPanel(conId).postMessage(message, sender);
     }
 
+    public static void postNotification(int conId, String message) {
+        getChatPanel(conId).postNotification(message);
+    }
+
+    public static void removeFromConversation(String userName, int conId) {
+        ChatPanel panel = getChatPanel(conId);
+        if (panel == null) { return; }
+        panel.getClientConversation().removeFromList(userName);
+        postNotification(conId, userName + " has left the conversation.");
+    }
+
+    public static void addToConversation(Contact contact, int conId) {
+        ChatPanel panel = getChatPanel(conId);
+        if (panel == null) { return; }
+        panel.getClientConversation().addToList(contact);
+        postNotification(conId, contact.getUserName() + " has been added to the conversation.");
+    }
+
     public static void sendDeleteContactRequest(String contactName) {
         try {
             ServerHandler.sendDeleteContactRequest(contactName);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setDisplayName(String displayName) {
+        accnt.setDisplayName(displayName);
+        try {
+            ServerHandler.sendDisplayNameUpdateRequest();
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void setAccountStatus(String status) {
+        accnt.setStatus(status);
+        try {
+            ServerHandler.sendStatusUpdateRequest();
+        }
+        catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -207,6 +257,7 @@ public class ProgramController {
 
     public static void closeConvo(int conId) {
         ChatPanel panel = getChatPanel(conId);
+        if (panel == null) { return; }
         ProgramWindow.closeTab(panel);
         chatTabs.remove(panel);
         try {
@@ -252,38 +303,12 @@ public class ProgramController {
     }
 
     /**
-     * Sends a new registration form to the ServerHandler
-     * @param newaccount the account to be registered with the server
-     */
-    public void makeRegistration(Account newaccount) {
-
-    }
-
-    /**
      * Retrieves a chat log
      * @param conversation the conversation that occurred
      */
     public void getChatLog(ClientConversation conversation, String fileName, int conId)
                                     throws FileNotFoundException, IOException {
         //convo.openLog(fileName);
-    }
-
-    /**
-     * Retrieves a contact list from the server associated with the current
-     * account.
-     */
-    public ContactList getContactList() {
-        return accnt.getContactList();
-    }
-
-
-    /**
-     * Adds a contact to an existing conversation
-     * @param userName the contact to add to the conversation
-     * @param conversation the conversation that receives the contact
-     */
-    public void addContactToConversation(Contact userName, ClientConversation conversation) {
-        conversation.addToList(userName);
     }
 
     // @TODO: Are we going to be leaving out "setFontProperties?????"
@@ -331,10 +356,8 @@ public class ProgramController {
         return window;
     }
 
-     public void windowClosed(WindowEvent e) {}
-     public void windowClosing(WindowEvent e) {
-         logout();
-     }
+     public void windowClosed(WindowEvent e) { logout(); }
+     public void windowClosing(WindowEvent e) {}
      public void windowDeactivated(WindowEvent e) {}
      public void windowDeiconified(WindowEvent e) {}
      public void windowIconified(WindowEvent e) {}

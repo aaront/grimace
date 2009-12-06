@@ -116,6 +116,38 @@ public class ClientHandler {
                                                 fromClient.getCommandArg(1),
                                                 fromClient.getCommandArg(0));
                 }
+                if (fromClient.getCommandName().equals(Command.UPDATE_DISPLAY_NAME)) {
+                    ServerController.updateDisplayName(fromClient.getCommandArg(0),
+                                                        fromClient.getCommandArg(1));
+                }
+                if (fromClient.getCommandName().equals(Command.UPDATE_STATUS)) {
+                    ServerController.updateStatus(fromClient.getCommandArg(0),
+                                                        fromClient.getCommandArg(1));
+                }
+                if (fromClient.getCommandName().equals(Command.UPDATE_FONT)) {
+                    ServerController.updateFont(fromClient.getCommandArg(0),
+                            fromClient.getCommandArg(1),
+                            fromClient.getCommandArg(2),
+                            fromClient.getCommandArg(3),
+                            Boolean.valueOf(fromClient.getCommandArg(4)).booleanValue(),
+                            Boolean.valueOf(fromClient.getCommandArg(5)).booleanValue());
+                }
+                if (fromClient.getCommandName().equals(Command.REMOVE_FROM_CONVERSATION)) {
+                    int conId = Integer.valueOf(toClient.getCommandArg(1)).intValue();
+                    ServerController.removeFromConversation(fromClient.getCommandArg(0), conId);
+                }
+                if (fromClient.getCommandName().equals(Command.ADD_TO_CONVERSATION)) {
+                    int conId = Integer.valueOf(toClient.getCommandArg(1)).intValue();
+                    ServerController.addToConversation(fromClient.getCommandArg(0),
+                                                        conId,
+                                                        fromClient.getCommandArg(2));
+                }
+                if (fromClient.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
+
+                }
+                if (fromClient.getCommandName().equals(Command.FILE_TRANSFER_RESPONSE)) {
+
+                }
             }
             catch (EOFException e) {}
             catch (Exception e) {}
@@ -145,6 +177,20 @@ public class ClientHandler {
                             conList.addContact(new Contact(s, DataHandler.getDisplayName(s)));
                         }
                         out.writeObject(conList);
+                    }
+                    if (toClient.getCommandName().equals(Command.UPDATE_CONTACT)) {
+                        String user = toClient.getCommandArg(0);
+                        Contact con = new Contact(user,
+                                                DataHandler.getDisplayName(user),
+                                                DataHandler.getDisplayStatus(user));
+                        out.writeObject(con);
+                    }
+                    if (toClient.getCommandName().equals(Command.ADD_TO_CONVERSATION)) {
+                        String user = toClient.getCommandArg(0);
+                        Contact con = new Contact(user,
+                                                DataHandler.getDisplayName(user),
+                                                DataHandler.getDisplayStatus(user));
+                        out.writeObject(con);
                     }
                     commandQueue.remove(0);
                 }

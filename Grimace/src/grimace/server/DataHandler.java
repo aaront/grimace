@@ -185,28 +185,75 @@ public class DataHandler {
     }
 
     /**
-     * Updates the database with the information in the given account.
+     * Updates the database with the display name for the given user.
      *
-     * @param acc   The account to save.
+     * @param userName      The user whose display name to update.
+     * @param displayName   The new displayName.
      */
-	public static synchronized boolean saveAccount(Account acc) {
-        if (!accountExists(acc.getUserName())) { return false; }
+	public static synchronized boolean updateDisplayName(String userName,
+                                                        String displayName) {
+        if (!accountExists(userName)) { return false; }
         try {
             Statement statement = connection.createStatement();
             StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
-            sql.append("displayName=\'" + acc.getDisplayName() + "\',");
-            sql.append("fontName=\'" + acc.getFont().getFontName() + "\',");
-            sql.append("fontSize="
-                    + String.valueOf(acc.getFont().getSize()) + ",");
-            sql.append("fontColour="
-                    + String.valueOf(acc.getFontColour().getRGB()) + ",");
-            sql.append("fontItalic="
-                    + (acc.getFont().isItalic() ? "1" : "0") + ",");
-            sql.append("fontBold=" + (acc.getFont().isBold() ? "1" : "0"));
-            sql.append(" WHERE username=\'" + acc.getUserName() + "\'");
+            sql.append("displayName=\'" + displayName + "\',");
+            sql.append(" WHERE username=\'" + userName + "\'");
             statement.executeUpdate(sql.toString());
             statement.close();
-            saveContactList(acc.getUserName(), acc.getContactList());
+        }
+        catch (Exception e) { return false; }
+        return true;
+	}
+
+    /**
+     * Updates the database with the status for the given user.
+     *
+     * @param userName      The user whose status to update.
+     * @param displayName   The new status.
+     */
+	public static synchronized boolean updateDisplayStatus(String userName,
+                                                        String displayStatus) {
+        if (!accountExists(userName)) { return false; }
+        try {
+            Statement statement = connection.createStatement();
+            StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
+            sql.append("displayStatus=\'" + displayStatus + "\',");
+            sql.append(" WHERE username=\'" + userName + "\'");
+            statement.executeUpdate(sql.toString());
+            statement.close();
+        }
+        catch (Exception e) { return false; }
+        return true;
+	}
+
+    /**
+     * Updates the database with the font in the given account.
+     *
+     * @param userName      The user whose font to save.
+     * @param fontName      The name of the font.
+     * @param fontSize      The size of the font.
+     * @param fontColour    The colour of the font.
+     * @param fontItalic    True if the font is italic.
+     * @param fontBold      True if the font is bold.
+     */
+	public static synchronized boolean updateFont(String userName,
+                                                    String fontName,
+                                                    String fontSize,
+                                                    String fontColour,
+                                                    boolean fontItalic,
+                                                    boolean fontBold) {
+        if (!accountExists(userName)) { return false; }
+        try {
+            Statement statement = connection.createStatement();
+            StringBuffer sql = new StringBuffer("UPDATE Accounts SET ");
+            sql.append("fontName=\'" + fontName + "\',");
+            sql.append("fontSize=" + fontSize + ",");
+            sql.append("fontColour=" + fontColour + ",");
+            sql.append("fontItalic=" + (fontItalic ? "1" : "0") + ",");
+            sql.append("fontBold=" + (fontBold ? "1" : "0"));
+            sql.append(" WHERE username=\'" + userName + "\'");
+            statement.executeUpdate(sql.toString());
+            statement.close();
         }
         catch (Exception e) { return false; }
         return true;
@@ -303,6 +350,32 @@ public class DataHandler {
                 return "";
             }
             String dname = result.getString("displayName");
+            result.close();
+            statement.close();
+            return dname;
+        }
+        catch (Exception e) { return ""; }
+    }
+
+    /**
+     * Returns the status associated with the account with the given userName.
+     *
+     * @param userName  The userName of the account whose display status is
+     *                  required.
+     * @return  The display status of the Account with the given userName, or an
+     *          empty string if that Account does not exist.
+     */
+    public static synchronized String getDisplayStatus(String userName) {
+        try {
+            Statement statement = connection.createStatement();
+            String sql = "SELECT displayStatus FROM Accounts WHERE userName=\'"
+                        + userName +"\'";
+            ResultSet result = statement.executeQuery(sql);
+            if (!result.next()) {
+                result.close();
+                return "";
+            }
+            String dname = result.getString("displayStatus");
             result.close();
             statement.close();
             return dname;
@@ -471,34 +544,6 @@ public class DataHandler {
         catch (Exception e) { return false; }
         return true;
     }
-
-    /**
-     * Saves a ContactList by inserting any Contacts that do not already exist
-     * and deleting any Contacts that are not found in the given list.
-     *
-     * @param userName The userName of the Account that holds the list.
-     * @param list  The ContactList to save.
-     */
-    public static synchronized void saveContactList(String userName,
-                                                    ContactList list) {
-        if (!accountExists(userName)) { return; }
-        ArrayList<Contact> contacts = list.getList();
-        for (Contact c : contacts) {
-            try {
-                addContact(userName, c.getUserName());
-            }
-            catch (Exception e) {}
-        }
-        ArrayList<Contact> compList = loadContactList(userName).getList();
-        for (Contact c : compList) {
-            try {
-                if (!contacts.contains(c)) {
-                    deleteContact(userName,c.getUserName());
-                }
-            }
-            catch (Exception e) {}
-        }
-	}
 
     /**
      * Returns the ContactList for an account.
