@@ -43,7 +43,7 @@ public class ServerController {
     public static final String DATA_FOLDER = System.getProperty("user.dir") + File.pathSeparator + "WernickeData";
     public static final String TEMP_FOLDER = DATA_FOLDER + File.pathSeparator + "temp";
 
-    private static final int LISTENING_PORT = 1234;
+    private static final int LISTENING_PORT = 6373;
     private static Hashtable<String,ClientHandler> connections;
     private static Hashtable<Integer,ServerConversation> conversations;
     private static int conversationCount;
