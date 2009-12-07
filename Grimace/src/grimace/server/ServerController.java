@@ -326,6 +326,7 @@ public class ServerController {
         if (!checkAccountLoginStatus(userName)) {
             return false;
         }
+        System.out.println("Command to user " + userName + ": " + cmd.toString());
         getClientHandler(userName).placeCommand(cmd);
         return true;
     }
@@ -521,22 +522,22 @@ public class ServerController {
      * @param file  The name of the file.
      */
     public static void placeFileTransferRequest(String userName,
-                                                String contactName,
-                                                String file) {
+                                                String file,
+                                                String contactName) {
         sendCommand(new Command(Command.FILE_TRANSFER_REQUEST,
-                        userName, contactName, file), contactName);
+                        userName, file, contactName), contactName);
     }
 
 	public static void confirmFileTransferRequest(String userName,
-                                                String contactName,
                                                 String fileName,
+                                                String contactName,
                                                 boolean confirm) {
         if (!DataHandler.accountExists(userName)) {
             return;
         }
         if (confirm) {
             sendCommand(new Command(Command.FILE_TRANSFER_RESPONSE,
-                        userName, contactName, fileName, Command.ACCEPT),
+                        userName, fileName, contactName, Command.ACCEPT),
                         userName);
         }
         else {
@@ -548,8 +549,8 @@ public class ServerController {
 	}
 
     public static void transferFile(String userName,
-                                    String contactName,
                                     String fileName,
+                                    String contactName,
                                     FileData fileData) {
         if (!DataHandler.accountExists(contactName)) {
             return;

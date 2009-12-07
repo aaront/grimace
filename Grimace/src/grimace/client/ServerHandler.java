@@ -282,7 +282,7 @@ public final class ServerHandler {
                 }
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
                     String sender = fromServer.getCommandArg(0);
-                    String filePath = fromServer.getCommandArg(2);
+                    String filePath = fromServer.getCommandArg(1);
                     String file = new File(filePath).getName();
                     //default icon, custom title
                     int resp = javax.swing.JOptionPane.showConfirmDialog(ProgramController.getWindow(),
@@ -295,29 +295,29 @@ public final class ServerHandler {
                     switch (resp) {
                         case javax.swing.JOptionPane.YES_OPTION:
                             sendFileTransferResponse(sender,
-                                                    ProgramController.getUserName(),
                                                     filePath,
+                                                    ProgramController.getUserName(),
                                                     Command.ACCEPT);
                             break;
                         case javax.swing.JOptionPane.NO_OPTION:
                             sendFileTransferResponse(sender,
-                                                    ProgramController.getUserName(),
                                                     filePath,
+                                                    ProgramController.getUserName(),
                                                     Command.REJECT);
                             break;
                     }
                 }
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_RESPONSE)) {
-                    String contact = fromServer.getCommandArg(1);
-                    String fileName = fromServer.getCommandArg(2);
+                    String fileName = fromServer.getCommandArg(1);
+                    String contact = fromServer.getCommandArg(2);
                     String confirm = fromServer.getCommandArg(3);
                     if (confirm.equals(Command.ACCEPT)) {
                         File file = new File(fileName);
                         if (file.exists()) {
                             sendCommand(Command.TRANSFER_FILE,
                                     ProgramController.getUserName(),
-                                    contact,
-                                    fileName);
+                                    fileName,
+                                    contact);
                             try {
                                 FileData fileData = new FileData(new File(fileName));
                                 out.writeObject(fileData);
@@ -344,7 +344,7 @@ public final class ServerHandler {
                 }
                 if (fromServer.getCommandName().equals(Command.TRANSFER_FILE)) {
                     String userName = fromServer.getCommandArg(0);
-                    String fileName = fromServer.getCommandArg(2);
+                    String fileName = fromServer.getCommandArg(1);
                     String fname = new File(fileName).getName();
                     try {
                         FileData fileData = (FileData)in.readObject();
@@ -502,8 +502,8 @@ public final class ServerHandler {
      * @throws java.lang.Exception
      */
     public static void sendFileTransferResponse(String userName,
-                                                String contactName,
                                                 String fileName,
+                                                String contactName,
                                                 String response)
                                                 throws Exception {
         sendCommand(Command.FILE_TRANSFER_RESPONSE, userName,

@@ -160,22 +160,22 @@ public class ClientHandler {
                     String userName = fromClient.getCommandArg(0);
                     String fileName = fromClient.getCommandArg(1);
                     String conName = fromClient.getCommandArg(2);
-                    ServerController.placeFileTransferRequest(userName, conName, fileName);
+                    ServerController.placeFileTransferRequest(userName, fileName, conName);
                 }
                 if (fromClient.getCommandName().equals(Command.FILE_TRANSFER_RESPONSE)) {
                     String userName = fromClient.getCommandArg(0);
                     String fileName = fromClient.getCommandArg(1);
                     String conName = fromClient.getCommandArg(2);
                     boolean confirm = fromClient.getCommandArg(3).equals(Command.ACCEPT);
-                    ServerController.confirmFileTransferRequest(userName, conName, fileName, confirm);
+                    ServerController.confirmFileTransferRequest(userName, fileName, conName, confirm);
                 }
                 if (fromClient.getCommandName().equals(Command.TRANSFER_FILE)) {
                     String userName = fromClient.getCommandArg(0);
-                    String conName = fromClient.getCommandArg(1);
-                    String fileName = fromClient.getCommandArg(2);
+                    String fileName = fromClient.getCommandArg(1);
+                    String conName = fromClient.getCommandArg(2);
                     try {
                         FileData fileData = (FileData)in.readObject();
-                        ServerController.transferFile(userName, conName, fileName, fileData);
+                        ServerController.transferFile(userName, fileName, conName, fileData);
                     }
                     catch (Exception e) {
                         e.printStackTrace();
