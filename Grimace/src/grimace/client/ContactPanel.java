@@ -172,7 +172,12 @@ public class ContactPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_listBoxMouseClicked
 
     private void btnNewChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewChatActionPerformed
-        // TODO add your handling code here:
+        Object[] objects = listBox.getSelectedValues();
+        Contact[] contacts = new Contact[objects.length];
+        for (int i = 0; i < objects.length; i++) {
+            contacts[i] = (Contact) objects[i];
+        }
+        ProgramController.sendConvoRequest(contacts);
     }//GEN-LAST:event_btnNewChatActionPerformed
 
 
