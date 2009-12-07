@@ -283,23 +283,26 @@ public final class ServerHandler {
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
                     String sender = fromServer.getCommandArg(0);
                     String file = fromServer.getCommandArg(1);
-                    int resp = ProgramController.showRequestDialog("You have a file transfer request from "
+                    //default icon, custom title
+                    int resp = javax.swing.JOptionPane.showConfirmDialog(ProgramController.getWindow(),
+                            "You have a file transfer request from "
                             + sender + ".\n" + sender + " wants to send you the file " + file + ".\n"
-                            + "What do you want to do?\n");
+                            + "Accept transfer?\n",
+                            "File Transfer Request",
+                            javax.swing.JOptionPane.YES_NO_OPTION);
+
                     switch (resp) {
-                        case 0:
+                        case javax.swing.JOptionPane.YES_OPTION:
                             sendFileTransferResponse(sender,
                                                     ProgramController.getUserName(),
                                                     file,
                                                     Command.ACCEPT);
                             break;
-                        case 1:
+                        case javax.swing.JOptionPane.NO_OPTION:
                             sendFileTransferResponse(sender,
                                                     ProgramController.getUserName(),
                                                     file,
                                                     Command.REJECT);
-                            break;
-                        case 2:
                             break;
                     }
                 }
@@ -457,11 +460,8 @@ public final class ServerHandler {
                                                 String fileName,
                                                 String response)
                                                 throws Exception {
-        sendCommand(Command.FILE_TRANSFER_RESPONSE,
-                    userName,
-                    contactName,
-                    fileName,
-                    String.valueOf(response));
+        sendCommand(Command.FILE_TRANSFER_RESPONSE, userName,
+                        fileName, contactName, response);
     }
 
     /**
