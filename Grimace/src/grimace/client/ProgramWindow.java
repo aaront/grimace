@@ -88,6 +88,7 @@ public class ProgramWindow extends javax.swing.JFrame {
 
     public static void addChatTab(ChatPanel chat) {
         tabs.add(chat.getTitle(), chat);
+        tabs.setSelectedComponent(chat);
     }
 
     public static void closeTab(Component comp) {
@@ -95,7 +96,9 @@ public class ProgramWindow extends javax.swing.JFrame {
     }
     
     public static void showOptionsTab() {
-        tabs.add("Settings", new OptionsForm());
+        OptionsForm opt = new OptionsForm();
+        tabs.add("Settings", opt);
+        tabs.setSelectedComponent(opt);
     }
 
 
