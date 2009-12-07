@@ -24,6 +24,9 @@
 
 package grimace.client;
 
+import grimace.common.ContactList;
+import grimace.common.Contact;
+
 /**
  * SideBar is an element that is displayed in ChatPanel, and itself displays
  * QuickOptionsBox and the Conversation-specific ContactList.

@@ -24,6 +24,7 @@
 
 package grimace.client;
 
+import grimace.common.Contact;
 import java.util.ArrayList;
 import javax.swing.JTextPane;
 import javax.swing.text.*;

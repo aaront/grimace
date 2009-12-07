@@ -24,15 +24,16 @@
 
 package grimace.server;
 
+import grimace.common.Command;
 import java.net.*;
 import java.io.*;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.sql.SQLException;
-import grimace.client.Account;
-import grimace.client.Contact;
-import grimace.client.ContactList;
-import grimace.client.FileData;
+import grimace.common.Account;
+import grimace.common.Contact;
+import grimace.common.ContactList;
+import grimace.common.FileData;
 
 /**
  * ServerController handles most of the server functionality of the program.

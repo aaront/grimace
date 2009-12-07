@@ -24,12 +24,13 @@
 
 package grimace.server;
 
+import grimace.common.Command;
 import java.sql.*;
 import java.util.ArrayList;
 import java.awt.Color;
-import grimace.client.Account;
-import grimace.client.ContactList;
-import grimace.client.Contact;
+import grimace.common.Account;
+import grimace.common.ContactList;
+import grimace.common.Contact;
 
 /**
  * DataHandler provides methods for interfacing with Wernicke's server database.

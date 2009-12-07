@@ -22,8 +22,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package grimace.client;
+package grimace.common;
 
+import grimace.common.Contact;
 import java.util.*;
 import java.io.Serializable;
 

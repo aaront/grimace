@@ -24,12 +24,13 @@
 
 package grimace.server;
 
+import grimace.common.Command;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
-import grimace.client.ContactList;
-import grimace.client.Contact;
-import grimace.client.FileData;
+import grimace.common.ContactList;
+import grimace.common.Contact;
+import grimace.common.FileData;
 
 /**
  * ClientHandler runs threads that manages a connection to a client.

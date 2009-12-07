@@ -24,6 +24,8 @@
  */
 
 package grimace.client;
+import grimace.common.ContactList;
+import grimace.common.Contact;
 import java.util.ArrayList;
 import java.io.*;
 import java.io.DataInputStream;

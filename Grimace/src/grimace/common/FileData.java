@@ -22,7 +22,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package grimace.client;
+package grimace.common;
 
 import java.io.*;
 
