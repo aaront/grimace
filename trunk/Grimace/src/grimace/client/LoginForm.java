@@ -181,16 +181,15 @@ public class LoginForm extends javax.swing.JPanel {
         String status = (String) statusBox.getSelectedItem();
         // @TODO: Pass in status
 
+        ProgramController.setServerAddress(serverAddressField.getText());
+        ProgramController.setServerPort(Integer.parseInt(portField.getText()));
+
         if (user.isEmpty()) {
             ProgramController.showMessage("Please enter a username.");
         } else if (pass.isEmpty()) {
             ProgramController.showMessage("Please enter a password.");
         } else {
             try {
-
-                ProgramController.setServerAddress(serverAddressField.getText());
-                ProgramController.setServerPort(Integer.parseInt(portField.getText()));
-                
                 if(ServerHandler.sendLoginRequest(user,pass,status)) {
                     System.out.println("LoginSuccess");
                     ProgramController.setContactListBox(new ContactPanel());
