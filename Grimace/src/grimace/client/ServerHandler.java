@@ -36,8 +36,8 @@ import java.security.MessageDigest;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    //public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
-    public static final String DEF_SERVER_HOSTNAME = "localhost";
+    public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
+    //public static final String DEF_SERVER_HOSTNAME = "localhost";
 	public static final int DEF_SERVER_PORT = 6373;
 	private static Thread listen;
     private static Socket socket;
