@@ -441,7 +441,7 @@ public class ChatBox extends javax.swing.JPanel {
 
            for (Contact con : cList) {
                try {
-                    ServerHandler.sendFileTransferRequest(file.getAbsolutePath(), con.toString());
+                    ServerHandler.sendFileTransferRequest(file.getAbsolutePath(), con.getUserName());
                }
                catch (Exception e) {
                    e.printStackTrace();

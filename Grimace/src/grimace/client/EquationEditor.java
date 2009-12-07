@@ -242,22 +242,6 @@ public class EquationEditor extends javax.swing.JDialog {
                 JOptionPane.QUESTION_MESSAGE);
     }//GEN-LAST:event_btnHelpActionPerformed
 
-    /**
-    * @param args the command line arguments
-    */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                EquationEditor dialog = new EquationEditor(new grimace.client.ChatBox(), true);
-                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-                    public void windowClosing(java.awt.event.WindowEvent e) {
-                        System.exit(0);
-                    }
-                });
-                dialog.setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;

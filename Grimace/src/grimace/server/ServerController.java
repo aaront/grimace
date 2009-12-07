@@ -503,8 +503,7 @@ public class ServerController {
             return;
         }
         if (serverConvo == null) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.", userName);
             return;
         }
         String[] users = serverConvo.getUsers();
@@ -536,10 +535,15 @@ public class ServerController {
             return;
         }
         if (confirm) {
-            
+            sendCommand(new Command(Command.FILE_TRANSFER_RESPONSE,
+                        userName, contactName, fileName, Command.ACCEPT),
+                        userName);
         }
         else {
-            return;
+            sendDisplayNotification("The transfer of the file "
+                                    + new File(fileName).getName()
+                                    + "was cancelled by " + contactName + ".",
+                                    userName);
         }
 	}
 
@@ -559,8 +563,7 @@ public class ServerController {
             return;
         }
         if (serverConvo == null) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.", userName);
             return;
         }
         serverConvo.removeUser(userName);
@@ -592,8 +595,7 @@ public class ServerController {
             return;
         }
         if (serverConvo == null) {
-            sendDisplayNotification("The conversation you are trying to communicate in is closed.\n"
-                                    + "Why isn\'t yours?", userName);
+            sendDisplayNotification("The conversation you are trying to communicate in is closed.", userName);
             return;
         }
         if (!checkAccountLoginStatus(userName)) {

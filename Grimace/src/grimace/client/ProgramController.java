@@ -47,11 +47,12 @@ public class ProgramController {
     public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
 
     private static Account accnt;
-    //private static ArrayList<ClientConversation> convoList;
     private static ArrayList<ChatPanel> chatTabs;
     private static ProgramSettings progSettings;
     private static ProgramWindow window;
     private static ContactPanel contactListBox;
+    private static String serverAddress = ServerHandler.DEF_SERVER_HOSTNAME;
+    private static int serverPort = ServerHandler.DEF_SERVER_PORT;
 
     /**
      * Constructor for ProgramController. One is created every time the program
@@ -66,7 +67,6 @@ public class ProgramController {
         catch (Exception e) { }
 
         progSettings = new ProgramSettings();
-        //convoList = new ArrayList<ClientConversation>();
         chatTabs = new ArrayList<ChatPanel>();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -137,6 +137,22 @@ public class ProgramController {
             options,
             options[2]);
         return n;
+    }
+
+    public String getServerAddress() {
+        return serverAddress;
+    }
+    
+    public void setServerAddress(String str) {
+        serverAddress = str;
+    }
+
+    public int getServerPort () {
+        return serverPort;
+    }
+
+    public void setServerPort (int val) {
+        serverPort = val;
     }
 
     /**
@@ -271,7 +287,6 @@ public class ProgramController {
     public static void openNewConvo(int conId, ContactList contacts) {
         ClientConversation convo = new ClientConversation(conId, contacts);
         ChatPanel panel = new ChatPanel(convo);
-        //convoList.add(convo);
         chatTabs.add(panel);
         ProgramWindow.addChatTab(panel);
     }
