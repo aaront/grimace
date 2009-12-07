@@ -77,9 +77,6 @@
   </Layout>
   <SubComponents>
     <Component class="javax.swing.JTextField" name="userField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Wernicke"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -101,9 +98,6 @@
     <Component class="javax.swing.JPasswordField" name="confirmPassField">
     </Component>
     <Component class="javax.swing.JTextField" name="displayField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="The Great Wernicke"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>

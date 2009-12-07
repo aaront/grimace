@@ -84,9 +84,6 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="contactField">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="Contact Name"/>
-      </Properties>
     </Component>
   </SubComponents>
 </Form>

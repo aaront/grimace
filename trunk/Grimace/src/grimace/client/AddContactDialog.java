@@ -93,8 +93,6 @@ public class AddContactDialog extends javax.swing.JDialog {
 
         jLabel1.setText("Enter the name of the contact you wish to add:");
 
-        contactField.setText("Contact Name");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
