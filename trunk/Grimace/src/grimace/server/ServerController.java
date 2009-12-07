@@ -40,8 +40,8 @@ import grimace.client.FileData;
  * @author Vineet Sharma
  */
 public class ServerController {
-    public static final String DATA_FOLDER = System.getProperty("user.dir") + File.pathSeparator + "WernickeData";
-    public static final String TEMP_FOLDER = DATA_FOLDER + File.pathSeparator + "temp";
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/" + "WernickeData";
+    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
 
     private static final int LISTENING_PORT = 6373;
     private static Hashtable<String,ClientHandler> connections;
@@ -559,7 +559,7 @@ public class ServerController {
         File file;
         String fname = new File(fileName).getName();
         do {
-            file = new File(TEMP_FOLDER + File.pathSeparator + String.valueOf(i++) + "_" + fname);
+            file = new File(TEMP_FOLDER + "/" + String.valueOf(i++) + "_" + fname);
         } while (file.exists());
         try {
             fileData.saveFileData(file);

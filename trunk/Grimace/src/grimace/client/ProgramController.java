@@ -42,10 +42,10 @@ import org.xml.sax.InputSource;
  * ProgramController handles most of the client functionality of the program.
  */
 public class ProgramController {
-    public static final String DATA_FOLDER = System.getProperty("user.dir") + File.pathSeparator + "WernickeData";
-    public static final String SETTINGS_FOLDER = DATA_FOLDER + File.pathSeparator + "settings";
-    public static final String TEMP_FOLDER = DATA_FOLDER + File.pathSeparator + "temp";
-    public static final String RECEIVED_FOLDER = DATA_FOLDER + File.pathSeparator + "received";
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/" + "WernickeData";
+    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
+    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
+    public static final String RECEIVED_FOLDER = DATA_FOLDER + "/" + "received";
 
     private static Account accnt;
     private static ArrayList<ChatPanel> chatTabs;

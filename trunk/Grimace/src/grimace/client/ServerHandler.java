@@ -352,7 +352,7 @@ public final class ServerHandler {
                         File file;
                         do {
                             file = new File(ProgramController.RECEIVED_FOLDER
-                                    + File.pathSeparator + String.valueOf(i++) + "_" + fname);
+                                    + "/" + String.valueOf(i++) + "_" + fname);
                         } while (file.exists());
                         fileData.saveFileData(file);
                     }
