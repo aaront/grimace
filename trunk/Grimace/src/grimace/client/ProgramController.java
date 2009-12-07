@@ -140,19 +140,19 @@ public class ProgramController {
         return n;
     }
 
-    public String getServerAddress() {
+    public static String getServerAddress() {
         return serverAddress;
     }
     
-    public void setServerAddress(String str) {
+    public static void setServerAddress(String str) {
         serverAddress = str;
     }
 
-    public int getServerPort () {
+    public static int getServerPort () {
         return serverPort;
     }
 
-    public void setServerPort (int val) {
+    public static void setServerPort (int val) {
         serverPort = val;
     }
 
