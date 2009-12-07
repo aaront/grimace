@@ -76,7 +76,7 @@ public class LoginForm extends javax.swing.JPanel {
         setMaximumSize(new java.awt.Dimension(300, 450));
         setMinimumSize(new java.awt.Dimension(300, 450));
 
-        statusBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Busy", "Invisible" }));
+        statusBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Busy" }));
 
         jLabel1.setFont(jLabel1.getFont().deriveFont(jLabel1.getFont().getStyle() | java.awt.Font.BOLD, 10));
         jLabel1.setText("USERNAME");
