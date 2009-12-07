@@ -58,15 +58,11 @@ public class RegistrationForm extends javax.swing.JPanel {
 
         setMinimumSize(new java.awt.Dimension(400, 450));
 
-        userField.setText("Wernicke");
-
         jLabel1.setText("Username");
 
         jLabel2.setText("Password");
 
         jLabel3.setText("Confirm Password");
-
-        displayField.setText("The Great Wernicke");
 
         jLabel4.setText("Display Name");
 
