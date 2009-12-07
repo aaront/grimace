@@ -36,9 +36,9 @@ import java.security.MessageDigest;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
-   // public static final String DEF_SERVER_HOSTNAME = "localhost";
-	public static final int DEF_SERVER_PORT = 1234;
+    //public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
+    public static final String DEF_SERVER_HOSTNAME = "localhost";
+	public static final int DEF_SERVER_PORT = 6373;
 	private static Thread listen;
     private static Socket socket;
     private static ObjectOutputStream out;
@@ -282,7 +282,8 @@ public final class ServerHandler {
                 }
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
                     String sender = fromServer.getCommandArg(0);
-                    String file = fromServer.getCommandArg(1);
+                    String filePath = fromServer.getCommandArg(1);
+                    String file = new File(filePath).getName();
                     //default icon, custom title
                     int resp = javax.swing.JOptionPane.showConfirmDialog(ProgramController.getWindow(),
                             "You have a file transfer request from "
@@ -295,15 +296,32 @@ public final class ServerHandler {
                         case javax.swing.JOptionPane.YES_OPTION:
                             sendFileTransferResponse(sender,
                                                     ProgramController.getUserName(),
-                                                    file,
+                                                    filePath,
                                                     Command.ACCEPT);
                             break;
                         case javax.swing.JOptionPane.NO_OPTION:
                             sendFileTransferResponse(sender,
                                                     ProgramController.getUserName(),
-                                                    file,
+                                                    filePath,
                                                     Command.REJECT);
                             break;
+                    }
+                }
+                if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_RESPONSE)) {
+                    String contact = fromServer.getCommandArg(1);
+                    String fileName = fromServer.getCommandArg(2);
+                    String confirm = fromServer.getCommandArg(3);
+                    if (confirm.equals(Command.ACCEPT)) {
+                        File file = new File(fileName);
+                        if (file.exists()) {
+                            sendCommand(Command.TRANSFER_FILE);
+                            FileData fileData = new FileData(new File(fileName));
+                            out.writeObject(fileData);
+                        }
+                        else {
+                            ProgramController.showMessage("The file " + file.getName()
+                                + " could not be send because it does not exist.");
+                        }
                     }
                 }
                 if (fromServer.getCommandName().equals(Command.REMOVE_FROM_CONVERSATION)) {

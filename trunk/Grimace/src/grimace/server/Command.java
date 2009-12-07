@@ -58,6 +58,7 @@ public class Command implements Serializable {
     public static final String SEND_MESSAGE = "sendMessage";
     public static final String FILE_TRANSFER_REQUEST = "fileTransferRequest";
     public static final String FILE_TRANSFER_RESPONSE = "fileTransferResponse";
+    public static final String TRANSFER_FILE = "transferFile";
     public static final String UPDATE_DISPLAY_NAME = "updateDisplayName";
     public static final String UPDATE_STATUS = "updateStatus";
     public static final String UPDATE_FONT = "updateFont";

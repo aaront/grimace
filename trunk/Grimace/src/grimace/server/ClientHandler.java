@@ -29,6 +29,7 @@ import java.io.*;
 import java.util.ArrayList;
 import grimace.client.ContactList;
 import grimace.client.Contact;
+import grimace.client.FileData;
 
 /**
  * ClientHandler runs threads that manages a connection to a client.
@@ -167,6 +168,9 @@ public class ClientHandler {
                     String conName = fromClient.getCommandArg(2);
                     boolean confirm = fromClient.getCommandArg(3).equals(Command.ACCEPT);
                     ServerController.confirmFileTransferRequest(userName, conName, fileName, confirm);
+                }
+                if (fromClient.getCommandName().equals(Command.TRANSFER_FILE)) {
+                    FileData fileData = (FileData)in.readObject();
                 }
             }
             catch (EOFException e) {}
