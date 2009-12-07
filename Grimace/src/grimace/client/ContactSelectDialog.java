@@ -24,10 +24,10 @@ public class ContactSelectDialog extends javax.swing.JDialog {
     private int conId;
 
     /** Creates new form ContactSelectDialog */
-    public ContactSelectDialog(int conId, ContactList cList) {
+    public ContactSelectDialog(int conIdt) {
         super(ProgramController.getWindow(), false);
         initComponents();
-        contactListBox1.updateModel(cList);
+        contactListBox1.updateModel(ProgramController.getContactList());
         this.conId = conId;
     }
 
