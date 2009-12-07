@@ -324,6 +324,9 @@ public final class ServerHandler {
                             try {
                                 FileData fileData = new FileData(new File(fileName));
                                 out.writeObject(fileData);
+                                ProgramController.showMessage("Request to transfer file \'"
+                                        + new File(fileName).getName() + "\' was accepted by "
+                                        + "contact.");
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
@@ -358,6 +361,9 @@ public final class ServerHandler {
                                     + "/" + String.valueOf(i++) + "_" + fname);
                         } while (file.exists());
                         fileData.saveFileData(file);
+                        ProgramController.showMessage("Received file \'" + file.getName()
+                                + "\' from " + userName + ".\n"
+                                + "\nFile location: " + file.getAbsolutePath());
                     }
                     catch (Exception e) {
                         e.printStackTrace();
