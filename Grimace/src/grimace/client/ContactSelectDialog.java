@@ -37,7 +37,12 @@ public class ContactSelectDialog extends javax.swing.JDialog {
         setVisible(false);
         if (retStatus == RET_ADD) {
             for (Object obj : selected) {
-                ProgramController.addToConversation((Contact)obj, conId);
+                try {
+                    ServerHandler.sendAddToConversationRequest(((Contact)obj).getUserName(), conId);
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
                 System.out.println("Request sent to add contact: " + ((Contact)obj).getUserName());
             }
         }
