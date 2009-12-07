@@ -26,6 +26,7 @@
 package grimace.client;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 
 /**
  * ContactPanel is a container for a ContactListBox, which displays an account's
@@ -37,6 +38,7 @@ public class ContactPanel extends javax.swing.JPanel {
     public ContactPanel() {
         initComponents();
         ((ContactListBox)listBox).updateModel(ProgramController.getAccount().getContactList());
+
     }
 
     /**
@@ -61,6 +63,8 @@ public class ContactPanel extends javax.swing.JPanel {
         logoutButton = new javax.swing.JButton();
         deleteButton = new javax.swing.JButton();
         btnNewChat = new javax.swing.JButton();
+        statusSelector = new javax.swing.JComboBox();
+        btnDisplayName = new javax.swing.JButton();
 
         setMinimumSize(new java.awt.Dimension(275, 450));
 
@@ -94,7 +98,7 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
-        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 13));
+        deleteButton.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         deleteButton.setText("-");
         deleteButton.setMargin(new java.awt.Insets(0, 0, 0, 0));
         deleteButton.setMaximumSize(new java.awt.Dimension(40, 27));
@@ -114,32 +118,56 @@ public class ContactPanel extends javax.swing.JPanel {
             }
         });
 
+        statusSelector.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Available", "Away", "Busy" }));
+        statusSelector.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                statusSelectorActionPerformed(evt);
+            }
+        });
+
+        btnDisplayName.setText("Display Name");
+        btnDisplayName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDisplayNameActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                .addComponent(btnNewChat)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(logoutButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                        .addComponent(btnNewChat)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(logoutButton))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnDisplayName, javax.swing.GroupLayout.DEFAULT_SIZE, 137, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(statusSelector, 0, 306, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 466, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 461, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 410, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(logoutButton)
-                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(statusSelector, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnDisplayName))
+                .addGap(7, 7, 7)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnNewChat))
+                    .addComponent(logoutButton)
+                    .addComponent(btnNewChat)
+                    .addComponent(deleteButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -180,14 +208,26 @@ public class ContactPanel extends javax.swing.JPanel {
         ProgramController.sendConvoRequest(contacts);
     }//GEN-LAST:event_btnNewChatActionPerformed
 
+    private void statusSelectorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusSelectorActionPerformed
+        // fs is the string name of the new selected item
+        JComboBox sel = (JComboBox)evt.getSource();
+        String fs = (String)sel.getSelectedItem();
+    }//GEN-LAST:event_statusSelectorActionPerformed
+
+    private void btnDisplayNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDisplayNameActionPerformed
+        // OPEN A jdialog here, like the add contact one
+    }//GEN-LAST:event_btnDisplayNameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addButton;
+    private javax.swing.JButton btnDisplayName;
     private javax.swing.JButton btnNewChat;
     private javax.swing.JButton deleteButton;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList listBox;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JComboBox statusSelector;
     // End of variables declaration//GEN-END:variables
 
 }
