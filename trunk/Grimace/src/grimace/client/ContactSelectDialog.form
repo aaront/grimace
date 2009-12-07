@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JDialogFormInfo">
-  <BindingProperties>
-    <BindingProperty name="defaultCloseOperation" source="cancelButton" target="Form" targetPath="defaultCloseOperation" updateStrategy="0" immediately="false"/>
-  </BindingProperties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
   </SyntheticProperties>

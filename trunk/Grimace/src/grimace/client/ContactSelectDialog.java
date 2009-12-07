@@ -52,15 +52,11 @@ public class ContactSelectDialog extends javax.swing.JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
         jScrollPane2 = new javax.swing.JScrollPane();
         contactListBox1 = new grimace.client.ContactListBox();
         addButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
-
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, cancelButton, org.jdesktop.beansbinding.ObjectProperty.create(), this, org.jdesktop.beansbinding.BeanProperty.create("defaultCloseOperation"));
-        bindingGroup.addBinding(binding);
 
         contactListBox1.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -112,8 +108,6 @@ public class ContactSelectDialog extends javax.swing.JDialog {
                 .addContainerGap())
         );
 
-        bindingGroup.bind();
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,7 +125,6 @@ public class ContactSelectDialog extends javax.swing.JDialog {
     private javax.swing.JButton cancelButton;
     private grimace.client.ContactListBox contactListBox1;
     private javax.swing.JScrollPane jScrollPane2;
-    private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 
 }
