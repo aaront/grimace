@@ -282,7 +282,7 @@ public final class ServerHandler {
                 }
                 if (fromServer.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
                     String sender = fromServer.getCommandArg(0);
-                    String filePath = fromServer.getCommandArg(1);
+                    String filePath = fromServer.getCommandArg(2);
                     String file = new File(filePath).getName();
                     //default icon, custom title
                     int resp = javax.swing.JOptionPane.showConfirmDialog(ProgramController.getWindow(),
