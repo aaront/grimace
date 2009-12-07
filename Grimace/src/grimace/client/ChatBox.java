@@ -431,19 +431,23 @@ public class ChatBox extends javax.swing.JPanel {
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
        // @TODO: Finish file transfer.
        JFileChooser chooseFileToAdd = new JFileChooser();
-       File file = chooseFileToAdd.getSelectedFile();
 
-       ArrayList<Contact> cList = ProgramController.getChatPanel(conId).getContactListBox().getList().getList();
+       int ret = chooseFileToAdd.showOpenDialog(this);
 
-       for (Contact con : cList) {
-           try {
-                ServerHandler.sendFileTransferRequest(file.getAbsolutePath(), con.toString());
-           }
-           catch (Exception e) {
-               e.printStackTrace();
-           }
+       if (ret == JFileChooser.APPROVE_OPTION) {
+           File file = chooseFileToAdd.getSelectedFile();
+
+           ArrayList<Contact> cList = ProgramController.getChatPanel(conId).getContactListBox().getList().getList();
+
+           for (Contact con : cList) {
+               try {
+                    ServerHandler.sendFileTransferRequest(file.getAbsolutePath(), con.toString());
+               }
+               catch (Exception e) {
+                   e.printStackTrace();
+               }
+            }
        }
-       
     }//GEN-LAST:event_btnAddFileActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
