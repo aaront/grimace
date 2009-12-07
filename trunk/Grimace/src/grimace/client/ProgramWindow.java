@@ -94,13 +94,6 @@ public class ProgramWindow extends javax.swing.JFrame {
     public static void closeTab(Component comp) {
         tabs.remove(comp);
     }
-    
-    public static void showOptionsTab() {
-        OptionsForm opt = new OptionsForm();
-        tabs.add("Settings", opt);
-        tabs.setSelectedComponent(opt);
-    }
-
 
     /** This method is called from within the constructor to
      * initialize the form.

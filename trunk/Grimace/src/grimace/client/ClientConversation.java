@@ -42,7 +42,6 @@ import java.io.DataInputStream;
 public class ClientConversation {
     int conId;
     ArrayList<String> conversationText = new ArrayList<String>();
-    QuickOptions convoQOptions;
     ContactList convoPeople;
     
     /**
@@ -52,7 +51,6 @@ public class ClientConversation {
      */
     public ClientConversation(int conId, ContactList cList){
         this.conId = conId;
-        convoQOptions = new QuickOptions();
         convoPeople = cList;
 }
     public ContactList getList(){
@@ -128,15 +126,6 @@ public class ClientConversation {
         if (newMessage != null){
             conversationText.add(newMessage);
         }
-    }
-
-    /**
-     * Gets the settings from QuickOptions
-     * @return the quick options for the conversation
-     */
-    public QuickOptions getOptions(){
-
-        return convoQOptions;
     }
 
     /**
