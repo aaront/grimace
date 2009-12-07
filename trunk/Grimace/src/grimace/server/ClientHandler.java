@@ -156,10 +156,17 @@ public class ClientHandler {
                                                         fromClient.getCommandArg(2));
                 }
                 if (fromClient.getCommandName().equals(Command.FILE_TRANSFER_REQUEST)) {
-
+                    String userName = fromClient.getCommandArg(0);
+                    String fileName = fromClient.getCommandArg(1);
+                    String conName = fromClient.getCommandArg(2);
+                    ServerController.placeFileTransferRequest(userName, conName, fileName);
                 }
                 if (fromClient.getCommandName().equals(Command.FILE_TRANSFER_RESPONSE)) {
-
+                    String userName = fromClient.getCommandArg(0);
+                    String fileName = fromClient.getCommandArg(1);
+                    String conName = fromClient.getCommandArg(2);
+                    boolean confirm = fromClient.getCommandArg(3).equals(Command.ACCEPT);
+                    ServerController.confirmFileTransferRequest(userName, conName, fileName, confirm);
                 }
             }
             catch (EOFException e) {}

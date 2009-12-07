@@ -39,6 +39,10 @@ import grimace.client.ContactList;
  * @author Vineet Sharma
  */
 public class ServerController {
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/WernickeData";
+    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
+    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
+
     private static final int LISTENING_PORT = 1234;
     private static Hashtable<String,ClientHandler> connections;
     private static Hashtable<Integer,ServerConversation> conversations;
@@ -518,9 +522,26 @@ public class ServerController {
      * @param file  The name of the file.
      */
     public static void placeFileTransferRequest(String userName,
-                                                String[] contactNames,
+                                                String contactName,
                                                 String file) {
+        sendCommand(new Command(Command.FILE_TRANSFER_REQUEST,
+                        userName, contactName, file), contactName);
     }
+
+	public static void confirmFileTransferRequest(String userName,
+                                                String contactName,
+                                                String fileName,
+                                                boolean confirm) {
+        if (!DataHandler.accountExists(userName)) {
+            return;
+        }
+        if (confirm) {
+            
+        }
+        else {
+            return;
+        }
+	}
 
     /**
      * Removes a user from a conversation.
