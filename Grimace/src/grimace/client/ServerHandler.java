@@ -36,7 +36,6 @@ import java.security.MessageDigest;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    //public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
     public static final String DEF_SERVER_HOSTNAME = "localhost";
 	public static final int DEF_SERVER_PORT = 6373;
 	private static Thread listen;
@@ -53,8 +52,8 @@ public final class ServerHandler {
      * @throws java.io.IOException
      */
 	private static void connect() throws UnknownHostException, IOException {
-		socket = new Socket(ProgramController.getProgramSettings().getServerAddress(),
-                            ProgramController.getProgramSettings().getServerPort());
+		socket = new Socket(ProgramController.getServerAddress(),
+                            ProgramController.getServerPort());
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
 	}
@@ -192,6 +191,8 @@ public final class ServerHandler {
                 out.close();
                 in.close();
                 socket.close();
+                ProgramController.showMessage("Login Failed: "
+                         + "You have entered an invalid username/password pair.");
                 return false;
             }
             else {
@@ -209,6 +210,8 @@ public final class ServerHandler {
             return true;
         }
         catch (Exception e) {
+            ProgramController.showMessage("Login Failed: "
+                                        + "Unable to connect to the server.");
             return false;
         }
 	}
