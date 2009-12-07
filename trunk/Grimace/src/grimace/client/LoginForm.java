@@ -109,7 +109,7 @@ public class LoginForm extends javax.swing.JPanel {
 
         serverAddressField.setText("127.0.0.1");
 
-        portField.setText(" 6373");
+        portField.setText("6373");
 
         jLabel5.setFont(jLabel5.getFont().deriveFont(jLabel5.getFont().getStyle() | java.awt.Font.BOLD, 10));
         jLabel5.setText("PORT");
