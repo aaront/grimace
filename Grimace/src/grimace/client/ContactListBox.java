@@ -63,4 +63,8 @@ public class ContactListBox extends JList {
         cList = list;
         updateModel();
     }
+
+    public ContactList getList() {
+        return cList;
+    }
 }

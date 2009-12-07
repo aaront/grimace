@@ -28,8 +28,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.*;
-
-import grimace.client.EquationEditor;
+import java.io.File;
+import java.util.ArrayList;
 
 /**
  * ChatBox is the panel with the message display box, the toolbar, and the
@@ -431,7 +431,18 @@ public class ChatBox extends javax.swing.JPanel {
     private void btnAddFileActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddFileActionPerformed
        // @TODO: Finish file transfer.
        JFileChooser chooseFileToAdd = new JFileChooser();
-       chooseFileToAdd.getSelectedFile();
+       File file = chooseFileToAdd.getSelectedFile();
+
+       ArrayList<Contact> cList = ProgramController.getChatPanel(conId).getContactListBox().getList().getList();
+
+       for (Contact con : cList) {
+           try {
+                ServerHandler.sendFileTransferRequest(file.getAbsolutePath(), con.toString());
+           }
+           catch (Exception e) {
+               e.printStackTrace();
+           }
+       }
        
     }//GEN-LAST:event_btnAddFileActionPerformed
 
