@@ -24,6 +24,7 @@
 
 package grimace.client;
 
+import grimace.common.ContactList;
 import javax.swing.JList;
 import javax.swing.DefaultListModel;
 import javax.swing.DefaultListSelectionModel;

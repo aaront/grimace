@@ -24,6 +24,7 @@
 
 package grimace.client;
 
+import grimace.common.Contact;
 import java.awt.GraphicsEnvironment;
 import java.awt.Color;
 import java.awt.Font;

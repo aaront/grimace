@@ -27,6 +27,9 @@
  */
 
 package grimace.client;
+import grimace.common.ContactList;
+import grimace.common.Contact;
+import grimace.common.Account;
 import java.awt.Component;
 import java.awt.event.*;
 import java.util.ArrayList;

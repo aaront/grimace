@@ -11,6 +11,8 @@
 
 package grimace.client;
 
+import grimace.common.Contact;
+
 /**
  *
  * @author vs

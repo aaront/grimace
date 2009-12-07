@@ -24,7 +24,7 @@
 
 package grimace.client;
 
-import grimace.server.Command;
+import grimace.common.Command;
 
 /**
  * RegistrationForm allows for the creation of accounts for new users.

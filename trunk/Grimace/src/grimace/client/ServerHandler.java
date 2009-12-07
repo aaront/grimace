@@ -24,10 +24,14 @@
 
 package grimace.client;
 
+import grimace.common.ContactList;
+import grimace.common.Contact;
+import grimace.common.Account;
+import grimace.common.FileData;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
-import grimace.server.Command;
+import grimace.common.Command;
 import java.security.MessageDigest;
 
 /**
