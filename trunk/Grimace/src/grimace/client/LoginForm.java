@@ -182,7 +182,12 @@ public class LoginForm extends javax.swing.JPanel {
         // @TODO: Pass in status
 
         ProgramController.setServerAddress(serverAddressField.getText());
-        ProgramController.setServerPort(Integer.parseInt(portField.getText()));
+        try {
+            ProgramController.setServerPort(Integer.parseInt(portField.getText()));
+        }
+        catch (java.lang.NumberFormatException e) {
+            ProgramController.showMessage("Please enter a valid port number.");
+        }
 
         if (user.isEmpty()) {
             ProgramController.showMessage("Please enter a username.");
@@ -195,8 +200,6 @@ public class LoginForm extends javax.swing.JPanel {
                     ProgramController.setContactListBox(new ContactPanel());
                 } else {
                     System.out.println("LoginFailure");
-                    ProgramController.showMessage("Login Failed: "
-                            + "You have entered an invalid username/password pair.");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
