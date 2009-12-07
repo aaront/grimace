@@ -57,17 +57,34 @@ public class ServerController {
      * @param args  Command line arguments.
      */
     public static void main(String[] args) {
-        System.setProperty("java.net.preferIPv4Stack", "true");
-        ServerController.setupServer();
+        //System.setProperty("java.net.preferIPv4Stack", "true");
+        int port = LISTENING_PORT;
+        if (args.length > 0) {
+            if (args.length == 1) {
+                try {
+                    port = Integer.parseInt(args[0]);
+                }
+                catch (java.lang.NumberFormatException e) {
+                    System.out.println("Error parsing port number. Reverting to default port.");
+                    port = LISTENING_PORT;
+                }
+            }
+            else {
+                System.out.println("ServerController: Incorrect number of arguments provided.");
+                System.out.println("Usage: java ServerController [port]");
+                System.exit(0);
+            }
+        }
+        ServerController.setupServer(port);
     }
 
     /**
      * Connects to the database and begins listening for client connections
      * on a the LISTENING_PORT.
      */
-	public static void setupServer() {
+	public static void setupServer(int port) {
         initDataHandler();
-        initServerSocket();
+        initServerSocket(port);
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
         try {
@@ -136,13 +153,13 @@ public class ServerController {
     /**
      * Initializes the ServerSocket and binds it to the LISTENING_PORT.
      */
-	public static void initServerSocket() {
+	public static void initServerSocket(int port) {
         try {
-            serverSocket = new ServerSocket(LISTENING_PORT);
+            serverSocket = new ServerSocket(port);
         }
         catch (Exception e) {
             System.out.println("Could not listen on port "
-                                + String.valueOf(LISTENING_PORT));
+                                + String.valueOf(port));
             System.out.println("Server will exit.");
             System.exit(1);
         }
