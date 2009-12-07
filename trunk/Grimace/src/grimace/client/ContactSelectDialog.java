@@ -24,7 +24,7 @@ public class ContactSelectDialog extends javax.swing.JDialog {
     private int conId;
 
     /** Creates new form ContactSelectDialog */
-    public ContactSelectDialog(int conIdt) {
+    public ContactSelectDialog(int conId) {
         super(ProgramController.getWindow(), false);
         initComponents();
         contactListBox1.updateModel(ProgramController.getContactList());
