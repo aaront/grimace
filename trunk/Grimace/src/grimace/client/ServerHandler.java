@@ -36,8 +36,8 @@ import java.security.MessageDigest;
  * @author Vineet Sharma
  */
 public final class ServerHandler {
-    public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
-    //public static final String DEF_SERVER_HOSTNAME = "localhost";
+    //public static final String DEF_SERVER_HOSTNAME = "24.141.25.171";
+    public static final String DEF_SERVER_HOSTNAME = "localhost";
 	public static final int DEF_SERVER_PORT = 6373;
 	private static Thread listen;
     private static Socket socket;
@@ -548,7 +548,7 @@ public final class ServerHandler {
      */
     public static void sendFontUpdateRequest() throws Exception {
         Account account = ProgramController.getAccount();
-        sendCommand(Command.UPDATE_STATUS,
+        sendCommand(Command.UPDATE_FONT,
                 ProgramController.getUserName(),
                 account.getFont().getFontName(),
                 String.valueOf(account.getFont().getSize()),
