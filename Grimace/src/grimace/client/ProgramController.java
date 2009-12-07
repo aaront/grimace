@@ -49,7 +49,6 @@ public class ProgramController {
 
     private static Account accnt;
     private static ArrayList<ChatPanel> chatTabs;
-    private static ProgramSettings progSettings;
     private static ProgramWindow window;
     private static ContactPanel contactListBox;
     private static String serverAddress = ServerHandler.DEF_SERVER_HOSTNAME;
@@ -67,7 +66,6 @@ public class ProgramController {
         }
         catch (Exception e) { }
 
-        progSettings = new ProgramSettings();
         chatTabs = new ArrayList<ChatPanel>();
 
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -346,16 +344,6 @@ public class ProgramController {
     public void getChatLog(ClientConversation conversation, String fileName, int conId)
                                     throws FileNotFoundException, IOException {
         //convo.openLog(fileName);
-    }
-
-    // @TODO: Are we going to be leaving out "setFontProperties?????"
-
-    /**
-     * Get's the current account's program settings
-     * @return the program settings
-     */
-    public static ProgramSettings getProgramSettings() {
-        return progSettings;
     }
 
     /**
