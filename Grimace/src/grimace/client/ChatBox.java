@@ -392,6 +392,11 @@ public class ChatBox extends javax.swing.JPanel {
     private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed
         // Checks and sees if the key pressed is "enter", if it is, sends away
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            int n = ProgramController.getChatPanel(conId).getClientConversation().getList().getSize();
+            if (n == 0) {
+                ProgramController.postNotification(conId, "There are no other users in this conversation.");
+            }
+
             // Sets the default font weight and style for the message
             String fontWeight = "normal";
             String fontStyle = "normal";
@@ -447,9 +452,6 @@ public class ChatBox extends javax.swing.JPanel {
                    e.printStackTrace();
                }
             }
-           ProgramController.postNotification(conId, ProgramController.getUserName()
-                                                        + " has invited users in this conversation"
-                                                        + " to accept the file \'" + file.getName() + "\'");
        }
     }//GEN-LAST:event_btnAddFileActionPerformed
 
