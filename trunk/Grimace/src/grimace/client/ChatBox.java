@@ -447,6 +447,9 @@ public class ChatBox extends javax.swing.JPanel {
                    e.printStackTrace();
                }
             }
+           ProgramController.postNotification(conId, ProgramController.getUserName()
+                                                        + " has invited users in this conversation"
+                                                        + " to accept the file \'" + file.getName() + "\'");
        }
     }//GEN-LAST:event_btnAddFileActionPerformed
 

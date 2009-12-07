@@ -170,7 +170,16 @@ public class ClientHandler {
                     ServerController.confirmFileTransferRequest(userName, conName, fileName, confirm);
                 }
                 if (fromClient.getCommandName().equals(Command.TRANSFER_FILE)) {
-                    FileData fileData = (FileData)in.readObject();
+                    String userName = fromClient.getCommandArg(0);
+                    String conName = fromClient.getCommandArg(1);
+                    String fileName = fromClient.getCommandArg(2);
+                    try {
+                        FileData fileData = (FileData)in.readObject();
+                        ServerController.transferFile(userName, conName, fileName, fileData);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             }
             catch (EOFException e) {}
@@ -218,6 +227,27 @@ public class ClientHandler {
                                                 DataHandler.getDisplayName(user),
                                                 DataHandler.getDisplayStatus(user));
                         out.writeObject(con);
+                    }
+                    if (toClient.getCommandName().equals(Command.TRANSFER_FILE)) {
+                        String userName = toClient.getCommandArg(0);
+                        String conName = toClient.getCommandArg(1);
+                        String tempName = toClient.getCommandArg(3);
+                        File file = new File(tempName);
+                        if (file.exists()) {
+                            try {
+                                FileData fileData = new FileData(new File(tempName));
+                                out.writeObject(fileData);
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        else {
+                            ServerController.sendDisplayNotification("The file \'" + file.getName()
+                                + "\' was not found and could not be sent.", userName);
+                            ServerController.sendDisplayNotification("The file \'" + file.getName()
+                                + "\' was not found and could not be sent.", conName);
+                        }
                     }
                     commandQueue.remove(0);
                 }

@@ -32,6 +32,7 @@ import java.sql.SQLException;
 import grimace.client.Account;
 import grimace.client.Contact;
 import grimace.client.ContactList;
+import grimace.client.FileData;
 
 /**
  * ServerController handles most of the server functionality of the program.
@@ -39,9 +40,8 @@ import grimace.client.ContactList;
  * @author Vineet Sharma
  */
 public class ServerController {
-    public static final String DATA_FOLDER = System.getProperty("user.dir") + "/WernickeData";
-    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
-    public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
+    public static final String DATA_FOLDER = System.getProperty("user.dir") + File.pathSeparator + "WernickeData";
+    public static final String TEMP_FOLDER = DATA_FOLDER + File.pathSeparator + "temp";
 
     private static final int LISTENING_PORT = 1234;
     private static Hashtable<String,ClientHandler> connections;
@@ -540,10 +540,37 @@ public class ServerController {
                         userName);
         }
         else {
-            sendDisplayNotification("The transfer of the file "
+            sendDisplayNotification("The transfer of the file \'"
                                     + new File(fileName).getName()
-                                    + "was cancelled by " + contactName + ".",
+                                    + "\' was cancelled by " + contactName + ".",
                                     userName);
+        }
+	}
+
+    public static void transferFile(String userName,
+                                    String contactName,
+                                    String fileName,
+                                    FileData fileData) {
+        if (!DataHandler.accountExists(contactName)) {
+            return;
+        }
+        int i = 0;
+        File file;
+        String fname = new File(fileName).getName();
+        do {
+            file = new File(TEMP_FOLDER + File.pathSeparator + String.valueOf(i++) + "_" + fname);
+        } while (file.exists());
+        try {
+            fileData.saveFileData(file);
+            sendCommand(new Command(Command.TRANSFER_FILE, userName, contactName,
+                                    fileName, file.getAbsolutePath()), contactName);
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+            sendDisplayNotification("A problem occurred while transferring the file \'"
+                                    + fname + "\' to " + contactName + ".", userName);
+            sendDisplayNotification("A problem occurred while receiving the file \'"
+                                    + fname + "\' from " + userName + ".", contactName);
         }
 	}
 

@@ -287,7 +287,7 @@ public final class ServerHandler {
                     //default icon, custom title
                     int resp = javax.swing.JOptionPane.showConfirmDialog(ProgramController.getWindow(),
                             "You have a file transfer request from "
-                            + sender + ".\n" + sender + " wants to send you the file " + file + ".\n"
+                            + sender + ".\n" + sender + " wants to send you the file \'" + file + "\'.\n"
                             + "Accept transfer?\n",
                             "File Transfer Request",
                             javax.swing.JOptionPane.YES_NO_OPTION);
@@ -314,13 +314,21 @@ public final class ServerHandler {
                     if (confirm.equals(Command.ACCEPT)) {
                         File file = new File(fileName);
                         if (file.exists()) {
-                            sendCommand(Command.TRANSFER_FILE);
-                            FileData fileData = new FileData(new File(fileName));
-                            out.writeObject(fileData);
+                            sendCommand(Command.TRANSFER_FILE,
+                                    ProgramController.getUserName(),
+                                    contact,
+                                    fileName);
+                            try {
+                                FileData fileData = new FileData(new File(fileName));
+                                out.writeObject(fileData);
+                            }
+                            catch (Exception e) {
+                                e.printStackTrace();
+                            }
                         }
                         else {
-                            ProgramController.showMessage("The file " + file.getName()
-                                + " could not be send because it does not exist.");
+                            ProgramController.showMessage("The file \'" + file.getName()
+                                + "\' could not be send because it does not exist.");
                         }
                     }
                 }
@@ -333,6 +341,26 @@ public final class ServerHandler {
                     int conId = Integer.valueOf(fromServer.getCommandArg(1)).intValue();
                     Contact contact = (Contact)in.readObject();
                     ProgramController.addToConversation(contact, conId);
+                }
+                if (fromServer.getCommandName().equals(Command.TRANSFER_FILE)) {
+                    String userName = fromServer.getCommandArg(0);
+                    String fileName = fromServer.getCommandArg(2);
+                    String fname = new File(fileName).getName();
+                    try {
+                        FileData fileData = (FileData)in.readObject();
+                        int i = 0;
+                        File file;
+                        do {
+                            file = new File(ProgramController.RECEIVED_FOLDER
+                                    + File.pathSeparator + String.valueOf(i++) + "_" + fname);
+                        } while (file.exists());
+                        fileData.saveFileData(file);
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                        ProgramController.showMessage("There was a problem receiving the file \'"
+                                                    + fname + "\' from " + userName + ".");
+                    }
                 }
             }
             catch (EOFException e) {}
