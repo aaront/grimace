@@ -34,7 +34,7 @@ public class ProgramSettings implements Serializable {
     // @TODO: Store preferences in working directory
 
     //Preferences prefs;
-    private String SETTINGS_FILE = ProgramController.SETTINGS_FOLDER + File.pathSeparator + "ProgramSettings.ser";
+    private String SETTINGS_FILE = ProgramController.SETTINGS_FOLDER + "/" + "ProgramSettings.ser";
     private String serverAddress;
     private int serverPort;
     private Boolean showInTray;
