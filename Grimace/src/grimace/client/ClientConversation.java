@@ -85,39 +85,21 @@ public class ClientConversation {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public void logConversation(String filename, String date) throws FileNotFoundException, IOException{
-        File log = new File(filename);
-        ArrayList<String> logText;
-        
-        if (log.exists()){
-            logText = conversationText;
-            logText.add(date);
-            
-            FileOutputStream fout = new FileOutputStream(log);
-            ObjectOutputStream oout = new ObjectOutputStream(fout);
-            oout.writeObject(conversationText);
-            fout.close();
+    public void logConversation(File log) {
+        if (log.exists()){ return; }
+        try {
+            FileWriter outFile = new FileWriter(log.getAbsoluteFile());
+            PrintWriter out = new PrintWriter(outFile);
 
+            for (String s : conversationText) {
+                out.println(s);
+            }
+            out.close();
         }
-                 
-    }
-/**
- * Opens a chat log.
- * @param filename the name of the log file
- * @throws FileNotFoundException
- * @throws IOException
- */
-    public void openLog(String filename) throws FileNotFoundException, IOException{
-
-        FileInputStream log = new FileInputStream(filename);
-
-        /* Java 6 API says do this:
-         * new BufferedReader(new InputStreamReader(log)).readLine();
-         */
-        System.out.println(new BufferedReader(new InputStreamReader(log)).readLine());
-
-        log.close();
-
+        catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
     }
 
     /**

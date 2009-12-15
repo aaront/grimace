@@ -30,7 +30,6 @@ import java.io.*;
 import java.util.Hashtable;
 import java.util.ArrayList;
 import java.sql.SQLException;
-import grimace.common.Account;
 import grimace.common.Contact;
 import grimace.common.ContactList;
 import grimace.common.FileData;
@@ -58,7 +57,17 @@ public class ServerController {
      * @param args  Command line arguments.
      */
     public static void main(String[] args) {
-        //System.setProperty("java.net.preferIPv4Stack", "true");
+        File dir = new File(DATA_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+        dir = new File(TEMP_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+
         int port = LISTENING_PORT;
         if (args.length > 0) {
             if (args.length == 1) {
@@ -88,41 +97,6 @@ public class ServerController {
         initServerSocket(port);
         //if we made it this far, thats dandy
         System.out.println("Server initialization successful.");
-        try {
-            DataHandler.createAccount("vineet", grimace.client.ServerHandler.getPasswordHash("1234"), "ServerNerd");
-            DataHandler.createAccount("justin", grimace.client.ServerHandler.getPasswordHash("1234"), "Justin");
-            DataHandler.createAccount("aaront", grimace.client.ServerHandler.getPasswordHash("1234"), "Aaron T");
-            DataHandler.createAccount("aaronj", grimace.client.ServerHandler.getPasswordHash("1234"), "Aaron J");
-            DataHandler.createAccount("david", grimace.client.ServerHandler.getPasswordHash("1234"), "David");
-            DataHandler.createAccount("wernicke", grimace.client.ServerHandler.getPasswordHash("1234"), "The Great Wernicke");
-            DataHandler.addContact("vineet", "wernicke");
-            DataHandler.addContact("vineet", "justin");
-            DataHandler.addContact("vineet", "aaront");
-            DataHandler.addContact("vineet", "aaronj");
-            DataHandler.addContact("vineet", "david");
-            DataHandler.addContact("justin", "wernicke");
-            DataHandler.addContact("justin", "vineet");
-            DataHandler.addContact("justin", "aaront");
-            DataHandler.addContact("justin", "aaronj");
-            DataHandler.addContact("justin", "david");
-            DataHandler.addContact("aaront", "wernicke");
-            DataHandler.addContact("aaront", "justin");
-            DataHandler.addContact("aaront", "vineet");
-            DataHandler.addContact("aaront", "aaronj");
-            DataHandler.addContact("aaront", "david");
-            DataHandler.addContact("aaronj", "wernicke");
-            DataHandler.addContact("aaronj", "justin");
-            DataHandler.addContact("aaronj", "aaront");
-            DataHandler.addContact("aaronj", "vineet");
-            DataHandler.addContact("aaronj", "david");
-            DataHandler.addContact("david", "wernicke");
-            DataHandler.addContact("david", "justin");
-            DataHandler.addContact("david", "aaront");
-            DataHandler.addContact("david", "aaronj");
-            DataHandler.addContact("david", "vineet");
-        }
-        catch (Exception e) { e.printStackTrace(); }
-        DataHandler.printAccounts();
         conversationCount = 0;
         conversations = new Hashtable<Integer,ServerConversation>();
         connections = new Hashtable<String,ClientHandler>();
@@ -581,8 +555,8 @@ public class ServerController {
         } while (file.exists());
         try {
             fileData.saveFileData(file);
-            sendCommand(new Command(Command.TRANSFER_FILE, userName, contactName,
-                                    fileName, file.getAbsolutePath()), contactName);
+            sendCommand(new Command(Command.TRANSFER_FILE, userName, fileName,
+                        contactName, file.getAbsolutePath()), contactName);
         }
         catch (Exception e) {
             e.printStackTrace();

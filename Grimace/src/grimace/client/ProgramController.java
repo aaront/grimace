@@ -34,6 +34,8 @@ import java.awt.Component;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.io.*;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import javax.swing.UIManager;
 import javax.swing.JOptionPane;
 import javax.xml.parsers.*;
@@ -46,9 +48,9 @@ import org.xml.sax.InputSource;
  */
 public class ProgramController {
     public static final String DATA_FOLDER = System.getProperty("user.dir") + "/" + "WernickeData";
-    public static final String SETTINGS_FOLDER = DATA_FOLDER + "/" + "settings";
     public static final String TEMP_FOLDER = DATA_FOLDER + "/" + "temp";
     public static final String RECEIVED_FOLDER = DATA_FOLDER + "/" + "received";
+    public static final String LOG_FOLDER = DATA_FOLDER + "/" + "chatlogs";
 
     private static Account accnt;
     private static ArrayList<ChatPanel> chatTabs;
@@ -62,6 +64,27 @@ public class ProgramController {
      * starts.
      */
     public ProgramController() {
+        File dir = new File(DATA_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+        dir = new File(TEMP_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+        dir = new File(RECEIVED_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+        dir = new File(LOG_FOLDER);
+        if (!dir.exists()) {
+            try { dir.mkdir(); }
+            catch (Exception e) { e.printStackTrace(); }
+        }
+
         // Uses Nimbus as default theme. Much better than Metal. Search "Java nimbus"
         // on Google to find out more
         try {
@@ -78,6 +101,10 @@ public class ProgramController {
 
                 window.addWindowListener(new WindowListener() {
                     public void windowClosed(WindowEvent e) {
+                        try {
+                            FileSystem.deleteInDirectory(new File(TEMP_FOLDER));
+                        }
+                        catch (Exception ex) { ex.printStackTrace(); }
                         System.out.println("Wernicke is closing....");
                         if (accnt != null) {
                             logout();
@@ -296,6 +323,13 @@ public class ProgramController {
     public static void closeConvo(int conId) {
         ChatPanel panel = getChatPanel(conId);
         if (panel == null) { return; }
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd G 'at' hh:mm:ss z");
+        String date = sdf.format(cal.getTime());
+        File logFile = new File(LOG_FOLDER + "/" + date + ".html");
+        panel.getClientConversation().logConversation(logFile);
+
         ProgramWindow.closeTab(panel);
         chatTabs.remove(panel);
         try {
@@ -340,14 +374,6 @@ public class ProgramController {
         return accnt.getStatus();
     }
 
-    /**
-     * Retrieves a chat log
-     * @param conversation the conversation that occurred
-     */
-    public void getChatLog(ClientConversation conversation, String fileName, int conId)
-                                    throws FileNotFoundException, IOException {
-        //convo.openLog(fileName);
-    }
 
     /**
      * Returns the program to the login form
@@ -357,22 +383,11 @@ public class ProgramController {
         setLeftPane(new LoginForm());
     }
 
-    /**
-     * Sends a file in a conversation
-     * @param fileName the name/location of the file to be sent
-     * @param conversation the conversation to send the file to
-     */
-    public void sendFile(String fileName, ClientConversation conversation) {
-
-    }
-
-    /**
-     * Receives a file
-     * @param conversation the conversation from which the file originates
-     * @return the file
-     * @TODO: ???? lots....
-     */
-    public File receiveFile(ClientConversation conversation) {
+    public static Component getLoginForm() {
+        Component comp = window.getLeftPane();
+        if (comp instanceof LoginForm) {
+            return comp;
+        }
         return null;
     }
 

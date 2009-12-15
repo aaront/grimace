@@ -25,6 +25,7 @@
 package grimace.client;
 
 import grimace.common.Command;
+import java.awt.Component;
 
 /**
  * RegistrationForm allows for the creation of accounts for new users.
@@ -132,6 +133,17 @@ public class RegistrationForm extends javax.swing.JPanel {
         String user = userField.getText();
         String pass = new String(passField.getPassword());
         String display = displayField.getText();
+
+        Component loginForm = ProgramController.getLoginForm();
+        if (loginForm != null) {
+            ProgramController.setServerAddress(((LoginForm)loginForm).getServerAddress());
+            try {
+                ProgramController.setServerPort(Integer.parseInt(((LoginForm)loginForm).getServerPort()));
+            }
+            catch (java.lang.NumberFormatException e) {
+                ProgramController.showMessage("Please enter a valid port number.");
+            }
+        }
 
         if (user.isEmpty()) {
             ProgramController.showMessage("Please enter a username.");

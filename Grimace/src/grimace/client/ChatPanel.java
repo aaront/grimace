@@ -33,6 +33,8 @@ import javax.swing.Box;
 
 import java.awt.Point;
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 /**
  * ChatPanel incorporates the ChatBox, as well as a contact list for the current
@@ -103,6 +105,11 @@ public class ChatPanel extends javax.swing.JPanel {
      */
     public void postMessage(String message, String userName) {
         System.out.println("Received: " + userName + ": " + message);
+        
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss");
+        String time = "[" + sdf.format(cal.getTime()) + "]";
+
         JTextPane textPane = chatBox1.getChatDisplayBox();
         String dName = userName;
         if (userName.equals(ProgramController.getUserName())) {
@@ -114,13 +121,13 @@ public class ChatPanel extends javax.swing.JPanel {
                 dName = user.getDisplayName();
             }
         }
-        String messageText = "<p><strong>" + dName + "</strong>: " + message + "</p>";
+        String messageText = "<p><strong>" + time + " " + dName + ":</strong> " + message + "</p>";
         ArrayList<String> equations = ProgramController.parseEquation(message);
         if (equations.size() > 0) {
             File equFile;
             equFile = EquationEditor.saveEquationImage(equations.get(0));
             if (equFile != null) {
-                String eqntag = "<p><strong>" + dName + "</strong>: "
+                String eqntag = "<p><strong>" + time + " " + dName + ":</strong> "
                                 + "<img src=\"file://"+ equFile.getAbsolutePath() +"\"></p>";
                 try {
                     htmlDoc.insertBeforeEnd(convoElement, eqntag);
@@ -129,7 +136,7 @@ public class ChatPanel extends javax.swing.JPanel {
                 catch (Exception e) {}
             }
             else {
-                String msg = "<p><strong>" + dName + "</strong> has somehow entered an invalid formula.</p>";
+                String msg = "<p><strong>" + time + ": " + dName + "</strong> has entered an invalid formula.</p>";
                 try {
                     htmlDoc.insertBeforeEnd(convoElement, msg);
                     htmlDoc.insertBeforeEnd(convoElement, "<br>");
@@ -160,8 +167,13 @@ public class ChatPanel extends javax.swing.JPanel {
      */
     public void postNotification(String message) {
         System.out.println("Received: " + message);
+
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("H:mm:ss");
+        String time = sdf.format(cal.getTime());
+
         JTextPane textPane = chatBox1.getChatDisplayBox();
-        String messageText = "<p><span style=\"color:#ff0000\">[" + message + "]</span></p>";
+        String messageText = "<p><span style=\"color:#ff0000\">[" + time + ": " + message + "]</span></p>";
         try {
             htmlDoc.insertBeforeEnd(convoElement, messageText);
             htmlDoc.insertBeforeEnd(convoElement, "<br>");

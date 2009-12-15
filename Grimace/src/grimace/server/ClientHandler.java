@@ -236,8 +236,11 @@ public class ClientHandler {
                         File file = new File(tempName);
                         if (file.exists()) {
                             try {
+                                File temp = new File(tempName);
                                 FileData fileData = new FileData(new File(tempName));
                                 out.writeObject(fileData);
+                                try { temp.delete(); }
+                                catch (Exception e) { e.printStackTrace(); }
                             }
                             catch (Exception e) {
                                 e.printStackTrace();

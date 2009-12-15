@@ -24,7 +24,7 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="logoLabel" alignment="0" pref="300" max="32767" attributes="0"/>
+          <Component id="logoLabel" alignment="0" pref="306" max="32767" attributes="0"/>
           <Group type="102" alignment="1" attributes="0">
               <EmptySpace min="-2" pref="94" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -41,7 +41,7 @@
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="serverAddressField" min="-2" max="-2" attributes="2"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="portField" pref="36" max="32767" attributes="2"/>
+                              <Component id="portField" pref="40" max="32767" attributes="2"/>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel4" min="-2" pref="66" max="-2" attributes="0"/>

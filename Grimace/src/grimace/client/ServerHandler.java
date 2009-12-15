@@ -330,7 +330,7 @@ public final class ServerHandler {
                                 out.writeObject(fileData);
                                 ProgramController.showMessage("Request to transfer file \'"
                                         + new File(fileName).getName() + "\' was accepted by "
-                                        + "contact.");
+                                        + contact + ".");
                             }
                             catch (Exception e) {
                                 e.printStackTrace();
