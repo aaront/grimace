@@ -50,6 +50,14 @@ public class LoginForm extends javax.swing.JPanel {
         }
     }
 
+    public String getServerAddress() {
+        return serverAddressField.getText();
+    }
+
+    public String getServerPort() {
+        return portField.getText();
+    }
+
     /** This method is called from within the constructor to
      * initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is

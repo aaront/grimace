@@ -70,4 +70,25 @@ public class FileSystem {
             return e;
         }
     }
+
+    /**
+     * Deletes all files in the given directory
+     *
+     * @param dir   The representation of the folder to delete.
+     */
+    public static void deleteInDirectory(File dir) {
+        if(dir.exists()) {
+            File[] files = dir.listFiles();
+            for(File f : files) {
+                if(f.isDirectory()) {
+                    deleteInDirectory(f);
+                    f.delete();
+                }
+                else {
+                    f.delete();
+                }
+            }
+        }
+    }
+    
 }

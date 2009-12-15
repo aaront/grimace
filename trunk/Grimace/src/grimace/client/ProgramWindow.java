@@ -43,6 +43,14 @@ public class ProgramWindow extends javax.swing.JFrame {
         this.setSize(loginForm1.getMinimumSize().width + splitPane.getDividerSize(),this.getHeight());
     }
 
+    public Component getLeftPane() {
+        return splitPane.getLeftComponent();
+    }
+    
+    public Component getRightPane() {
+        return splitPane.getRightComponent();
+    }
+
     public void setLeftPane(Component comp) {
         // @TODO: Clean up these methods
         splitPane.setLeftComponent(comp);
